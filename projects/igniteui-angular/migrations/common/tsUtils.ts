@@ -13,6 +13,11 @@ export const NG_CORE_PACKAGE_NAME = '@angular/core';
 export const CUSTOM_TS_PLUGIN_PATH = './tsPlugin';
 export const CUSTOM_TS_PLUGIN_NAME = 'igx-ts-plugin';
 
+enum SynaxTokens {
+    ClosingParenthesis = ')',
+    MemberAccess = '.'
+}
+
 /** Returns a source file */
 // export function getFileSource(sourceText: string): ts.SourceFile {
 //     return ts.createSourceFile('', sourceText, ts.ScriptTarget.Latest, true);
@@ -265,7 +270,12 @@ export const getTypeDefinitionAtPosition =
 
             // quick info (and getImplementationAtPosition) have the return type as last of the displayParts
             // check if it's a className (potentially Ignite comp) and use for definition name:
-            definition.name = maybeReturnType.kind === 'className' ? maybeReturnType.text : '';
+            // TODO: consider methods that return enums?
+            definition.name = maybeReturnType.kind === 'className'
+                || maybeReturnType.kind === 'interfaceName'
+                ? maybeReturnType.text
+                : '';
+
             return definition;
         }
         let typeDefs = getTypeDefinitions(langServ, definition.fileName || entryPath, definition.textSpan.start);
@@ -314,16 +324,45 @@ export const getTypeDefinitionAtPosition =
         return null;
     };
 
+
+/**
+ * Determines if a member belongs to a type in the `igniteui-angular` toolkit.
+ *
+ * @param change The change that will be applied.
+ * @param langServ The Typescript/Angular Language Service
+ * @param entryPath Relative file path.
+ * @param matchPosition The position of the identifier.
+ */
 export const isMemberIgniteUI =
     (change: MemberChange, langServ: tss.LanguageService, entryPath: string, matchPosition: number): boolean => {
-        const prevChar = langServ.getProgram().getSourceFile(entryPath).getText().substr(matchPosition - 2, 1);
-        if (prevChar === ')') {
+        const content = langServ.getProgram().getSourceFile(entryPath).getText();
+        matchPosition = shiftMatchPosition(matchPosition, content);
+        const prevChar = content.substr(matchPosition - 1, 1);
+        if (prevChar === SynaxTokens.ClosingParenthesis) {
             // methodCall().identifier
-            matchPosition = langServ.getBraceMatchingAtPosition(entryPath, matchPosition - 2)[0]?.start ?? matchPosition;
-
+            matchPosition = langServ.getBraceMatchingAtPosition(entryPath, matchPosition - 1)[0]?.start ?? matchPosition;
         }
-        const typeDef = getTypeDefinitionAtPosition(langServ, entryPath, matchPosition - 1);
-        return !typeDef ? false : typeDef.fileName.includes(IG_PACKAGE_NAME) && change.definedIn.indexOf(typeDef.name) !== -1;
+
+        const typeDef = getTypeDefinitionAtPosition(langServ, entryPath, matchPosition);
+        if (!typeDef) {
+            return false;
+        }
+
+        return typeDef.fileName.includes(IG_PACKAGE_NAME)
+            && change.definedIn.indexOf(typeDef.name) !== -1;
     };
+
+/**
+ * Shifts the match position of the identifier to the left
+ * until any character other than an empty string or a '.' is reached. #9347
+ */
+const shiftMatchPosition = (matchPosition: number, content: string): number => {
+    do {
+        matchPosition--;
+    } while (matchPosition > 0
+    && !content[matchPosition - 1].trim()
+        || content[matchPosition - 1] === SynaxTokens.MemberAccess);
+    return matchPosition;
+};
 
 //#endregion
