@@ -18,7 +18,6 @@ import {
     IgxGridTransactionStatePipe,
     IgxColumnFormatterPipe,
     IgxSummaryFormatterPipe,
-    IgxGridAddRowPipe,
     IgxHeaderGroupWidthPipe
 } from './pipes';
 
@@ -39,7 +38,6 @@ import {
         IgxGridDataMapperPipe,
         IgxStringReplacePipe,
         IgxGridTransactionStatePipe,
-        IgxGridAddRowPipe,
         IgxColumnFormatterPipe,
         IgxSummaryFormatterPipe,
         IgxHeaderGroupWidthPipe
@@ -60,7 +58,6 @@ import {
         IgxGridDataMapperPipe,
         IgxStringReplacePipe,
         IgxGridTransactionStatePipe,
-        IgxGridAddRowPipe,
         IgxColumnFormatterPipe,
         IgxSummaryFormatterPipe,
         IgxHeaderGroupWidthPipe

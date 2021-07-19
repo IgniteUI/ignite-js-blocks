@@ -124,7 +124,7 @@ export class IgxGridTransactionPipe implements PipeTransform {
         if (grid.transactions.enabled) {
             const result = DataUtil.mergeTransactions(
                 cloneArray(collection),
-                grid.transactions.getAggregatedChanges(true),
+                [...grid.transactions.getAggregatedChanges(true), ...grid.transactions.getAggregatedPendingAddChanges(true)],
                 grid.primaryKey);
             return result;
         }
@@ -319,33 +319,6 @@ export class IgxSummaryFormatterPipe implements PipeTransform {
     }
 }
 
-@Pipe({ name: 'gridAddRow' })
-export class IgxGridAddRowPipe implements PipeTransform {
-
-    constructor(private gridAPI: GridBaseAPIService<IgxGridBaseDirective & GridType>) { }
-
-    public transform(collection: any, isPinned = false, _pipeTrigger: number) {
-        const grid = this.gridAPI.grid;
-        if (!grid.rowEditable || !grid.gridAPI.crudService.addRowParent || grid.gridAPI.crudService.cancelAddMode ||
-            isPinned !== grid.gridAPI.crudService.addRowParent.isPinned) {
-            return collection;
-        }
-        const copy = collection.slice(0);
-        const parentIndex = grid.gridAPI.crudService.addRowParent.index;
-        const row = grid.getEmptyRecordObjectFor(collection[parentIndex]);
-        const rec = {
-            recordRef: row,
-            addRow: true
-        };
-        copy.splice(parentIndex + 1, 0, rec);
-        if (isPinned) {
-            grid.pinnedRecords = copy;
-        } else {
-            grid.unpinnedRecords = copy;
-        }
-        return copy;
-    }
-}
 
 @Pipe({ name: 'igxHeaderGroupWidth' })
 export class IgxHeaderGroupWidthPipe implements PipeTransform {

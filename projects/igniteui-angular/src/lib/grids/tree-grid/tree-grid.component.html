@@ -33,8 +33,7 @@
             | treeGridNormalizeRecord:pipeTrigger
             | gridRowPinning:id:true:pipeTrigger
             | treeGridFiltering:filteringExpressionsTree:filterStrategy:advancedFilteringExpressionsTree:pipeTrigger:filteringPipeTrigger:true
-            | treeGridSorting:sortingExpressions:sortStrategy:pipeTrigger:true
-            | gridAddRow:true:pipeTrigger as pinnedData'>
+            | treeGridSorting:sortingExpressions:sortStrategy:pipeTrigger:true'>
                 <div #pinContainer *ngIf='pinnedData.length > 0'
                     [ngClass]="{
                         'igx-grid__tr--pinned-bottom':  !isRowPinningToTop,
@@ -58,8 +57,7 @@
         | treeGridFlattening:expansionDepth:expansionStates:pipeTrigger
         | treeGridPaging:paginator?.page:paginator?.perPage:pipeTrigger
         | treeGridSummary:hasSummarizedColumns:summaryCalculationMode:summaryPosition:showSummaryOnCollapse:pipeTrigger:summaryPipeTrigger
-        | gridRowPinning:id:false:pipeTrigger
-        | gridAddRow:false:pipeTrigger"
+        | gridRowPinning:id:false:pipeTrigger"
             let-rowIndex="index" [igxForScrollOrientation]="'vertical'" [igxForScrollContainer]='verticalScroll'
             [igxForContainerSize]='calcHeight' [igxForItemSize]="renderedRowHeight" #verticalScrollContainer>
             <ng-template [igxTemplateOutlet]='isSummaryRow(rowData) ? summary_template : record_template'
@@ -68,12 +66,12 @@
             </ng-template>
         </ng-template>
         <ng-container *ngTemplateOutlet="hasPinnedRecords && !isRowPinningToTop ? pinnedRecordsTemplate : null"></ng-container>
-        <ng-template #record_template let-rowIndex="index" let-disabledRow="disabled" let-rowData let-isAddRow="addRow">
-            <igx-tree-grid-row [gridID]="id" [index]="rowIndex" [treeRow]="rowData" [disabled]="disabledRow" [addRow]="isAddRow" #row>
+        <ng-template #record_template let-rowIndex="index" let-disabledRow="disabled" let-rowData>
+            <igx-tree-grid-row [gridID]="id" [index]="rowIndex" [treeRow]="rowData" [disabled]="disabledRow" #row>
             </igx-tree-grid-row>
         </ng-template>
-        <ng-template #pinned_record_template let-rowIndex="index" let-rowData let-isAddRow="addRow">
-            <igx-tree-grid-row [gridID]="id" [index]="rowIndex" [treeRow]="rowData" [addRow]="isAddRow" #row #pinnedRow>
+        <ng-template #pinned_record_template let-rowIndex="index" let-rowData>
+            <igx-tree-grid-row [gridID]="id" [index]="rowIndex" #row #pinnedRow>
             </igx-tree-grid-row>
         </ng-template>
         <ng-template #summary_template let-rowIndex="index" let-rowData>
@@ -155,7 +153,7 @@
 </ng-template>
 
 <ng-template #defaultAddRowEmptyTemplate>
-    <button igxButton="raised" igxRipple (click)="beginAddRowByIndex(null, -1, false, $event)">
+    <button igxButton="raised" igxRipple (click)="this.crudService.enterAddRowMode(null, false, $event)">
         {{resourceStrings.igx_grid_add_row_label}}
     </button>
 </ng-template>

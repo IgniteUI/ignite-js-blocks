@@ -18,6 +18,8 @@ export interface Transaction {
     id: any;
     type: TransactionType;
     newValue: any;
+    pending?: boolean;
+    pendingIndex?: number;
 }
 
 /**
@@ -32,6 +34,7 @@ export interface State {
     value: any;
     recordRef: any;
     type: TransactionType;
+    pendingIndex?: number;
 }
 
 export interface Action<T extends Transaction> {
@@ -107,6 +110,8 @@ export interface TransactionService<T extends Transaction, S extends State> {
      * @returns Collection of aggregated transactions for each changed record
      */
     getAggregatedChanges(mergeChanges: boolean): T[];
+
+    getAggregatedPendingAddChanges(mergeChanges: boolean): T[];
 
     /**
      * Returns the state of the record with provided id

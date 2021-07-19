@@ -117,23 +117,6 @@ export class GridBaseAPIService<T extends IgxGridBaseDirective & GridType> {
         }
     }
 
-    public update_add_cell(cell: IgxCell): IGridEditEventArgs  {
-        if (!cell) {
-            return;
-        }
-
-        const args = cell.createEditEventArgs(true);
-
-        const data = cell.rowData;
-        if (cell.column.hasNestedPath) {
-            mergeObjects(data, reverseMapper(cell.column.field, args.newValue));
-        } else {
-            data[cell.column.field] = args.newValue;
-        }
-        mergeObjects(this.crudService.row.data, data);
-        return args;
-    }
-
     public update_cell(cell: IgxCell): IGridEditEventArgs {
         if (!cell) {
             return;
@@ -265,16 +248,19 @@ export class GridBaseAPIService<T extends IgxGridBaseDirective & GridType> {
         return this.grid.filteredData;
     }
 
-    public addRowToData(rowData: any, _parentRowID?) {
+    public addRowToData(rowData: any, parentID?, atIndex?: number) {
         // Add row goes to transactions and if rowEditable is properly implemented, added rows will go to pending transactions
         // If there is a row in edit - > commit and close
         const grid = this.grid;
+
+        // If no index is provided, add to bottom.
+        const rowIndex = atIndex != null ? atIndex : grid.dataLength;
         if (grid.transactions.enabled) {
             const transactionId = grid.primaryKey ? rowData[grid.primaryKey] : rowData;
-            const transaction: Transaction = { id: transactionId, type: TransactionType.ADD, newValue: rowData };
+            const transaction: Transaction = { id: transactionId, type: TransactionType.ADD, newValue: rowData, pendingIndex: rowIndex };
             grid.transactions.add(transaction);
         } else {
-            grid.data.push(rowData);
+            grid.data.splice(rowIndex, 0, rowData);
         }
     }
 

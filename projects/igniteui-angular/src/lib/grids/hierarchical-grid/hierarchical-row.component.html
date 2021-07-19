@@ -1,4 +1,4 @@
-<ng-container *ngTemplateOutlet='addRow ? addTemp : defaultTemp'></ng-container>
+<ng-container *ngTemplateOutlet='addRowUI ? addTemp : defaultTemp'></ng-container>
 <ng-template #defaultExpandedTemplate>
     <igx-icon [active]='!added'>expand_more</igx-icon>
 </ng-template>
@@ -12,7 +12,7 @@
 </ng-template>
 
 <ng-template #addTemp>
-    <div class='igx-grid__tr--inner' [class.igx-grid__tr--add-animate]='animateAdd' (animationend)='animationEndHandler()'>
+    <div class='igx-grid__tr--inner' [class.igx-grid__tr--add-animate]='triggerAddAnimationClass' (animationend)='animationEndHandler()'>
         <ng-container *ngTemplateOutlet='defaultTemp'></ng-container>
     </div>
 </ng-template>

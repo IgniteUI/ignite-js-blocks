@@ -666,7 +666,7 @@ describe('Edit cell with data of type Array', () => {
             rowData: initialRowData,
             oldValue: row.rowData,
             owner: grid,
-            isAddRow: row.addRow,
+            isAddRow: row.addRowUI,
             cancel: false,
             event: jasmine.anything() as any
         };
@@ -729,7 +729,7 @@ describe('Edit cell with data of type Array', () => {
             rowData: initialRowData,
             oldValue: row.rowData,
             owner: grid,
-            isAddRow: row.addRow,
+            isAddRow: row.addRowUI,
             cancel: false,
             event: jasmine.anything() as any
         };

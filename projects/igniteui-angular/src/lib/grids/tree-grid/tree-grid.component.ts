@@ -568,11 +568,10 @@ export class IgxTreeGridComponent extends IgxGridBaseDirective implements GridTy
      */
     public getContext(rowData: any, rowIndex: number, pinned?: boolean): any {
         return {
-            $implicit: this.isGhostRecord(rowData) || this.isAddRowRecord(rowData) ? rowData.recordRef : rowData,
+            $implicit: this.isGhostRecord(rowData) || rowData,
             index: this.getDataViewIndex(rowIndex, pinned),
             templateID: this.isSummaryRow(rowData) ? 'summaryRow' : 'dataRow',
-            disabled: this.isGhostRecord(rowData) ? rowData.recordRef.isFilteredOutParent === undefined : false,
-            addRow: this.isAddRowRecord(rowData) ? rowData.addRow : false
+            disabled: this.isGhostRecord(rowData) ? rowData.recordRef.isFilteredOutParent === undefined : false
         };
     }
 

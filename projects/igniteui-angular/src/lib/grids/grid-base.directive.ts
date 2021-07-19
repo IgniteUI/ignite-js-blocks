@@ -4369,55 +4369,6 @@ export abstract class IgxGridBaseDirective extends DisplayDensityBase implements
     }
 
     /**
-     * @hidden @internal
-     * TODO: eventually move to CRUD
-     */
-    public beginAddRowByIndex(rowID: any, index: number, asChild?: boolean, event?: Event) {
-        if (!this.rowEditable) {
-            console.warn('The grid must use row edit mode to perform row adding! Please set rowEditable to true.');
-            return;
-        }
-        this.crudService.endEdit(true, event);
-        this.crudService.cancelAddMode = false;
-        const isInPinnedArea = this.isRecordPinnedByViewIndex(index);
-        const pinIndex = this.pinnedRecords.findIndex(x => x[this.primaryKey] === rowID);
-        const unpinIndex = this.getUnpinnedIndexById(rowID);
-
-        if (this.expansionStates.get(rowID)) {
-            this.collapseRow(rowID);
-        }
-
-        this.crudService.addRowParent = {
-            rowID,
-            index: isInPinnedArea ? pinIndex : unpinIndex,
-            asChild,
-            isPinned: isInPinnedArea
-        };
-        this.pipeTrigger++;
-        this.cdr.detectChanges();
-        if (isInPinnedArea) {
-            this.calculateGridHeight();
-        }
-        const newRowIndex = this.crudService.addRowParent.index + 1;
-        // ensure adding row is in view.
-        const shouldScroll = this.navigation.shouldPerformVerticalScroll(newRowIndex, -1);
-        if (shouldScroll) {
-            this.navigateTo(newRowIndex, -1);
-        }
-        const row = this.gridAPI.get_row_by_index(index + 1);
-        row.animateAdd = true;
-        row.onAnimationEnd.pipe(first()).subscribe(() => {
-            row.animateAdd = false;
-            const cell = row.cells.find(c => c.editable);
-            if (cell) {
-                this.gridAPI.update_cell(this.crudService.cell);
-                this.crudService.enterEditMode(cell, event);
-                cell.activate();
-            }
-        });
-    }
-
-    /**
      * Creates a new `IgxGridRowComponent` and adds the data record to the end of the data source.
      *
      * @example

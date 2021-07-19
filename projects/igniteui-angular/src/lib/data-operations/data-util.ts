@@ -163,9 +163,15 @@ export class DataUtil {
                 });
         }
 
-        data.push(...transactions
+        transactions
             .filter(t => t.type === TransactionType.ADD)
-            .map(t => t.newValue));
+            .forEach(t => {
+                if (t.pending && t.pendingIndex !== null && t.pendingIndex !== undefined) {
+                    data.splice(t.pendingIndex, 0, t.newValue);
+                } else {
+                    data.push(t.newValue);
+                }
+            });
 
         return data;
     }

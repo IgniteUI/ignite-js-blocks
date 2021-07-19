@@ -60,6 +60,17 @@ export class IgxTransactionService<T extends Transaction, S extends State> exten
         return result;
     }
 
+    public getAggregatedPendingAddChanges(mergeChanges: boolean): T[] {
+        const result: T[] = [];
+        this._pendingStates.forEach((state: S, key: any) => {
+            if (state.type === TransactionType.ADD) {
+                const value = mergeChanges ? this.mergeValues(state.recordRef, state.value) : state.value;
+                result.push({ id: key, newValue: value, type: state.type, pendingIndex: state.pendingIndex, pending: true } as T);
+            }
+        });
+        return result;
+    }
+
     /**
      * @inheritdoc
      */
@@ -114,7 +125,7 @@ export class IgxTransactionService<T extends Transaction, S extends State> exten
             this._undoStack.push(actions);
             this._redoStack = [];
 
-            this.onStateUpdate.emit({ origin: TransactionEventOrigin.END, actions});
+            this.onStateUpdate.emit({ origin: TransactionEventOrigin.END, actions });
         }
         super.endPending(commit);
     }
@@ -154,7 +165,7 @@ export class IgxTransactionService<T extends Transaction, S extends State> exten
             this._undoStack = [];
         }
         this._redoStack = [];
-        this.onStateUpdate.emit({ origin: TransactionEventOrigin.CLEAR, actions: []});
+        this.onStateUpdate.emit({ origin: TransactionEventOrigin.CLEAR, actions: [] });
     }
 
     /**
@@ -280,7 +291,12 @@ export class IgxTransactionService<T extends Transaction, S extends State> exten
                     }
             }
         } else {
-            state = { value: cloneValue(transaction.newValue), recordRef, type: transaction.type } as S;
+            state = {
+                value: cloneValue(transaction.newValue),
+                recordRef,
+                type: transaction.type,
+                pendingIndex: transaction.pendingIndex
+            } as S;
             states.set(transaction.id, state);
         }
 

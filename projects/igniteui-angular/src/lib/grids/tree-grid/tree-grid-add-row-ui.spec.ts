@@ -118,7 +118,7 @@ describe('IgxTreeGrid - Add Row UI #tGrid', () => {
             expect(treeGrid.rowList.length).toBe(0);
 
             // begin add row for empty grid
-            treeGrid.beginAddRowByIndex(null, -1);
+            treeGrid.crudService.enterAddRowMode(null);
             fix.detectChanges();
             endTransition();
 

@@ -37,7 +37,7 @@ export class IgxRowDirective<T extends IgxGridBaseDirective & GridType> implemen
      * @hidden
      */
     @Output()
-    onAnimationEnd = new EventEmitter<IgxRowDirective<T>>();
+    addAnimationEnd = new EventEmitter<IgxRowDirective<T>>();
 
     /**
      * @hidden
@@ -138,13 +138,8 @@ export class IgxRowDirective<T extends IgxGridBaseDirective & GridType> implemen
         this.gridAPI.set_row_expansion_state(this.rowID, val);
     }
 
-    @Input()
-    public get addRow(): any {
-        return this._addRow;
-    }
-
-    public set addRow(v: any) {
-        this._addRow = v;
+    public get addRowUI(): any {
+        return this.grid.crudService.addRow && this.grid.crudService.addRow.id === this.rowID;
     }
 
     @HostBinding('style.min-height.px')
@@ -154,11 +149,11 @@ export class IgxRowDirective<T extends IgxGridBaseDirective & GridType> implemen
             const maxRowSpan = this.grid.multiRowLayoutRowSize;
             height = height * maxRowSpan;
         }
-        return this.addRow ? height : null;
+        return this.addRowUI ? height : null;
     }
 
     get cellHeight() {
-        return this.addRow && !this.inEditMode ? null : this.grid.rowHeight || 32;
+        return this.addRowUI && !this.inEditMode ? null : this.grid.rowHeight || 32;
     }
 
     /**
@@ -400,10 +395,11 @@ export class IgxRowDirective<T extends IgxGridBaseDirective & GridType> implemen
      * @internal
      */
     public defaultCssClass = 'igx-grid__tr';
+
     /**
      * @hidden
      */
-    public animateAdd = false;
+    public triggerAddAnimationClass = false;
 
     protected destroy$ = new Subject<any>();
     protected _rowData: any;
@@ -557,10 +553,6 @@ export class IgxRowDirective<T extends IgxGridBaseDirective & GridType> implemen
         return this.pinned && this.disabled && visibleColumnIndex === 0;
     }
 
-    public animationEndHandler() {
-        this.onAnimationEnd.emit(this);
-    }
-
     /**
      * Spawns the add row UI for the specific row.
      *
@@ -571,7 +563,22 @@ export class IgxRowDirective<T extends IgxGridBaseDirective & GridType> implemen
      * ```
      */
     public beginAddRow() {
-        this.grid.beginAddRowByIndex(this.rowID, this.index);
+        this.grid.crudService.enterAddRowMode(this);
+    }
+
+    /**
+     * @hidden
+     */
+    public triggerAddAnimation() {
+        this.triggerAddAnimationClass = true;
+    }
+
+    /**
+     * @hidden
+     */
+    public animationEndHandler() {
+        this.triggerAddAnimationClass = false;
+        this.addAnimationEnd.emit(this);
     }
 
     /**

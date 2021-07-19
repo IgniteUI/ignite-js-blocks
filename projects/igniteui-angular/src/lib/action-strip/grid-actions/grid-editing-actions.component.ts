@@ -149,7 +149,7 @@ export class IgxGridEditingActionsComponent extends IgxGridActionsBaseDirective 
             console.warn('The grid must use row edit mode to perform row adding! Please set rowEditable to true.');
             return;
         }
-        grid.beginAddRowByIndex(context.rowID, context.index, asChild, event);
+        grid.gridAPI.crudService.enterAddRowMode(context, asChild, event);
         this.strip.hide();
     }
 

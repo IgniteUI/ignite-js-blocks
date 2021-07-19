@@ -557,11 +557,10 @@ export class IgxHierarchicalGridComponent extends IgxHierarchicalGridBaseDirecti
             }
         } else {
             return {
-                $implicit: this.isGhostRecord(rowData) || this.isAddRowRecord(rowData) ? rowData.recordRef : rowData,
+                $implicit: this.isGhostRecord(rowData) || rowData,
                 templateID: 'dataRow',
                 index: this.getDataViewIndex(rowIndex, pinned),
-                disabled: this.isGhostRecord(rowData),
-                addRow: this.isAddRowRecord(rowData) ? rowData.addRow : false
+                disabled: this.isGhostRecord(rowData)
             };
         }
     }

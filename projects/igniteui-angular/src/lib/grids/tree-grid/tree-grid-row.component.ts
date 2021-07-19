@@ -157,7 +157,7 @@ export class IgxTreeGridRowComponent extends IgxRowDirective<IgxTreeGridComponen
      * @param rowID
      */
     public beginAddChild() {
-        this.grid.beginAddRowByIndex(this.rowID, this.index, true);
+        this.grid.crudService.enterAddRowMode(this, true);
     }
 
     /**
