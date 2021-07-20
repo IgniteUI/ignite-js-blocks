@@ -8,10 +8,11 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { TabsContactsComponent, TabsDisabledTestComponent, TabsRoutingDisabledTestComponent, TabsRoutingGuardTestComponent,
-    TabsRoutingTestComponent, TabsTabsOnlyModeTest1Component, TabsTabsOnlyModeTest2Component, TabsTest2Component, TabsTestBug4420Component,
-    TabsTestComponent, TabsTestCustomStylesComponent, TabsTestHtmlAttributesComponent, TabsTestSelectedTabComponent,
-    TabsWithPrefixSuffixTestComponent, TemplatedTabsTestComponent } from '../../test-utils/tabs-components.spec';
+import { AddingSelectedTabComponent, TabsContactsComponent, TabsDisabledTestComponent, TabsRoutingDisabledTestComponent,
+    TabsRoutingGuardTestComponent, TabsRoutingTestComponent, TabsTabsOnlyModeTest1Component, TabsTabsOnlyModeTest2Component,
+    TabsTest2Component, TabsTestBug4420Component, TabsTestComponent, TabsTestCustomStylesComponent,
+    TabsTestHtmlAttributesComponent, TabsTestSelectedTabComponent, TabsWithPrefixSuffixTestComponent,
+    TemplatedTabsTestComponent } from '../../test-utils/tabs-components.spec';
 import { IgxTabsModule } from './tabs.module';
 import { configureTestSuite } from '../../test-utils/configure-suite';
 import { UIInteractions, wait } from '../../test-utils/ui-interactions.spec';
@@ -57,9 +58,8 @@ describe('IgxTabs', () => {
             declarations: [TabsTestHtmlAttributesComponent, TabsTestComponent, TabsTest2Component, TemplatedTabsTestComponent,
                 TabsRoutingDisabledTestComponent, TabsTestSelectedTabComponent, TabsTestCustomStylesComponent, TabsTestBug4420Component,
                 TabsRoutingTestComponent, TabsTabsOnlyModeTest1Component, TabsTabsOnlyModeTest2Component, TabsDisabledTestComponent,
-                TabsRoutingGuardTestComponent, TabsWithPrefixSuffixTestComponent, TabsContactsComponent],
-            imports: [IgxTabsModule, BrowserAnimationsModule,
-                IgxButtonModule, IgxIconModule, IgxDropDownModule, IgxToggleModule,
+                TabsRoutingGuardTestComponent, TabsWithPrefixSuffixTestComponent, TabsContactsComponent, AddingSelectedTabComponent],
+            imports: [IgxTabsModule, BrowserAnimationsModule, IgxButtonModule, IgxIconModule, IgxDropDownModule, IgxToggleModule,
                 RoutingViewComponentsModule, IgxPrefixModule, IgxSuffixModule, RouterTestingModule.withRoutes(testRoutes)],
             providers: [RoutingTestGuard, PlatformUtil]
         }).compileComponents();
@@ -477,6 +477,24 @@ describe('IgxTabs', () => {
             expect(indicator.nativeElement.style.width).toBe('90px');
         }));
 
+        it('add a tab with selected set to true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(AddingSelectedTabComponent);
+            const tabs = fixture.componentInstance.tabs;
+            fixture.detectChanges();
+
+            tick(100);
+            fixture.detectChanges();
+
+            expect(tabs.items.length).toBe(2);
+            expect(tabs.selectedIndex).toBe(0);
+
+            fixture.componentInstance.addTab(3);
+            fixture.detectChanges();
+            tick(100);
+
+            expect(tabs.items.length).toBe(3);
+            expect(tabs.selectedIndex).toBe(2);
+        }));
     });
 
     describe('Routing Navigation Tests', () => {
@@ -1256,7 +1274,6 @@ describe('IgxTabs', () => {
             expect(rightScrollButton.clientWidth).toBeFalsy();
         });
     });
-
 
     it('should hide scroll buttons when no longer needed after deleting tabs.', async () => {
         const fixture = TestBed.createComponent(TabsContactsComponent);

@@ -89,6 +89,10 @@ export class TabsSampleComponent implements OnInit {
         text: 'Lisa Landers'
     }];
 
+    public tabsArray = [
+        { name: 'Tab 1', selected: true },
+        { name: 'Tab 2', selected: true }
+    ];
 
     public ngOnInit(): void {
         for (let i = 0; i < 20; i++) {
@@ -107,6 +111,13 @@ export class TabsSampleComponent implements OnInit {
         requestAnimationFrame(() => {
             this.dynamicTabs.selectedIndex = this.contacts.length -1;
         });
+    }
+
+    public addSelectedTab() {
+        this.tabsArray.forEach(t => {
+            t.selected = false;
+        });
+        this.tabsArray.push({ name: 'New Tab', selected: true });
     }
 
     public closeTab(i: number) {

@@ -503,3 +503,30 @@ export class TabsWithPrefixSuffixTestComponent extends TabsTestComponent {
 export class TabsContactsComponent extends TabsTestComponent {
     public contacts = SampleTestData.personAvatarData();
 }
+
+@Component({
+    template: `
+    <div #wrapperDiv style="display: flex;">
+            <igx-tabs>
+                <igx-tab-item *ngFor="let tab of collection" [(selected)]="tab.selected">
+                    <igx-tab-header><span igxTabHeaderLabel>{{ tab.name }}</span></igx-tab-header>
+                    <igx-tab-content></igx-tab-content>
+                </igx-tab-item>
+            </igx-tabs>
+        </div>`
+})
+export class AddingSelectedTabComponent {
+    @ViewChild(IgxTabsComponent, {static: true}) public tabs: IgxTabsComponent;
+    public collection: any[];
+    constructor() {
+        this.collection = [
+            { name: 'tab1', selected: true },
+            { name: 'tab2', selected: false }
+        ];
+    }
+
+    public addTab(num: number) {
+        this.collection.forEach(t => t.selected = false);
+        this.collection.push({name: 'tab' + num, selected: true });
+    }
+}
