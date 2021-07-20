@@ -681,7 +681,7 @@ class InputsWithSameNameAttributesComponent {
     @ViewChildren('igxInputGroup') public igxInputGroup: QueryList<DebugElement>;
     @ViewChild(IgxInputDirective, { static: true }) public igxInput: IgxInputDirective;
 
-    model = {
+    public model = {
         firstName: null
     };
 }
@@ -876,7 +876,7 @@ class DataBoundDisabledInputWithoutValueComponent extends DataBoundDisabledInput
 class ReactiveFormComponent {
     @ViewChild('strinput', { static: true, read: IgxInputDirective }) public strIgxInput: IgxInputDirective;
 
-    form = this.fb.group({
+    public form = this.fb.group({
         str: ['', Validators.required],
         textarea: ['', Validators.required],
         password: ['', Validators.required],

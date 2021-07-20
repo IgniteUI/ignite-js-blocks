@@ -57,7 +57,7 @@ See https://www.infragistics.com/products/ignite-ui-angular/angular/components/t
     const changes = new Map<string, FileChange[]>();
     const htmlFiles = update.templateFiles;
     const sassFiles = update.sassFiles;
-    const tsFiles = update.tsFiles;
+    const _tsFiles = update.tsFiles;
     let applyComment = false;
 
     const applyChanges = () => {
@@ -127,7 +127,7 @@ See https://www.infragistics.com/products/ignite-ui-angular/angular/components/t
             findElementNodes(parseFile(host, path), comp.tags).
                 map(node => getSourceOffset(node as Element)).
                 forEach(offset => {
-                    const { startTag, endTag, file, node } = offset;
+                    const { startTag, file, node } = offset;
                     // Label content
                     let labelText = '';
                     if (hasAttribute(node, 'label')) {

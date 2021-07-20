@@ -12,6 +12,10 @@ import { CancelableEventArgs, IBaseEventArgs } from '../core/utils';
 import { ToggleAnimationSettings } from '../expansion-panel/toggle-animation-component';
 
 export interface BannerEventArgs extends IBaseEventArgs {
+    /**
+     * @deprecated
+     * To get a reference to the banner, use `owner` instead.
+     */
     banner: IgxBannerComponent;
     event?: Event;
 }
@@ -22,7 +26,7 @@ export interface BannerCancelEventArgs extends BannerEventArgs, CancelableEventA
  * **Ignite UI for Angular Banner** -
  * [Documentation](https://www.infragistics.com/products/ignite-ui-angular/angular/components/banner.html)
  *
- * The Ignite UI Banner provides a highly templateable and easy to use banner that can be shown in your application.
+ * The Ignite UI Banner provides a highly template-able and easy to use banner that can be shown in your application.
  *
  * Usage:
  *
@@ -185,9 +189,10 @@ export class IgxBannerComponent implements IToggleView {
      * ```
      */
     public open(event?: Event) {
-        this._bannerEvent = { banner: this, event};
-        const openingArgs = {
+        this._bannerEvent = { banner: this, owner: this, event};
+        const openingArgs: BannerCancelEventArgs = {
             banner: this,
+            owner: this,
             event,
             cancel: false
         };
@@ -213,9 +218,10 @@ export class IgxBannerComponent implements IToggleView {
      * ```
      */
     public close(event?: Event) {
-        this._bannerEvent = { banner: this, event};
-        const closingArgs = {
+        this._bannerEvent = { banner: this, owner: this, event};
+        const closingArgs: BannerCancelEventArgs = {
             banner: this,
+            owner: this,
             event,
             cancel: false
         };

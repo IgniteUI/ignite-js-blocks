@@ -36,18 +36,18 @@ public includeLiterals = true;
 <input type="text" igxInput [(ngModel)]="myValue" [igxMask]="myMask" [includeLiterals]="includeLiterals"/>
 ```
 
-Attach to the `onValueChange` event to implement custom logic when the value changes. Both, raw and formatted value, are accessible through the event payload.
+Attach to the `valueChanged` event to implement custom logic when the value changes. Both, raw and formatted value, are accessible through the event payload.
 ```typescript
 let raw: string;
 let formatted: string;
 
-handleValueChange(event) {
+handleValueChanged(event) {
   this.raw = event.rawValue;
   this.formatted = event.formattedValue;
 }
 ```
 ```html
-<input type="text" igxInput [(ngModel)]="1234567890" [igxMask]="'(000) 0000-000'" (onValueChange)="handleValueChange($event)"/>
+<input type="text" igxInput [(ngModel)]="1234567890" [igxMask]="'(000) 0000-000'" (valueChanged)="handleValueChanged($event)"/>
 ```
 
 Use the `placeholder` input property to specify the placeholder attribute of the host input element that the `igxMask` is applied on.
@@ -88,4 +88,4 @@ displayFormat = new DisplayFormatPipe();
 ### Outputs
 | Name | Return Type | Description |
 |:--:|:---|:---|
-| `onValueChange` | `void` | Fires each time the value changes. |
+| `valueChanged` | `void` | Fires each time the value changes. |

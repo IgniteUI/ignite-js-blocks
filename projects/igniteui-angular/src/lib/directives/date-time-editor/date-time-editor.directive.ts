@@ -193,7 +193,7 @@ export class IgxDateTimeEditorDirective extends IgxMaskDirective implements OnCh
    *
    * @example
    * ```html
-   * <input igxDateTimeEditor (valueChange)="onValueChanged($event)"/>
+   * <input igxDateTimeEditor (valueChange)="valueChange($event)"/>
    * ```
    */
   @Output()

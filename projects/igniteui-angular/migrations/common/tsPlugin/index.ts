@@ -1,7 +1,7 @@
 import { TSLanguageService } from './TSLanguageService';
 
 const init = (modules: { typescript: typeof import('typescript/lib/tsserverlibrary') }) => {
-    const ts = modules.typescript;
+    const _ts = modules.typescript;
     let tsLanguageService = null;
 
     /**

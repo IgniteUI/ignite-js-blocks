@@ -296,7 +296,6 @@ export class UpdateChanges {
 
             let base: string;
             let replace: string;
-            let groups = 1;
             let searchPattern;
 
             if (type === BindingType.Output) {
@@ -306,7 +305,7 @@ export class UpdateChanges {
                 // Match both bound - [name] - and regular - name
                 base = String.raw`(\s\[?)${change.name}(\s*\]?=)(["'])(.*?)\3`;
                 replace = String.raw`$1${change.replaceWith}$2$3$4$3`;
-                groups = 3;
+                _groups = 3;
             }
 
             let reg = new RegExp(base, 'g');

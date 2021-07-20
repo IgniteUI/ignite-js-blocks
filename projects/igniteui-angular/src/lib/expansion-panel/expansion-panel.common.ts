@@ -23,11 +23,6 @@ export const IGX_EXPANSION_PANEL_COMPONENT = new InjectionToken<IgxExpansionPane
 
 export interface IExpansionPanelEventArgs extends IBaseEventArgs {
     event: Event;
-    /**
-     * @deprecated
-     * To get a reference to the panel, use `owner` instead.
-     */
-    panel?: IgxExpansionPanelBase;
 }
 
 export interface IExpansionPanelCancelableEventArgs  extends IExpansionPanelEventArgs, CancelableEventArgs {}

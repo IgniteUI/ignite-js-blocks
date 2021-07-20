@@ -25,7 +25,7 @@ export class IgxNavDrawerItemDirective {
      * @hidden
      */
     @HostBinding('class.igx-nav-drawer__item')
-    get defaultCSS(): boolean {
+    public get defaultCSS(): boolean {
         return !this.active && !this.isHeader;
     }
 
@@ -33,7 +33,7 @@ export class IgxNavDrawerItemDirective {
      * @hidden
      */
     @HostBinding('class.igx-nav-drawer__item--active')
-    get currentCSS(): boolean {
+    public get currentCSS(): boolean {
         return this.active && !this.isHeader;
     }
 
@@ -41,7 +41,7 @@ export class IgxNavDrawerItemDirective {
      * @hidden
      */
     @HostBinding('class.igx-nav-drawer__item--header')
-    get headerCSS(): boolean {
+    public get headerCSS(): boolean {
         return this.isHeader;
     }
 }

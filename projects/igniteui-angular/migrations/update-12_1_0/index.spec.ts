@@ -24,8 +24,6 @@ describe(`Update to ${version}`, () => {
 
     const migrationName = 'migration-21';
     const lineBreaksAndSpaceRegex = /\s/g;
-    // eslint-disable-next-line max-len
-    const noteText = `<!--NOTE: This component has been updated by Infragistics migration: v${version}\nPlease check your template whether all bindings/event handlers are correct.-->`;
 
     beforeEach(() => {
         appTree = new UnitTestTree(new EmptyTree());
@@ -176,6 +174,50 @@ export class TestComponent implements OnInit {
 }`);
     });
 
+    it('should update mask event subscriptions in .html file', async () => {
+        appTree.create(
+            '/testSrc/appPrefix/component/test.component.html', `
+<input igxInput type="text" [igxMask]="'(####) 00-00-00 Ext. 9999'" (onValueChange)="handleEvent()" />`);
+        const tree = await schematicRunner.runSchematicAsync(migrationName, {}, appTree)
+            .toPromise();
+
+        expect(tree.readContent('/testSrc/appPrefix/component/test.component.html'))
+            .toEqual(`
+<input igxInput type="text" [igxMask]="'(####) 00-00-00 Ext. 9999'" (valueChanged)="handleEvent()" />`);
+    });
+
+    it('should update mask event subscriptions .ts file', async () => {
+        pending('ts language service tests do not pass');
+        appTree.create(
+            '/testSrc/appPrefix/component/test.component.ts', `
+import { Component, OnInit } from '@angular/core';
+import { IgxMaskDirective } from 'igniteui-angular';
+export class TestComponent implements OnInit {
+    @ViewChild(IgxMaskDirective)
+    public mask: IgxMaskDirective
+
+    public ngOnInit() {
+        this.mask.onValueChange.subscribe();
+    }
+}`);
+        const tree = await schematicRunner.runSchematicAsync(migrationName, {}, appTree)
+            .toPromise();
+
+        expect(tree.readContent('/testSrc/appPrefix/component/test.component.ts'))
+            .toEqual(`
+import { Component, OnInit } from '@angular/core';
+import { IgxMaskDirective } from 'igniteui-angular';
+export class TestComponent implements OnInit {
+    @ViewChild(IgxMaskDirective)
+    public mask: IgxMaskDirective
+
+    public ngOnInit() {
+        this.mask.valueChanged;
+    }
+}`);
+    });
+
+
     it('should update expansion panel event subscriptions in .html file', async () => {
         appTree.create(
             '/testSrc/appPrefix/component/test.component.html', `
@@ -196,6 +238,52 @@ export class TestComponent implements OnInit {
 </igx-expansion-panel>`);
     });
 
+it('Should remove references to deprecated `banner` property of `BannerEventArgs`', async () => {
+    pending('set up tests for migrations through lang service');
+    appTree.create(
+        '/testSrc/appPrefix/component/expansion-test.component.ts',
+        `import { Component, ViewChild } from '@angular/core';
+import { IgxBanner } from 'igniteui-angular';
+
+@Component({
+selector: 'app-banner-test',
+templateUrl: './banner-test.component.html',
+styleUrls: ['./banner-test.component.scss']
+})
+export class BannerTestComponent {
+
+@ViewChild(IgxBannerComponent, { static: true })
+public panel: IgxBannerComponent;
+
+public onBannerOpened(event: BannerEventArgs) {
+    console.log(event.banner);
+}
+}`
+    );
+    const tree = await schematicRunner
+        .runSchematicAsync('migration-17', {}, appTree)
+        .toPromise();
+    const expectedContent =  `import { Component, ViewChild } from '@angular/core';
+import { IgxBanner } from 'igniteui-angular';
+
+@Component({
+selector: 'app-banner-test',
+templateUrl: './banner-test.component.html',
+styleUrls: ['./banner-test.component.scss']
+})
+export class BannerTestComponent {
+
+@ViewChild(IgxBannerComponent, { static: true })
+public panel: IgxBannerComponent;
+
+public onBannerOpened(event: BannerEventArgs) {
+    console.log(event.owner);
+}
+}`;
+    expect(
+            tree.readContent('/testSrc/appPrefix/component/expansion-test.component.ts')
+        ).toEqual(expectedContent);
+});
     it('should remove paging property and define a igx-paginator component instead', async () => {
         appTree.create(
             '/testSrc/appPrefix/component/test.component.html', `

@@ -33,7 +33,7 @@ export class MaskParsingService {
             value = inputVal.toString();
         }
 
-        for (const maskSym of mask) {
+        for (const _maskSym of mask) {
             outputVal += maskOptions.promptChar;
         }
 

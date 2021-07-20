@@ -124,12 +124,12 @@ export class IgxNavigationDrawerComponent implements
      *
      * ```typescript
      * // get
-     * let navDrawerPinTreshold = this.navdrawer.pinThreshold;
+     * let navDrawerPinThreshold = this.navdrawer.pinThreshold;
      * ```
      *
      * ```html
      * <!--set-->
-     * <igx-nav-drawer [pinTreshold]='1024'></igx-nav-drawer>
+     * <igx-nav-drawer [pinThreshold]='1024'></igx-nav-drawer>
      * ```
      */
     @Input() public pinThreshold = 1024;
@@ -847,12 +847,12 @@ export class IgxNavigationDrawerComponent implements
         });
     }
 
-    private toggleOpenedEvent = (evt?) => {
+    private toggleOpenedEvent = () => {
         this.elementRef.nativeElement.removeEventListener('transitionend', this.toggleOpenedEvent, false);
         this.opened.emit();
     };
 
-    private toggleClosedEvent = (evt?) => {
+    private toggleClosedEvent = () => {
         this.elementRef.nativeElement.removeEventListener('transitionend', this.toggleClosedEvent, false);
         this.closed.emit();
     };

@@ -11,7 +11,7 @@
         <form>
             <igx-input-group [suppressInputAutofocus]="true" style="max-width: 300px;">
                 <input #dateEditor="igxDateTimeEditor" type="text" [(ngModel)]="date" #formControl="ngModel" name="form"
-                    igxInput (valueChange)="onValueChanged($event)" (validationFailed)="onValidationFailed($event)"
+                    igxInput (valueChange)="valueChange($event)" (validationFailed)="onValidationFailed($event)"
                     [igxDateTimeEditor]="'dd/MM/yyyy hh:mm'" [minValue]="minDate" [maxValue]="maxDate" required />
                 <igx-suffix>
                     <button igxRipple [igxRippleCentered]="true" igxButton="icon" (click)="dateEditor.increment()">

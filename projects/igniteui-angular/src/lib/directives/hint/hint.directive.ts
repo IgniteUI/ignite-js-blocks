@@ -55,7 +55,7 @@ export class IgxHintDirective implements OnInit {
      * @memberof IgxHintDirective
      */
     @Input('position')
-    set position(value: string) {
+    public set position(value: string) {
         const position: IgxHintPosition = (IgxHintPosition as any)[value.toUpperCase()];
         if (position !== undefined) {
             this._position = position;
@@ -72,13 +72,13 @@ export class IgxHintDirective implements OnInit {
      *
      * @memberof IgxHintDirective
      */
-    get position() {
+    public get position() {
         return this._position.toString();
     }
     /**
      * @hidden
      */
-    ngOnInit() {
+    public ngOnInit() {
         this._applyPosition(this._position);
     }
 

@@ -82,11 +82,19 @@
             "definedIn": [
                 "IgxExpansionPanelComponent"
             ]
-        },{
+        },
+        {
             "member": "onInteraction",
             "replaceWith": "interaction",
             "definedIn": [
                 "IgxExpansionPanelHeaderComponent"
+            ]
+        },
+        {
+            "member": "onValueChange",
+            "replaceWith": "valueChanged",
+            "definedIn": [
+                "IgxMaskDirective"
             ]
         }
     ]

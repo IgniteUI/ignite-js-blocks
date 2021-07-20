@@ -78,7 +78,7 @@ Firefox ESR
 not IE 11 # Angular supports IE 11 only as an opt-in. To opt-in, remove the 'not' prefix on this line.
 `;
 
-const browserslistrcMissingIE = `
+const _browserslistrcMissingIE = `
 # This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries

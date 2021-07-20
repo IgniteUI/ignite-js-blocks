@@ -236,7 +236,7 @@ export class IgxExpansionPanelComponent extends ToggleAnimationPlayer implements
         this.playCloseAnimation(
             this.body?.element,
             () => {
-                this.contentCollapsed.emit({ event: evt, panel: this, owner: this });
+                this.contentCollapsed.emit({ event: evt, owner: this });
                 this.collapsed = true;
                 this.cdr.markForCheck();
             }
@@ -267,7 +267,7 @@ export class IgxExpansionPanelComponent extends ToggleAnimationPlayer implements
         this.playOpenAnimation(
             this.body?.element,
             () => {
-                this.contentExpanded.emit({ event: evt, panel: this, owner: this });
+                this.contentExpanded.emit({ event: evt, owner: this });
             }
         );
     }

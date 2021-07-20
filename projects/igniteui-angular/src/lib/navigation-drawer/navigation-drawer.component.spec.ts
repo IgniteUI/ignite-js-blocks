@@ -167,19 +167,19 @@ describe('Navigation Drawer', () => {
             spyOn(drawer.opening, 'emit');
             spyOn(drawer.opened, 'emit');
 
-            const re = drawer.open(true);
+            const _re = drawer.open(true);
             fixture.detectChanges();
             fixture.debugElement.children[0].nativeElement.dispatchEvent(new Event('transitionend'));
         })
-            .then((value) => {
+            .then(() => {
                 expect(drawer.opening.emit).toHaveBeenCalled();
                 expect(drawer.opened.emit).toHaveBeenCalled();
 
-                const re = drawer.toggle(true);
+                const _re = drawer.toggle(true);
                 fixture.detectChanges();
                 fixture.debugElement.children[0].nativeElement.dispatchEvent(new Event('transitionend'));
             })
-            .then((value) => {
+            .then(() => {
                 expect(drawer.closing.emit).toHaveBeenCalled();
                 expect(drawer.closed.emit).toHaveBeenCalled();
                 // resolver();
@@ -361,7 +361,7 @@ describe('Navigation Drawer', () => {
                 expect(fixture.componentInstance.navDrawer.isOpen).toEqual(false);
                 done();
             })
-            .catch((reason) => {
+            .catch(() => {
                 done();
             });
     }, 10000);
@@ -407,7 +407,7 @@ describe('Navigation Drawer', () => {
             }).then(() => {
                 expect(navDrawer.isOpen).toEqual(false, 'should close on valid pan');
                 done();
-            }).catch((reason) => {
+            }).catch(() => {
                 done();
             });
     }, 10000);

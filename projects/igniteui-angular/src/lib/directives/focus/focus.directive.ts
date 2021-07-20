@@ -20,7 +20,7 @@ export class IgxFocusDirective {
      * @memberof IgxFocusDirective
      */
     @Input('igxFocus')
-    get focused(): boolean {
+    public get focused(): boolean {
         return this.focusState;
     }
     /**
@@ -33,7 +33,7 @@ export class IgxFocusDirective {
      *
      * @memberof IgxFocusDirective
      */
-    set focused(val: boolean) {
+    public set focused(val: boolean) {
         this.focusState = val;
         this.trigger();
     }
@@ -47,7 +47,7 @@ export class IgxFocusDirective {
      *
      * @memberof IgxFocusDirective
      */
-    get nativeElement() {
+    public get nativeElement() {
         if (this.comp && this.comp[0] && this.comp[0].getEditElement) {
             return (this.comp[0] as EditorProvider).getEditElement();
         }
@@ -65,7 +65,7 @@ export class IgxFocusDirective {
      *
      * @memberof IgxFocusDirective
      */
-    trigger() {
+    public trigger() {
         if (this.focusState) {
             requestAnimationFrame(() => this.nativeElement.focus({ preventScroll: true}));
         }

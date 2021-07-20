@@ -1107,7 +1107,6 @@ describe('IgxTimePicker', () => {
             it('should initialize all IgxDateTimeEditorDirective input properties correctly', () => {
                 timePicker.itemsDelta = { hours: 2, minutes: 20, seconds: 15 };
                 timePicker.displayFormat = 'hh:mm';
-                timePicker.placeholder = 'Sample placeholder';
                 fixture.componentInstance.minValue = new Date(2020, 12, 12, 9, 30, 0);
                 fixture.componentInstance.maxValue = new Date(2020, 12, 12, 14, 35, 0);
                 fixture.detectChanges();
@@ -1121,7 +1120,6 @@ describe('IgxTimePicker', () => {
                 expect(dateTimeEditor.spinLoop).toEqual(true);
 
                 expect(dateTimeEditor.inputFormat).toEqual(DateTimeUtil.DEFAULT_TIME_INPUT_FORMAT);
-                expect(dateTimeEditor.placeholder).toEqual('Sample placeholder');
                 expect(dateTimeEditor.displayFormat).toEqual('hh:mm');
                 expect(dateTimeEditor.mask).toEqual('00:00 LL');
             });

@@ -14,7 +14,7 @@ export class DateTimeEditorSampleComponent {
   public minDate = new Date(2020, 2, 20, 11, 15);
   public maxDate = new Date(2020, 2, 25);
 
-  public onValueChanged(event: Date | string) {
+  public valueChange(event: Date | string) {
     console.log('value changed', event);
   }
 
