@@ -10,7 +10,7 @@
 /// @type {Map}
 /// @prop {Map} text-color [igx-color: ('grays', 800)] - The text color.
 /// @prop {Map} background-color [igx-color: ('grays', 100), to-opaque: #fff] - The background color of the paging panel.
-/// @prop {Map} border-color [igx-color: ('grays', 400)] - The border color of the paging panel.
+/// @prop {Map} border-color [igx-color: ('grays', 200)] - The border color of the paging panel.
 /// @see $default-palette
 $light-pagination: (
     variant: 'material',
@@ -20,12 +20,11 @@ $light-pagination: (
     ),
 
     background-color: (
-        igx-color: ('grays', 100),
-        to-opaque: #fff
+        igx-color: ('grays', 100)
     ),
 
     border-color: (
-        igx-color: ('grays', 400)
+        igx-color: ('grays', 200)
     )
 );
 
@@ -58,7 +57,6 @@ $bootstrap-pagination: $light-pagination;
 /// Generates an indigo pagination schema.
 /// @type {Map}
 /// @prop {Map} text-color [igx-color: ('grays', 700)] - The text color.
-/// @prop {Map} background-color [igx-color: ('grays', 100), to-opaque: ()] - The background color of the paging panel.
 /// @prop {Map} border-color [igx-color: ('grays', 100)] - The border color of the paging panel.
 /// @requires {function} extend
 /// @requires {Map} $light-pagination
@@ -67,11 +65,6 @@ $indigo-pagination: extend(
     (
         text-color: (
             igx-color: ('grays', 700)
-        ),
-
-        background-color: (
-            igx-color: ('grays', 100),
-            to-opaque: ()
         ),
 
         border-color: (

@@ -251,7 +251,7 @@
         position: absolute;
         top: $tick-push;
         justify-content: space-between;
-        z-index: 1;
+        z-index: -1;
 
         &%igx-slider__ticks--top {
             bottom: $tick-push;
@@ -343,9 +343,10 @@
         position: absolute;
         width: 100%;
         height: rem($slider-track-height);
-        background-size: 100% em($slider-track-height);
-        background-color: var-get($theme, 'track-step-color');
-        opacity: .85;
+        // TODO Remove after making sure that this does not break anything
+        //background-size: 100% em($slider-track-height);
+        //background-color: var-get($theme, 'track-step-color');
+        //opacity: .85;
         transition: opacity .2s $ease-out-quad;
         z-index: 1;
     }

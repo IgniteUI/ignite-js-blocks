@@ -16,7 +16,7 @@
 /// @property {Map} fill-color-warning [igx-color: ('warn')] - The track warning fill color.
 /// @property {Map} fill-color-info [igx-color: ('info')] - The track info fill color.
 /// @property {Map} fill-color-success [igx-color: ('success')] - The track success fill color.
-/// @property {Color} stripes-color [rgba(#fff, .7)] - The track stripes color.
+/// @property {Map} stripes-color [igx-color: ('grays', 50, .7)] - The track stripes color.
 /// @property {Map} text-color [igx-color: ('grays', 700)] - The track value text color.
 /// @prop {Number} track-border-radius [0] - The border radius used for the progress bar track. Can be a fraction between 0 and 1, pixels, or percent.
 ///
@@ -52,7 +52,9 @@ $light-progress-linear: extend(
             igx-color: ('success')
         ),
 
-        stripes-color: rgba(#fff, .7),
+        stripes-color: (
+            igx-color: ('grays', 50, .7)
+        ),
 
         text-color: (
             igx-color: ('grays', 700)
@@ -78,7 +80,7 @@ $fluent-progress-linear: extend(
 /// @type {Map}
 ///
 /// @property {Map} track-color [igx-color: ('grays', 200)] - The main track color.
-/// @property {Color} stripes-color [rgba(#fff, .15)] - The track stripes color.
+/// @property {Map} stripes-color [igx-color: ('grays', 50, .15)] - The track stripes color.
 /// @prop {Number} track-border-radius [4px] - The border radius used for the progress bar track. Can be a fraction between 0 and 1, pixels, or percent.
 ///
 /// @requires {function} extend
@@ -89,17 +91,21 @@ $bootstrap-progress-linear: extend(
     $bootstrap-shape-progress,
     (
         variant: 'bootstrap',
+
         track-color: (
-            igx-color: ('grays', 200)
+            igx-color: ('grays', 300)
         ),
-        stripes-color: rgba(#fff, .15),
+
+        stripes-color: (
+            igx-color: ('grays', 50, .15)
+        ),
     )
 );
 
 /// Generates an indigo progress-linear schema.
 /// @type {Map}
 /// @property {Map} track-color [igx-color: ('grays', 300)] - The main track color.
-/// @property {Color} stripes-color [rgba(#fff, .45)] - The track stripes color.
+/// @property {Map} stripes-color [igx-color: ('grays', 50, .45)] - The track stripes color.
 /// @requires {function} extend
 /// @requires $light-progress-linear
 $indigo-progress-linear: extend(
@@ -111,7 +117,9 @@ $indigo-progress-linear: extend(
             igx-color: ('grays', 300)
         ),
 
-        stripes-color: rgba(#fff, .45),
+        stripes-color: (
+            igx-color: ('grays', 50, .45)
+        ),
     )
 );
 

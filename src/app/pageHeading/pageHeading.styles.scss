@@ -25,11 +25,11 @@
     align-items: center;
     height: rem(90px);
     padding: 0 rem(16px);
-    background: var(--igx-primary-500);
+    background: hsla(var(--igx-primary-500));
     overflow: hidden;
 
     .title {
-        color: var(--igx-primary-500-contrast);
+        color: hsla(var(--igx-primary-500-contrast));
         margin: 0;
         text-transform: capitalize;
         white-space: nowrap;

@@ -7,6 +7,7 @@
 /// @author <a href="https://github.com/desig9stein" target="_blank">Marin Popov</a>
 ////
 
+
 /// Generates a dark snackbar schema.
 /// @type {Map}
 /// @requires $light-snackbar
@@ -25,21 +26,24 @@ $dark-bootstrap-snackbar: $bootstrap-snackbar;
 
 /// Generates a dark indigo snackbar schema.
 /// @type {Map}
-/// @property {Map} background [igx-color: ('grays', 400)] - The background color used in the snackbar.
-/// @property {Map} text-color [#fff] - The text color used in the snackbar.
-/// @property {Map} button-color [#fff] - The button color used in the snackbar.
+/// @property {Map} background [igx-color: ('grays', 300)] - The background color used in the snackbar.
+/// @property {Map} text-color [igx-contrast-color: ('grays', 200)] - The text color used in the snackbar.
+/// @property {Map} button-color [igx-contrast-color: ('grays', 200)] - The button color used in the snackbar.
 /// @requires {function} extend
 /// @requires $indigo-snackbar
 $dark-indigo-snackbar: extend(
     $indigo-snackbar,
     (
         background: (
-            igx-color: ('grays', 400)
+            igx-color: ('grays', 300)
         ),
 
-        text-color: #fff,
+        text-color: (
+            igx-contrast-color: ('grays', 200)
+        ),
 
-
-        button-color: #fff
+        button-color: (
+            igx-contrast-color: ('grays', 200)
+        ),
     )
 );

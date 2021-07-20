@@ -12,16 +12,16 @@
 /// @type {Map}
 ///
 /// @prop {Map} background [igx-color: 'surface'] - The navigation drawer background color.
-/// @prop {Color} border-color [rgba(0, 0, 0, .14)] - The navigation drawer right border color.
-/// @prop {Map} item-header-text-color [igx-color: 'surface', text-contrast: (), rgba: .87] - The header's idle text color.
-/// @prop {Map} item-text-color [igx-color: 'surface', text-contrast: (), rgba: .54] - The item's idle text color.
-/// @prop {Map} item-icon-color [igx-color: 'surface', text-contrast: (), rgba: .54] - The item's icon color.
+/// @prop {Map} border-color [igx-color: ('grays', 900, .14)] - The navigation drawer right border color.
+/// @prop {Map} item-header-text-color [igx-color: ('grays', 800),] - The header's idle text color.
+/// @prop {Map} item-text-color [igx-color: ('grays', 700)] - The item's idle text color.
+/// @prop {Map} item-icon-color [ igx-color: ('grays', 700)] - The item's icon color.
 /// @prop {Map} item-active-text-color [igx-color: ('primary', 500)] - The item's active text color.
-/// @prop {Map} item-active-background [igx-color: ('primary', 500), rgba: .12] - The item's active background color.
+/// @prop {Map} item-active-background [igx-color: ('primary', 500, .12)] - The item's active background color.
 /// @prop {Map} item-active-icon-color [igx-color: ('primary', 500)] - The item's icon active color.
-/// @prop {Map} item-hover-background [ igx-color: 'surface', text-contrast: (), rgba: .08] - The item's hover background color.
-/// @prop {Map} item-hover-text-color [igx-color: 'surface', text-contrast: (), rgba: .87] - The item's hover text color.
-/// @prop {Map} item-hover-icon-color [igx-color: 'surface', text-contrast: (), rgba: .87] - The item's hover icon color.
+/// @prop {Map} item-hover-background [igx-color: ('grays', 200, .8)] - The item's hover background color.
+/// @prop {Map} item-hover-text-color [igx-color: ('grays', 900)] - The item's hover text color.
+/// @prop {Map} item-hover-icon-color [igx-color: ('grays', 900)] - The item's hover icon color.
 /// @prop {Map} elevation [16] - The elevation level, between 0-24, to be used for the drawer.
 /// @prop {Number} border-radius [0] - The border radius used for the navdrawer component. Can be a fraction between 0 and 1, pixels, or percent.
 /// @prop {Number} item-border-radius [.16667] - The border radius used for the navdrawer items. Can be a fraction between 0 and 1, pixels, or percent.
@@ -40,24 +40,20 @@ $light-navdrawer: extend(
             igx-color: 'surface'
         ),
 
-        border-color: rgba(0, 0, 0, .14),
+        border-color: (
+            igx-color: ('grays', 900, .14)
+        ),
 
         item-header-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .87
+            igx-color: ('grays', 800),
         ),
 
         item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .54
+            igx-color: ('grays', 700),
         ),
 
         item-icon-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .54
+            igx-color: ('grays', 700),
         ),
 
         item-active-text-color: (
@@ -65,20 +61,15 @@ $light-navdrawer: extend(
         ),
 
         item-active-background: (
-            igx-color: ('primary', 500),
-            rgba: .12
+            igx-color: ('primary', 500, .12),
         ),
 
         item-hover-background: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .08
+            igx-color: ('grays', 200, .8),
         ),
 
         item-hover-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .87
+            igx-color: ('grays', 900),
         ),
 
         item-active-icon-color: (
@@ -86,9 +77,7 @@ $light-navdrawer: extend(
         ),
 
         item-hover-icon-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .87
+            igx-color: ('grays', 900),
         ),
     )
 );
@@ -117,12 +106,12 @@ $bootstrap-navdrawer: extend(
 
 /// Generates an indigo navdrawer schema.
 /// @type {Map}
-/// @prop {Map} background [igx-color: ('grays', 700), to-opaque: #fff] - The navigation drawer background color.
+/// @prop {Map} background [igx-color: ('grays', 700)] - The navigation drawer background color.
 /// @prop {Map} item-header-text-color [igx-contrast-color: ('grays', 700)] - The header's idle text color.
-/// @prop {Map} item-text-color [igx-contrast-color: ('grays', 700), rgba: .8] - The item's idle text color.
-/// @prop {Map} item-icon-color [igx-contrast-color: ('grays', 700), rgba: .8] - The item's icon color.
+/// @prop {Map} item-text-color [igx-contrast-color: ('grays', 700, .8)] - The item's idle text color.
+/// @prop {Map} item-icon-color [igx-contrast-color: ('grays', 700, .8)] - The item's icon color.
 /// @prop {Map} item-active-text-color [igx-contrast-color: ('grays', 700)] - The item's active text color.
-/// @prop {Map} item-active-background [igx-contrast-color: ('grays', 700), rgba: .1] - The item's active background color.
+/// @prop {Map} item-active-background [igx-contrast-color: ('grays', 700, .1)] - The item's active background color.
 /// @prop {Map} item-active-icon-color [igx-contrast-color: ('grays', 700)] - The item's icon active color.
 /// @prop {Map} item-hover-background [transparent] - The item's hover background color.
 /// @prop {Map} item-hover-text-color [igx-contrast-color: ('grays', 700)] - The item's hover text color.
@@ -142,45 +131,41 @@ $indigo-navdrawer: extend(
         variant: 'indigo-design',
 
         background: (
-            igx-color: ('grays', 700),
-            to-opaque: #fff
+            igx-color: ('grays', 700)
         ),
 
         item-header-text-color: (
-            igx-contrast-color: ('grays', 700)
+            igx-color: ('grays', 50)
         ),
 
         item-text-color: (
-            igx-contrast-color: ('grays', 700),
-            rgba: .8
+            igx-color: ('grays', 300, .8),
         ),
 
         item-icon-color: (
-            igx-contrast-color: ('grays', 700),
-            rgba: .8
+            igx-color: ('grays', 300, .8)
         ),
 
         item-active-background: (
-            igx-contrast-color: ('grays', 700),
-            rgba: .1
+            igx-color: ('grays', 600, .8),
         ),
 
         item-active-text-color: (
-            igx-contrast-color: ('grays', 700)
+            igx-color: ('grays', 50)
         ),
 
         item-active-icon-color: (
-            igx-contrast-color: ('grays', 700)
+            igx-color: ('grays', 50)
         ),
 
         item-hover-background: transparent,
 
         item-hover-text-color: (
-            igx-contrast-color: ('grays', 700)
+            igx-color: ('grays', 100)
         ),
 
         item-hover-icon-color: (
-            igx-contrast-color: ('grays', 700)
+            igx-color: ('grays', 100)
         ),
     )
 );

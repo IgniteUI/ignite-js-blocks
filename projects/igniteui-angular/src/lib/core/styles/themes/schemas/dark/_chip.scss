@@ -9,12 +9,61 @@
 
 /// Generates the base dark chip schema.
 /// @type {Map}
-/// @prop {Map} ghost-background [igx-color: ('grays', 400), to-opaque: #000] - The chip ghost background color.
+/// @prop {Map} background [igx-color: ('grays', 100, .4)] - The chip background color.
+/// @prop {Map} hover-background [igx-color: ('grays', 200, .6)] - The chip hover background color.
+/// @prop {Map} focus-background [igx-color: ('grays', 200, .6)] The focused chip background color.
+/// @prop {Map} selected-background [igx-color: ('grays', 100, .8)] - The selected chip background color.
+/// @prop {Map} hover-selected-background [igx-color: ('grays', 200, .8)] - The selected chip hover background color.
+/// @prop {Map} focus-selected-background [igx-color: ('grays', 200, .8)] - The selected chip focus background color.
+/// @prop {Map} ghost-background [igx-color: ('grays', 100))] - The chip ghost background color.
+/// @prop {Map} text-color [igx-color: ('grays', 600)] - The chip text color.
+/// @prop {Map} selected-text-color [igx-color: ('grays', 900)] - The selected chip text color.
+/// @prop {Map} hover-selected-text-color [igx-color: ('grays', 900)] - The selected chip hover text color.
+/// @prop {Map} focus-selected-text-color [igx-color: ('grays', 900)] - The selected chip text focus color.
 $base-dark-chip: (
+    background: (
+        igx-color: ('grays', 100, .4)
+    ),
+
+    hover-background: (
+        igx-color: ('grays', 200, .6)
+    ),
+
+    focus-background: (
+        igx-color:('grays', 200, .6)
+    ),
+
+    selected-background: (
+        igx-color: ('grays', 100, .8)
+    ),
+
+    hover-selected-background: (
+        igx-color: ('grays', 200, .8)
+    ),
+
+    focus-selected-background: (
+        igx-color: ('grays', 200, .8)
+    ),
+
     ghost-background: (
-        igx-color: ('grays', 400),
-        to-opaque: #000
-    )
+        igx-color: ('grays', 100)
+    ),
+
+    text-color: (
+        igx-color: ('grays', 600)
+    ),
+
+    selected-text-color: (
+        igx-color: ('grays', 900)
+    ),
+
+    hover-selected-text-color: (
+        igx-color: ('grays', 900)
+    ),
+
+    focus-selected-text-color: (
+        igx-color: ('grays', 900)
+    ),
 );
 
 /// Generates a dark chip schema based on a mix of $light-chip and $base-dark-chip.
@@ -27,24 +76,82 @@ $dark-chip: extend($light-chip, $base-dark-chip);
 
 /// Generates a dark fluent chip schema based on a mix of $fluent-chip and $base-dark-chip.
 /// @type {Map}
+/// @prop {Map} background [igx-color: ('grays', 100, .2)] - The chip background color.
+/// @prop {Map} hover-background [igx-color: ('grays', 100, .8)] - The chip hover background color.
+/// @prop {Map} text-color [igx-color: ('grays', 500)] - The chip text color.
 /// @requires {function} extend
 /// @requires $fluent-chip
 /// @requires $base-dark-chip
-$dark-fluent-chip: extend($fluent-chip, $base-dark-chip);
+$dark-fluent-chip: extend(
+    $fluent-chip,
+    $base-dark-chip,
+    (
+        background: (
+            igx-color: ('grays', 100, .2)
+        ),
+
+        hover-background: (
+            igx-color: ('grays', 100, .8)
+        ),
+
+        text-color: (
+            igx-color: ('grays', 500)
+        ),
+    )
+);
 
 /// Generates a dark bootstrap chip schema based on a mix of $bootstrap-chip and $ase-dark-chip.
 /// @type {Map}
 /// @requires {function} extend
 /// @requires $bootstrap-chip
 /// @requires $base-dark-chip
-$dark-bootstrap-chip: extend($bootstrap-chip, $base-dark-chip);
+$dark-bootstrap-chip: extend(
+    $bootstrap-chip,
+    $base-dark-chip,
+    (
+        background: (
+            igx-color: ('grays', 100, .4)
+        ),
+
+        hover-background: (
+            igx-color: ('grays', 100, .8)
+        ),
+
+        focus-background: (
+            igx-color: ('grays', 200, .8)
+        ),
+
+        selected-background: (
+            igx-color: ('grays', 100, .4)
+        ),
+
+        hover-selected-background: (
+            igx-color: ('grays', 100)
+        ),
+
+        focus-selected-background: (
+            igx-color:  ('grays', 200, .8)
+        ),
+
+        focus-border-color: (
+            igx-color: ('grays', 200, .4)
+        ),
+
+        ghost-background: (
+            igx-color: ('grays', 100)
+        ),
+
+    )
+);
 
 /// Generates a dark indigo chip schema based on a mix of $indigo-chip and $base-dark-chip.
 /// @type {Map}
-/// @prop {Color} background [igx-color: ('surface')] - The chip background color.
-/// @prop {Color} ghost-background igx-color: ('surface'), to-opaque: (igx-color: 'surface',)), to-opaque: (igx-color: 'surface')] - The chip ghost background color.
-/// @prop {Map} hover-background [igx-color: ('grays', 300)] - The chip hover background color.
-/// @prop {Color} focus-background [igx-color: ('surface')] The focused chip background color.
+/// @prop {Map} background [igx-color: ('grays', 100, .4)] - The chip background color.
+/// @prop {Map} hover-background [igx-color: ('grays', 200, .5)] - The chip hover background color.
+/// @prop {Map} focus-background [igx-color: ('grays', 200, .8)] The focused chip background color.
+/// @prop {Map} ghost-background [igx-color: ('grays', 200)] - The chip ghost background color.
+/// @prop {Map} border-color [igx-color: ('grays', 200)] - The chip border color.
+/// @prop {Map} hover-border-color [igx-color: ('grays', 200)] - The chip hover border color.
 /// @requires {function} extend
 /// @requires $indigo-chip
 /// @requires $base-dark-chip
@@ -52,23 +159,27 @@ $dark-indigo-chip: extend(
     $indigo-chip,
     (
         background: (
-            igx-color: ('surface')
-        ),
-
-        ghost-background: (
-            igx-color: ('surface'),
-
-            to-opaque: (
-                igx-color: 'surface',
-            )
+            igx-color: ('grays', 100, .4)
         ),
 
         hover-background: (
-            igx-color: ('grays', 300)
+            igx-color: ('grays', 200, .5)
         ),
 
         focus-background: (
-            igx-color: ('surface')
+            igx-color: ('grays', 200, .8)
+        ),
+
+        ghost-background: (
+            igx-color: ('grays', 200),
+        ),
+
+        border-color: (
+            igx-color: ('grays', 200)
+        ),
+
+        hover-border-color: (
+            igx-color: ('grays', 200)
         ),
     )
 );

@@ -9,14 +9,14 @@
 /// Generates a light ripple schema.
 /// @type {Map}
 ///
-/// @property {Map} color [igx-color: ('grays', 800)] - The color of the ripple.
+/// @property {Map} color [igx-color: ('grays', 800, 7)] - The color of the ripple.
 ///
 /// @see $default-palette
 $light-ripple: (
     variant: 'material',
 
     color: (
-        igx-color: ('grays', 800)
+        igx-color: ('grays', 800, .7)
     )
 );
 
@@ -43,4 +43,3 @@ $bootstrap-ripple: extend($light-ripple, (
 $indigo-ripple: extend($light-ripple, (
     variant: 'indigo-design'
 ));
-

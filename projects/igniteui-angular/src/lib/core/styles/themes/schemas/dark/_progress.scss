@@ -7,17 +7,33 @@
 /// @author <a href="https://github.com/desig9stein" target="_blank">Marin Popov</a>
 ////
 
+/// Generates a dark base progress-linear schema.
+/// @type {Map}
+/// @property {Map} track-color [igx-color: ('grays', 100)] - The main track color.
+/// @property {Map} stripes-color [igx-color: ('grays', 900, .7)] - The track stripes color.
+$dark-base-progress-linear: (
+    track-color: (
+        igx-color: ('grays', 100)
+    ),
+
+    stripes-color: (
+        igx-color: ('grays', 900, .7)
+    ),
+);
+
 /// Generates a dark progress-linear schema.
 /// @type {Map}
 /// @requires $light-progress-linear
+/// @requires $dark-base-progress-linear
 /// @see $default-palette
-$dark-progress-linear: $light-progress-linear;
+$dark-progress-linear: extend($light-progress-linear, $dark-base-progress-linear);
 
 /// Generates a dark fluent progress-linear schema.
 /// @type {Map}
 /// @requires $fluent-progress-linear
+/// @requires $dark-base-progress-linear
 /// @see $default-palette
-$dark-fluent-progress-linear: $fluent-progress-linear;
+$dark-fluent-progress-linear: extend($fluent-progress-linear, $dark-base-progress-linear);
 
 /// Generates a dark bootstrap progress-linear schema.
 /// @type {Map}
@@ -28,33 +44,49 @@ $dark-bootstrap-progress-linear: $bootstrap-progress-linear;
 /// Generates a dark indigo progress-linear schema.
 /// @type {Map}
 /// @requires {function} extend
+/// @property {Map} track-color [igx-color: ('grays', 100)] - The main track color.
 /// @property {Color} stripes-color [rgba(#222, .35)] - The track stripes color.
 /// @requires $indigo-progress-linear
 /// @see $default-palette
 $dark-indigo-progress-linear: extend(
     $indigo-progress-linear,
     (
-        stripes-color: rgba(#222, .35)
+        track-color: (
+            igx-color: ('grays', 100)
+        ),
+
+        stripes-color: (
+            igx-color: ('grays', 50, .35)
+        )
     )
 );
 
 /// Generates a dark progress-circular schema.
 /// @type {Map}
+/// @property {Map} track-color [igx-color: ('grays', 100)] - The main track color.
+$dark-base-progress-circular: (
+    base-circle-color: (
+        igx-color: ('grays', 100)
+    ),
+);
+
+/// Generates a dark progress-circular schema.
+/// @type {Map}
 /// @requires $light-progress-circular
-$dark-progress-circular: $light-progress-circular;
+$dark-progress-circular: extend($light-progress-circular, $dark-base-progress-circular);
 
 /// Generates a dark fluent progress-circular schema.
 /// @type {Map}
 /// @requires $fluent-progress-circular
-$dark-fluent-progress-circular: $fluent-progress-circular;
+$dark-fluent-progress-circular: extend($fluent-progress-circular, $dark-base-progress-circular);
 
 /// Generates a dark bootstrap progress-circular schema.
 /// @type {Map}
 /// @requires $bootstrap-progress-circular
-$dark-bootstrap-progress-circular: $bootstrap-progress-circular;
+$dark-bootstrap-progress-circular: extend($bootstrap-progress-circular, $dark-base-progress-circular);
 
 /// Generates a dark indigo progress-circular schema.
 /// @type {Map}
 /// @requires $indigo-progress-circular
-$dark-indigo-progress-circular: $indigo-progress-circular;
+$dark-indigo-progress-circular: extend($indigo-progress-circular, $dark-base-progress-circular);
 

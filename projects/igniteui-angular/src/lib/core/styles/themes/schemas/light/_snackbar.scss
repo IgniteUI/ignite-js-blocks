@@ -10,7 +10,7 @@
 
 /// Generates a light snackbar schema.
 /// @type {Map}
-/// @property {Map} background [igx-color: ('grays', 900)] - The background color used in the snackbar.
+/// @property {Map} background [igx-color: ('grays', 900, .9)] - The background color used in the snackbar.
 /// @property {Map} text-color [igx-contrast-color: ('grays', 900)] - The text color used in the snackbar.
 /// @property {Map} button-color [igx-color: ('secondary', 500)] - The button color used in the snackbar.
 /// @property {Number} elevation [4] - The elevation level, between 0-24, to be used in the snackbar.
@@ -24,7 +24,7 @@ $light-snackbar: extend(
     $default-elevation-snackbar,
     (
         background: (
-            igx-color: ('grays', 900)
+            igx-color: ('grays', 900, .9)
         ),
 
         text-color: (
@@ -78,9 +78,9 @@ $bootstrap-snackbar: extend(
 /// Generates an indigo snackbar schema.
 /// @type {Map}
 ///
-/// @property {Map} background [igx-color: ('grays', 600)] - The background color used in the snackbar.
-/// @property {Map} text-color [igx-color: ('grays', 600), text-contrast: ()] - The text color used in the snackbar.
-/// @property {Map} button-color [igx-color: ('grays', 600), text-contrast: ()] - The button color used in the snackbar.
+/// @property {Map} background [igx-color: ('grays', 700, .9)] - The background color used in the snackbar.
+/// @property {Map} text-color [igx-contrast-color: ('grays', 700)] - The text color used in the snackbar.
+/// @property {Map} button-color [igx-contrast-color: ('grays', 700)] - The button color used in the snackbar.
 /// @prop {Number} border-radius [6px] - The border radius used for snackbar. Can be a fraction between 0 and 1, pixels, or percent.
 ///
 /// @requires {function} extend
@@ -91,17 +91,15 @@ $indigo-snackbar: extend(
     $indigo-shape-snackbar,
     (
         background: (
-            igx-color: ('grays', 600)
+            igx-color: ('grays', 700, .9)
         ),
 
         text-color: (
-            igx-color: ('grays', 600),
-            text-contrast: ()
+            igx-contrast-color: ('grays', 700),
         ),
 
         button-color: (
-            igx-color: ('grays', 600),
-            text-contrast: ()
+            igx-contrast-color: ('grays', 700),
         )
     )
 );

@@ -160,22 +160,6 @@
     $search-hover-elevation: map.get($input-group-schema, 'search-hover-elevation');
     $search-disabled-elevation: map.get($input-group-schema, 'search-disabled-elevation');
 
-    $focused-shadow-color: rgba(map.get($theme, 'focused-secondary-color'), .5);
-    $success-shadow-color: rgba(map.get($theme, 'success-secondary-color'), .5);
-    $error-shadow-color: rgba(map.get($theme, 'error-secondary-color'), .5);
-
-    @if $focused-secondary-color and meta.type-of($focused-secondary-color) == 'color' {
-        $focused-shadow-color: rgba($focused-secondary-color, .5);
-    }
-
-    @if $success-secondary-color and meta.type-of($success-secondary-color) == 'color' {
-        $success-shadow-color: rgba($success-secondary-color, .5);
-    }
-
-    @if $error-secondary-color and meta.type-of($error-secondary-color) == 'color' {
-        $error-shadow-color: rgba($error-secondary-color, .5);
-    }
-
     @if not($placeholder-color) and $box-background {
         $placeholder-color: text-contrast($box-background);
     }
@@ -251,9 +235,6 @@
 
         label-floated-background: $label-floated-background,
         label-floated-disabled-background: $label-floated-disabled-background,
-        focused-shadow-color: $focused-shadow-color,
-        success-shadow-color: $success-shadow-color,
-        error-shadow-color: $error-shadow-color,
     ));
 }
 
@@ -1683,17 +1664,17 @@
 
     %bootstrap-input--focus {
         border: 1px solid var-get($theme, 'focused-secondary-color');
-        box-shadow: 0 0 0 rem(3px) var-get($theme, 'focused-shadow-color');
+        box-shadow: 0 0 0 rem(3px) var-get($theme, 'focused-secondary-color');
     }
 
     %bootstrap-input--success {
         border: 1px solid var-get($theme, 'success-secondary-color');
-        box-shadow: 0 0 0 rem(3px) var-get($theme, 'success-shadow-color');
+        box-shadow: 0 0 0 rem(3px) var-get($theme, 'success-secondary-color');
     }
 
     %bootstrap-input--error {
         border: 1px solid var-get($theme, 'error-secondary-color');
-        box-shadow: 0 0 0 rem(3px) var-get($theme, 'error-shadow-color');
+        box-shadow: 0 0 0 rem(3px) var-get($theme, 'error-secondary-color');
     }
 
     %bootstrap-input--disabled {

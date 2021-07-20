@@ -9,35 +9,89 @@
 
 /// Generates a dark calendar schema.
 /// @type {Map}
-/// @prop {Map} date-disabled-text-color [igx-color: ('grays', 500), to-opaque: (), rgba: .38] - The text color for disabled dates.
+/// @prop {Map} week-number-background [igx-color: ('grays', 100, .3)] - The background color of the week number column.
+/// @prop {Map} date-hover-background [igx-color: ('grays', 100)] - The hover date background color.
+/// @prop {Map} month-hover-background [igx-color: ('grays', 100, .5)] - The month hover text color.
+$dark-base-calendar: (
+    week-number-background: (
+        igx-color: ('grays', 100, .3),
+    ),
+
+    date-hover-background: (
+        igx-color: ('grays', 100)
+    ),
+
+    month-hover-background: (
+        igx-color: ('grays', 100, .5)
+    ),
+);
+
+/// Generates a dark calendar schema.
+/// @type {Map}
+/// @prop {Map} date-disabled-text-color [igx-color: ('grays', 500)] - The text color for disabled dates.
 /// @requires {function} extend
 /// @requires $light-calendar
+/// @requires $dark-base-calendar
 /// @see $default-palette
-$dark-calendar: extend($light-calendar, (
-    date-disabled-text-color: (
-        igx-color: ('grays', 500),
-        to-opaque: (),
-        rgba: .38
-    ),
-));
+$dark-calendar: extend(
+    $light-calendar,
+    $dark-base-calendar,
+    (
+        date-disabled-text-color: (
+            igx-color: ('grays', 500)
+        ),
+    )
+);
 
 /// Generates a dark fluent calendar schema.
 /// @type {Map}
 /// @requires {function} extend
 /// @requires $fluent-calendar
-$dark-fluent-calendar: extend($fluent-calendar);
+$dark-fluent-calendar: extend($fluent-calendar, $dark-base-calendar);
 
 /// Generates a dark bootstrap calendar schema.
 /// @type {Map}
-/// @prop {Map} content-background [#222] - The main content background color.
-/// @prop {Map} picker-text-color [#fff]- The idle picker month/year color.
+/// @prop {Map} content-background [igx-color: ('grays', 50)] - The main content background color.
+/// @prop {Color} picker-background-color [igx-color: ('grays', 100, .5)] - The igx calendar picker background color.
+/// @prop {Map} border-color [igx-color: ('grays', 100)] - The calendar border color.
+/// @prop {Map} picker-text-color [igx-contrast-color: ('surface')]- The idle picker month/year color.
+/// @prop {Map} date-selected-text-color [igx-contrast-color: ('secondary', 600)] - The text color for the selected date.
+/// @prop {Map} date-current-text-color [igx-contrast-color: 'surface'] - The text color for the current date.
+/// @prop {Map} week-number-background [('grays', 300, .2)] - The background color of the week number column.
 /// @requires {function} extend
 /// @requires $bootstrap-calendar
+/// @requires $dark-base-calendar
 $dark-bootstrap-calendar: extend(
     $bootstrap-calendar,
+    $dark-base-calendar,
     (
-        content-background: #222,
-        picker-text-color: #fff,
+        content-background: (
+            igx-color: ('grays', 50)
+        ),
+
+        picker-background-color: (
+            igx-color: ('grays', 100, .5)
+        ),
+
+        border-color: (
+            igx-color: ('grays', 100)
+        ),
+
+        picker-text-color: (
+            igx-contrast-color: ('surface')
+        ),
+
+        date-selected-text-color: (
+            igx-contrast-color: ('secondary', 600)
+        ),
+
+        date-current-text-color: (
+            igx-contrast-color: 'surface'
+        ),
+
+        week-number-background: (
+            igx-color: ('grays', 300, .2),
+        ),
     )
 );
 
@@ -58,8 +112,10 @@ $dark-bootstrap-calendar: extend(
 /// @prop {Map} month-hover-current-text-color [igx-color: ('primary', 300)]- The text color for the current/selected month on hover.
 /// @requires {function} extend
 /// @requires $indigo-calendar
+/// @requires $dark-base-calendar
 $dark-indigo-calendar: extend(
     $indigo-calendar,
+    $dark-base-calendar,
     (
         content-text-color: (
             igx-contrast-color: ('surface')

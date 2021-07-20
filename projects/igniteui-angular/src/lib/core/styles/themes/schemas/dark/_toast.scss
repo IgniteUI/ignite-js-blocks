@@ -7,40 +7,55 @@
 /// @author <a href="https://github.com/desig9stein" target="_blank">Marin Popov</a>
 ////
 
+/// Generates a dark base toast schema.
+/// @type {Map}
+/// @prop {Map} background [igx-color: ('grays', 500, .9)] - The background color used for the toast.
+/// @prop {Map} text-color [igx-contrast-color: ('grays', 500)] - The text-color used for the toast.
+$dark-base-toast: (
+    background: (
+        igx-color: ('grays', 500, .9)
+    ),
+
+    text-color: (
+        igx-contrast-color: ('grays', 500)
+    )
+);
+
 /// Generates a dark toast schema.
 /// @type {Map}
 /// @requires $light-toast
 /// @see $default-palette
-$dark-toast: $light-toast;
+$dark-toast: extend($light-toast, $dark-base-toast);
 
 /// Generates a dark fluent toast schema.
 /// @type {Map}
 /// @requires $fluent-toast
-$dark-fluent-toast: $fluent-toast;
+$dark-fluent-toast: extend($fluent-toast, $dark-base-toast);
 
 /// Generates a dark bootstrap toast schema.
 /// @type {Map}
+/// @prop {Map} background [igx-contrast-color: ('surface')] - The background color used for the toast.
 /// @prop {Map} text-color [igx-contrast-color: ('grays', 600)] - The text-color used for the toast.
 /// @requires {function} extend
 /// @requires $bootstrap-toast
 $dark-bootstrap-toast: extend(
     $bootstrap-toast, (
+        background: (
+            igx-contrast-color: ('surface')
+        ),
+
         text-color: (
-            igx-contrast-color: ('grays', 600)
+            igx-contrast-color: ('grays', 900)
         )
     )
 );
 
 /// Generates a dark indigo toast schema.
 /// @type {Map}
-/// @prop {Map} background [igx-color: ('grays', 400)] - The background color used for the toast.
 /// @requires {function} extend
 /// @requires $indigo-toast
 $dark-indigo-toast: extend(
-    $indigo-toast, (
-        background: (
-            igx-color: ('grays', 400)
-        )
-    )
+    $indigo-toast,
+    $dark-base-toast
 );
 

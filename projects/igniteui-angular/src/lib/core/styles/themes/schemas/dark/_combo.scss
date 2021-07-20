@@ -22,15 +22,9 @@ $dark-fluent-combo: $fluent-combo;
 
 /// Generates a dark bootstrap combo schema.
 /// @type {Map}
-/// @prop {Color} empty-list-background [#222] - The combo list background color.
 /// @requires {function} extend
 /// @requires $bootstrap-combo
-$dark-bootstrap-combo: extend(
-    $bootstrap-combo,
-    (
-        empty-list-background: #222,
-    )
-);
+$dark-bootstrap-combo: extend($bootstrap-combo);
 
 /// Generates a dark indigo combo schema.
 /// @type {Map}

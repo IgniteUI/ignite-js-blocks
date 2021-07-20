@@ -17,12 +17,12 @@
 /// @property {Map} thumb-border-color [igx-color: ('secondary', 500)] - The thumb border color.
 /// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400)] - The thumb border color when its disabled
 ///
-/// @property {Map} disabled-thumb-color [igx-color: ('grays', 400), to-opaque: ()] - The thumb color when its disabled.
-/// @property {Map} label-background-color [igx-color: ('secondary', 500), to-opaque: ()] - The background color of the bubble label.
+/// @property {Map} disabled-thumb-color [igx-color: ('grays', 400)] - The thumb color when its disabled.
+/// @property {Map} label-background-color [igx-color: ('secondary', 500)] - The background color of the bubble label.
 /// @property {Map} label-text-color [igx-contrast-color: ('secondary', 500)] - The text color of the bubble label.
 ///
-/// @property {Map} base-track-color [igx-color: ('secondary', 500), rgba: .24] - The base background color of the track.
-/// @property {Map} base-track-hover-color [igx-color: ('secondary', 500), rgba: .24] - The base background color of the track on hover.
+/// @property {Map} base-track-color [igx-color: ('secondary', 500, .24)] - The base background color of the track.
+/// @property {Map} base-track-hover-color [igx-color: ('secondary', 500, .24)] - The base background color of the track on hover.
 /// @property {Map} disabled-base-track-color [igx-color: ('grays', 400)] - The base background color of the track when is disabled.
 ///
 /// @property {Map} tick-label-color [igx-color: ('grays', 500)] - The color of the tick label.
@@ -69,7 +69,6 @@ $light-slider: (
 
     label-background-color: (
         igx-color: ('secondary', 500),
-        to-opaque: ()
     ),
 
     label-text-color: (
@@ -78,7 +77,6 @@ $light-slider: (
 
     disabled-thumb-color: (
         igx-color: ('grays', 400),
-        to-opaque: ()
     ),
 
     disabled-base-track-color: (
@@ -90,32 +88,30 @@ $light-slider: (
     ),
 
     base-track-color: (
-        igx-color: ('secondary', 500),
-        rgba: .24
+        igx-color: ('secondary', 500, .24),
     ),
 
     base-track-hover-color:  (
-        igx-color: ('secondary', 500),
-        rgba: .24
+        igx-color: ('secondary', 500, .24),
     ),
 
     track-hover-color: (
-        igx-color: ('secondary', 500)
+        igx-color: ('secondary', 400)
     )
 );
 
 /// Generates a fluent slider schema.
 /// @type {Map}
 ///
-/// @property {Map} track-color [igx-color: ('grays', 700), to-opaque: #fff] - The color of the track.
+/// @property {Map} track-color [igx-color: ('grays', 700)] - The color of the track.
 /// @property {Map} track-hover-color [igx-color: ('primary', 500)] - The color of the track on hover.
 /// @property {Map} thumb-color [igx-color: 'surface'] - The color of the thumb.
 /// @property {Map} thumb-border-color [igx-color: ('grays', 700)] - The thumb border color.
-/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400), to-opaque: #fff] - The thumb border color when its disabled
+/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400)] - The thumb border color when its disabled
 /// @property {Map} thumb-focus-color [igx-color: ('primary', 200)] - The focus outline color of the thumb.
 /// @property {Map} disabled-thumb-color [igx-color: 'surface'] - The thumb color when its disabled.
 /// @property {Map} base-track-color [igx-color: ('grays', 400)] - The base background color of the track.
-/// @property {Map} base-track-hover-color [igx-color: ('primary', 500), rgba: .32] - The base background color of the track on hover.
+/// @property {Map} base-track-hover-color [igx-color: ('primary', 500, .32)] - The base background color of the track on hover.
 ///
 /// @requires {function} extend
 /// @requires {Map} $light-slider
@@ -124,7 +120,6 @@ $fluent-slider: extend($light-slider, (
 
     track-color: (
         igx-color: ('grays', 700),
-        to-opaque: #fff
     ),
 
     track-hover-color: (
@@ -145,7 +140,6 @@ $fluent-slider: extend($light-slider, (
 
     thumb-disabled-border-color: (
         igx-color: ('grays', 400),
-        to-opaque: #fff
     ),
 
     disabled-thumb-color: (
@@ -157,15 +151,14 @@ $fluent-slider: extend($light-slider, (
     ),
 
     base-track-hover-color:  (
-        igx-color: ('primary', 500),
-        rgba: .32
+        igx-color: ('primary', 500, .32),
     ),
 ));
 
 /// Generates a bootstrap slider schema.
 /// @type {Map}
 /// @property {Map} label-background-color [igx-color: ('primary', 500)] - The background color of the bubble label.
-/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400), to-opaque: #fff] - The thumb border color when its disabled
+/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400)] - The thumb border color when its disabled
 /// @property {Map} thumb-focus-color [igx-color: ('primary', 200)] - The focus outline color of the thumb.
 /// @requires {function} extend
 /// @requires {Map} $light-slider
@@ -184,7 +177,6 @@ $bootstrap-slider: extend(
 
         thumb-disabled-border-color: (
             igx-color: ('grays', 400),
-            to-opaque: #fff
         ),
     )
 );
@@ -193,10 +185,10 @@ $bootstrap-slider: extend(
 /// @type {Map}
 ///
 /// @property {Map} track-hover-color [igx-color: ('primary', 400)] - The color of the track on hover.
-/// @property {Map} disabled-thumb-color [igx-color: ('grays', 300), to-opaque: ( igx-color: 'surface')] - The thumb color when its disabled.
+/// @property {Map} disabled-thumb-color [igx-color: ('grays', 300)] - The thumb color when its disabled.
 /// @property {Map} base-track-color [igx-color: ('grays', 400)] - The base background color of the track.
 /// @property {Map} base-track-hover-color [igx-color: ('grays', 500)] - The base background color of the track on hover.
-/// @property {Map} disabled-base-track-color [igx-color: ('grays', 300), to-opaque: ( igx-color: 'surface')] - The base background color of the track when is disabled.
+/// @property {Map} disabled-base-track-color [igx-color: ('grays', 300)] - The base background color of the track when is disabled.
 /// @property {Map} thumb-focus-color [igx-color: ('primary', 200)] - The focus outline color of the thumb.
 ///
 /// @requires {function} extend
@@ -224,16 +216,10 @@ $indigo-slider: extend(
 
         disabled-thumb-color: (
             igx-color: ('grays', 300),
-            to-opaque: (
-                igx-color: 'surface'
-            )
         ),
 
         disabled-base-track-color: (
             igx-color: ('grays', 300),
-            to-opaque: (
-                igx-color: 'surface'
-            )
         )
     )
 );

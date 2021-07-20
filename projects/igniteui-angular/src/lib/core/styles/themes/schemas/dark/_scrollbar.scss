@@ -9,52 +9,40 @@
 
 /// Generates a dark scrollbar schema.
 /// @type {Map}
-/// @property {Color} thumb-background [igx-color: surface, lighten: 20%] - The background color used for the thumb.
-/// @property {Color} track-background [igx-color: 'surface', lighten: 5%] - The background color used for the track.
 /// @property {String | Number} size [16px] - The size of the track.
 /// @requires {function} extend
 /// @requires $light-scrollbar
 /// @see $default-palette
-$dark-scrollbar: extend(
-    $light-scrollbar,
-    (
-        thumb-background: (
-            igx-color: 'surface',
-            lighten: 20%
-        ),
-    )
-);
+$dark-scrollbar: $light-scrollbar;
 
 /// Generates a dark fluent scrollbar schema.
 /// @type {Map}
 /// @requires {function} extend
-/// @requires $dark-scrollbar
-$dark-fluent-scrollbar: extend(
-    $dark-scrollbar,
-    (
-        variant: 'fluent',
-    )
-);
+/// @requires $fluent-scrollbar
+$dark-fluent-scrollbar: $fluent-scrollbar;
 
 /// Generates a dark bootstrap scrollbar schema.
 /// @type {Map}
 /// @requires {function} extend
 /// @requires $light-scrollbar
-$dark-bootstrap-scrollbar: extend(
-    $light-scrollbar,
-    (
-        variant: 'bootstrap',
-    )
-);
+$dark-bootstrap-scrollbar: $bootstrap-scrollbar;
 
 /// Generates a dark indigo scrollbar schema.
 /// @type {Map}
+/// @property {Map} thumb-background [igx-color: ('grays', 200)] - The background color used for the thumb.
+/// @property {Color} track-background [igx-color: ('surface')] - The background color used for the track.
 /// @requires {function} extend
 /// @requires $indigo-scrollbar
 $dark-indigo-scrollbar: extend(
     $indigo-scrollbar,
     (
-        variant: 'indigo-design',
+        thumb-background: (
+            igx-color: ('grays', 200)
+        ),
+
+        track-background: (
+            igx-color: ('surface')
+        ),
     )
 );
 

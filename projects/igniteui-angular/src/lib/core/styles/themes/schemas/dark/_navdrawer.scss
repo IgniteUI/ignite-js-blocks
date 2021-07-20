@@ -7,21 +7,31 @@
 /// @author <a href="https://github.com/desig9stein" target="_blank">Marin Popov</a>
 ////
 
+/// Generates a base dark navdrawer schema.
+/// @type {Map}
+/// @prop {Map} item-hover-background [igx-color: ('grays', 100, .5)] - The item's hover background color.
+$dark-base-navdrawer: (
+    item-hover-background: (
+        igx-color: ('grays', 100, .5),
+    ),
+);
+
 /// Generates a dark navdrawer schema.
 /// @type {Map}
 /// @requires $light-navdrawer
 /// @see $default-palette
-$dark-navdrawer: $light-navdrawer;
+$dark-navdrawer: extend($light-navdrawer, $dark-base-navdrawer);
 
 /// Generates a dark fluent navdrawer schema.
 /// @type {Map}
 /// @prop {Map} item-active-text-color [igx-color: ('primary', 200)] - The item's active text color.
 /// @prop {Map} item-active-icon-color [igx-color: ('primary', 100)] - The item's icon active color.
-/// @prop {Map} item-active-background [igx-color: ('primary', 400), rgba: .12] - The item's active background color.
+/// @prop {Map} item-active-background [igx-color: ('primary', 400, .12)] - The item's active background color.
 /// @requires {function} extend
 /// @requires $fluent-navdrawer
 $dark-fluent-navdrawer: extend(
     $fluent-navdrawer,
+    $dark-base-navdrawer,
     (
         item-active-text-color: (
             igx-color: ('primary', 200)
@@ -32,8 +42,7 @@ $dark-fluent-navdrawer: extend(
         ),
 
         item-active-background: (
-            igx-color: ('primary', 400),
-            rgba: .12
+            igx-color: ('primary', 400, .12),
         ),
     )
 );
@@ -41,63 +50,49 @@ $dark-fluent-navdrawer: extend(
 /// Generates a dark bootstrap navdrawer schema.
 /// @type {Map}
 /// @requires $bootstrap-navdrawer
-$dark-bootstrap-navdrawer: $bootstrap-navdrawer;
+$dark-bootstrap-navdrawer: extend($bootstrap-navdrawer, $dark-base-navdrawer);
 
 
 /// Generates a dark indigo navdrawer schema.
 /// @type {Map}
-/// @prop {Map} background [igx-color: ('grays', 800), to-opaque: #000] - The navigation drawer background color.
-/// @prop {Map} item-header-text-color [igx-contrast-color: ('grays', 800)] - The header's idle text color.
-/// @prop {Map} item-text-color [igx-contrast-color: ('grays', 800), rgba: .8] - The item's idle text color.
-/// @prop {Map} item-icon-color [igx-contrast-color: ('grays', 800), rgba: .8] - The item's icon color.
-/// @prop {Map} item-active-background [igx-contrast-color: ('grays', 800), rgba: .1] - The item's active background color.
-/// @prop {map} item-active-text-color [igx-contrast-color: ('grays', 800)] - The item's active text color.
-/// @prop {Map} item-active-icon-color [igx-contrast-color: ('grays', 800)] - The item's icon active color.
-/// @prop {Map} item-hover-text-color [igx-contrast-color: ('grays', 800)] - The item's hover text color.
-/// @prop {Map} item-hover-icon-color [igx-contrast-color: ('grays', 800)] - The item's hover icon color.
+/// @prop {Map} background [igx-color: ('grays', 500)] - The navigation drawer background color.
+/// @prop {Map} item-header-text-color [igx-contrast-color: ('grays', 50)] - The header's idle text color.
+/// @prop {Map} item-text-color [igx-contrast-color: ('grays', 100) - The item's idle text color.
+/// @prop {Map} item-icon-color [igx-contrast-color: ('grays', 100)] - The item's icon color.
+/// @prop {Map} item-active-background [igx-contrast-color: ('grays', 400, .5)] - The item's active background color.
+/// @prop {Map} item-hover-text-color [igx-contrast-color: ('grays', 50)] - The item's hover text color.
+/// @prop {Map} item-hover-icon-color [igx-contrast-color: ('grays', 50)] - The item's hover icon color.
 /// @requires {function} extend
 /// @requires $indigo-navdrawer
 $dark-indigo-navdrawer: extend(
     $indigo-navdrawer,
     (
         background: (
-            igx-color: ('grays', 800),
-            to-opaque: #000
+            igx-color: ('grays', 500)
         ),
 
         item-header-text-color: (
-            igx-contrast-color: ('grays', 800),
+            igx-color: ('grays', 50),
         ),
 
         item-text-color: (
-            igx-contrast-color: ('grays', 800),
-            rgba: .8
+            igx-color: ('grays', 100),
         ),
 
         item-icon-color: (
-            igx-contrast-color: ('grays', 800),
-            rgba: .8
-        ),
-
-        item-active-background: (
-            igx-contrast-color: ('grays', 800),
-            rgba: .1
-        ),
-
-        item-active-text-color: (
-            igx-contrast-color: ('grays', 800),
-        ),
-
-        item-active-icon-color: (
-            igx-contrast-color: ('grays', 800),
+            igx-color: ('grays', 100),
         ),
 
         item-hover-text-color: (
-            igx-contrast-color: ('grays', 800),
+            igx-color: ('grays', 50)
         ),
 
         item-hover-icon-color: (
-            igx-contrast-color: ('grays', 800),
+            igx-color: ('grays', 50)
+        ),
+
+        item-active-background: (
+            igx-color: ('grays', 400, .5),
         ),
     )
 );

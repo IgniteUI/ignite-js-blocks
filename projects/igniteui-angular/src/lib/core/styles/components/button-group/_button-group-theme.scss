@@ -33,7 +33,8 @@
 /// @param {Color} $item-selected-background [null] - The background color for a selected item in the button group.
 /// @param {Color} $item-selected-border-color [null] - The border color for a selected item from the button group.
 /// @param {Color} $item-selected-hover-background [null] - The background color for a selected item in hover or focus state in the button group.
-/// @param {Color} $selected-shadow-color [null] - The color for a focused button item in hover or focus state in the button group.
+/// @param {Color} $selected-shadow-color [null] - The outline color of focused/selected button group items.
+/// @param {Color} $idle-shadow-color [null] - The outline color of focused button group items.
 ///
 /// @param {border-radius} $border-radius [null] - The border radius used for button-group component.
 ///
@@ -67,6 +68,7 @@
 
     $item-hover-text-color: null,
     $item-hover-background: null,
+    $idle-shadow-color: null,
 
     $disabled-text-color: null,
     $disabled-background-color: null,
@@ -96,20 +98,6 @@
         if($border-radius, $border-radius, map.get($button-group-schema, 'border-radius')), 0, 20px
     );
 
-    $shadow-color: null;
-
-    @if map.get($theme, 'variant') == 'bootstrap' {
-        $shadow-color: rgba(map.get($theme, 'item-background'), .5);
-
-        @if $item-background {
-            $shadow-color: rgba($item-background, .5);
-        }
-
-        @if $item-background and not($item-border-color) {
-            $item-border-color: $item-background;
-        }
-    }
-
     @if not($item-text-color) and $item-background {
         @if meta.type-of($item-background) == 'color' {
             $item-text-color: text-contrast($item-background);
@@ -128,15 +116,21 @@
         }
     }
 
-    @if not($item-selected-text-color) and $item-selected-background {
-        @if meta.type-of($item-selected-background) == 'color' {
-            $item-selected-text-color: text-contrast($item-selected-background);
+    @if not($idle-shadow-color) and $selected-shadow-color {
+        @if meta.type-of($selected-shadow-color) == 'color' {
+            $idle-shadow-color: $selected-shadow-color;
         }
     }
 
-    @if not($disabled-text-color) and $disabled-background-color {
-        @if meta.type-of($disabled-background-color) == 'color' {
-            $disabled-text-color: rgba(text-contrast($item-background), .3);
+    @if not($selected-shadow-color) and $idle-shadow-color {
+        @if meta.type-of($idle-shadow-color) == 'color' {
+            $selected-shadow-color: $idle-shadow-color;
+        }
+    }
+
+    @if not($item-selected-text-color) and $item-selected-background {
+        @if meta.type-of($item-selected-background) == 'color' {
+            $item-selected-text-color: text-contrast($item-selected-background);
         }
     }
 
@@ -168,7 +162,7 @@
         item-selected-hover-background: $item-selected-hover-background,
         border: $border,
         shadow: $shadow,
-        shadow-color: $shadow-color,
+        idle-shadow-color: $idle-shadow-color,
         selected-shadow-color: $selected-shadow-color,
     ));
 }
@@ -251,12 +245,15 @@
         &:focus {
             color: var-get($theme, 'item-hover-text-color');
             background: var-get($theme, 'item-hover-background');
-            z-index: 2;
         }
 
         &:focus {
             @if $bootstrap-theme or $indigo-theme {
-                box-shadow: 0 0 0 rem(3px) var-get($theme, 'shadow-color');
+                box-shadow: 0 0 0 rem(3px) var-get($theme, 'idle-shadow-color');
+            }
+
+            @if $indigo-theme {
+                z-index: 2;
             }
         }
     }
@@ -295,6 +292,10 @@
             background: var-get($theme, 'item-selected-hover-background');
         }
 
+        &:focus {
+            z-index: 3;
+        }
+
         @if $indigo-theme {
             &:focus {
                 box-shadow: 0 0 0 rem(3px) var-get($theme, 'selected-shadow-color');
@@ -311,7 +312,7 @@
                 #{$right}: 0;
                 bottom: 0;
                 #{$left}: 0;
-                background: rgba(igx-color($palette, 'grays', 500), .06);
+                background: igx-color($palette, 'grays', 500, .12);
             }
         }
     }

@@ -12,11 +12,11 @@
 /// @type {Map}
 /// @prop {Map} background-color [igx-color: 'surface'] - The drop-down background color.
 /// @prop {Map} header-text-color [igx-color: ('secondary', 500)] - The drop-down header text color.
-/// @prop {Map} item-text-color [igx-color: 'surface', text-contrast: (), rgba: .74] - The drop-down text color.
-/// @prop {Map} hover-item-text-color [igx-color: 'surface', text-contrast: (), rgba: .74] - The drop-down hover text color.
-/// @prop {Map} hover-item-background [igx-color: 'surface', text-contrast: (), rgba: .04] - The drop-down hover item background color.
-/// @prop {Map} focused-item-background [igx-color: 'surface', text-contrast: (), rgba: .04] - The drop-down focused item background color.
-/// @prop {Map} focused-item-text-color [igx-color: 'surface', text-contrast: (), rgba: .74] - The drop-down focused item text color.
+/// @prop {Map} item-text-color [igx-color: ('grays', 800)] - The drop-down text color.
+/// @prop {Map} hover-item-text-color [igx-color: ('grays', 800)] - The drop-down hover text color.
+/// @prop {Map} hover-item-background [igx-color: ('grays', 100, .8)4] - The drop-down hover item background color.
+/// @prop {Map} focused-item-background [igx-color: ('grays', 100, .8)] - The drop-down focused item background color.
+/// @prop {Map} focused-item-text-color [igx-color: ('grays', 800)] - The drop-down focused item text color.
 /// @prop {Map} selected-item-background [igx-color: ('secondary', 100)] - The drop-down selected item background color.
 /// @prop {Map} selected-item-text-color [igx-contrast-color: ('secondary', 100)] - The drop-down selected item text color.
 /// @prop {Map} selected-hover-item-background [igx-color: ('secondary', 200)] - The drop-down selected item hover background color.
@@ -47,33 +47,23 @@ $light-drop-down: extend(
         ),
 
         item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .74
+            igx-color: ('grays', 800)
         ),
 
         hover-item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .74
+            igx-color: ('grays', 800)
         ),
 
         hover-item-background: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .04
+            igx-color: ('grays', 100, .8)
         ),
 
         focused-item-background: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .04
+            igx-color: ('grays', 100, .8)
         ),
 
         focused-item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .74
+            igx-color: ('grays', 800)
         ),
 
         selected-item-background: (
@@ -100,12 +90,12 @@ $light-drop-down: extend(
             igx-contrast-color: ('secondary', 200)
         ),
 
-        disabled-item-background: transparent,
+        disabled-item-background: (
+            igx-color: ('grays', 50, 0)
+        ),
 
         disabled-item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .38
+            igx-color: ('grays', 400)
         ),
 
         border-color: (
@@ -145,7 +135,7 @@ $fluent-drop-down: extend(
         ),
 
         selected-hover-item-background: (
-            igx-color: ('grays', 200)
+            igx-color: ('grays', 100)
         ),
 
         selected-hover-item-text-color: (
@@ -164,19 +154,16 @@ $fluent-drop-down: extend(
 
 /// Generates a bootstrap drop-down schema.
 /// @type {Map}
-/// @prop {Map} header-text-color [igx-color: ('primary', 500)] - The drop-down header text color.
-/// @prop {Color} background-color [#fff] - The drop-down background color.
-/// @prop {Color} item-text-color [#212529] - The drop-down text color.
-/// @prop {Color} hover-item-text-color [#212529] - The drop-down hover text color.
+/// @prop {Map} header-text-color [igx-color: ('grays', 700)] - The drop-down header text color.
 /// @prop {Map} hover-item-background [igx-color: ('grays', 100)] - The drop-down hover item background color.
 /// @prop {Map} focused-item-background [igx-color: ('primary', 500)] - The drop-down focused item background color.
-/// @prop {Color} focused-item-text-color [#fff] - The drop-down focused item text color.
+/// @prop {Map} focused-item-text-color [igx-contrast-color('primary', 600)] - The drop-down focused item text color.
 /// @prop {Map} selected-item-background [igx-color: ('primary', 500)] - The drop-down selected item background color.
-/// @prop {Color} selected-item-text-color [#fff] - The drop-down selected item text color.
+/// @prop {Map} selected-item-text-color [igx-contrast-color('primary', 600)] - The drop-down selected item text color.
 /// @prop {Map} selected-hover-item-background [igx-color: ('primary', 600)] - The drop-down selected item hover background color.
-/// @prop {Color} selected-hover-item-text-color [#fff] - The drop-down selected item hover text color.
+/// @prop {Map} selected-hover-item-text-color [igx-contrast-color('primary', 600)] - The drop-down selected item hover text color.
 /// @prop {Map} selected-focus-item-background [igx-color: ('primary', 600)] - The drop-down selected item focus background color.
-/// @prop {Color} selected-focus-item-text-color [#fff] - The drop-down selected item focus text color.
+/// @prop {Map} selected-focus-item-text-color [igx-contrast-color('primary', 600)] - The drop-down selected item focus text color.
 /// @prop {Number} elevation [0] - The elevation level, between 0-24, to be used for the drop-down shadow.
 /// @prop {Number} border-radius [4px] - The border radius used for drop-down component. Can be a fraction between 0 and 1, pixels, or percent.
 /// @prop {Number} item-border-radius [0] - The border radius used for the drop-down items. Can be a fraction between 0 and 1, pixels, or percent.
@@ -194,9 +181,6 @@ $bootstrap-drop-down: extend(
             igx-color: ('grays', 700)
         ),
 
-        background-color: #fff,
-
-
         hover-item-background: (
             igx-color: ('grays', 100)
         ),
@@ -205,49 +189,55 @@ $bootstrap-drop-down: extend(
             igx-color: ('primary', 500)
         ),
 
-        focused-item-text-color: #fff,
+        focused-item-text-color: (
+            igx-contrast-color: ('primary', 600)
+        ),
 
         selected-item-background: (
             igx-color: ('primary', 500),
         ),
 
-        selected-item-text-color: #fff,
+        selected-item-text-color: (
+            igx-contrast-color: ('primary', 600)
+        ),
 
         selected-hover-item-background: (
             igx-color: ('primary', 600),
         ),
 
-        selected-hover-item-text-color: #fff,
+        selected-hover-item-text-color: (
+            igx-contrast-color: ('primary', 600)
+        ),
 
         selected-focus-item-background: (
             igx-color: ('primary', 600),
         ),
 
-        selected-focus-item-text-color: #fff,
+        selected-focus-item-text-color: (
+            igx-contrast-color: ('primary', 600)
+        ),
 
         border-width: 1px,
 
         disabled-item-text-color: (
             igx-color: ('grays', 400)
         ),
+
     )
 );
 
 /// Generates an indigo drop-down schema.
 /// @type {Map}
 /// @prop {Map} header-text-color [igx-color: ('primary', 500)] - The drop-down header text color.
-/// @prop {Color} item-text-color [igx-color: 'surface', text-contrast: (), rgba: .62] - The drop-down text color.
-/// @prop {Color} hover-item-text-color [igx-color: 'surface', text-contrast: (), rgba: .87] - The drop-down hover text color.
-/// @prop {Color} focused-item-text-color [igx-color: 'surface', text-contrast: (), rgba: .87] - The drop-down focused item text color.
-/// @prop {Map} hover-item-background [igx-color: ('primary', 500), , rgba: .15] - The drop-down hover item background color.
-/// @prop {Map} focused-item-background [igx-color: ('primary', 500), rgba: .15] - The drop-down focused item background color.
+/// @prop {Color} item-text-color [igx-color: ('grays', 700)] - The drop-down text color.
+/// @prop {Map} hover-item-background [igx-color: ('primary', 500, .15)] - The drop-down hover item background color.
+/// @prop {Map} focused-item-background [igx-color: ('primary', 500, .15)] - The drop-down focused item background color.
 /// @prop {Map} selected-item-background [igx-color: ('primary', 500)] - The drop-down selected item background color.
 /// @prop {Color} selected-item-text-color [#fff] - The drop-down selected item text color.
 /// @prop {Map} selected-hover-item-background [igx-color: ('primary', 400)] - The drop-down selected item hover background color.
 /// @prop {Color} selected-hover-item-text-color [#fff] - The drop-down selected item hover text color.
 /// @prop {Map} selected-focus-item-background [igx-color: ('primary', 400)] - The drop-down selected item focus background color.
 /// @prop {Color} selected-focus-item-text-color [#fff] - The drop-down selected item focus text color.
-/// @prop {Map} disabled-item-text-color [igx-color: ('grays', 700), rgba: .4] - The drop-down disabled item text color.
 /// @prop {Number} elevation [3] - The elevation level, between 0-24, to be used for the badge shadow.
 /// @prop {Number} border-radius [2px] - The border radius used for drop-down component. Can be a fraction between 0 and 1, pixels, or percent.
 /// @prop {Number} item-border-radius [2px] - The border radius used for the drop-down items. Can be a fraction between 0 and 1, pixels, or percent.
@@ -267,31 +257,15 @@ $indigo-drop-down: extend(
         ),
 
         item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .62
-        ),
-
-        hover-item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .87
-        ),
-
-        focused-item-text-color: (
-            igx-color: 'surface',
-            text-contrast: (),
-            rgba: .87
+            igx-color: ('grays', 700)
         ),
 
         hover-item-background: (
-            igx-color: ('primary', 500),
-            rgba: .15
+            igx-color: ('primary', 500, .15),
         ),
 
         focused-item-background: (
-            igx-color: ('primary', 500),
-            rgba: .15
+            igx-color: ('primary', 500, .15),
         ),
 
         selected-item-background: (
@@ -317,11 +291,5 @@ $indigo-drop-down: extend(
         selected-focus-item-text-color: (
             igx-contrast-color: ('primary', 400),
         ),
-
-        disabled-item-text-color: (
-            igx-color: ('grays', 700),
-            rgba: .4
-        ),
     )
 );
-

@@ -9,11 +9,11 @@
 
 /// Generates a dark expansion panel schema.
 /// @type {Map}
-/// @prop {Color} header-background [#222] - The panel header background color.
-/// @prop {Color} body-background [#222] - The panel body background color.
+/// @prop {Map} header-focus-background [igx-color: ('grays', 100, .3)] - The panel header focus background color.
 $base-dark-expansion-panel: (
-    header-background: #222,
-    body-background: #222,
+    header-focus-background: (
+        igx-color: ('grays', 100, .3)
+    ),
 );
 
 /// Generates a dark expansion panel schema based on a mix of $light-expansion-panel and $base-dark-expansion-panel.
@@ -41,9 +41,7 @@ $dark-bootstrap-expansion-panel: extend($bootstrap-expansion-panel, $base-dark-e
 /// Generates a dark indigo expansion panel schema.
 /// @type {Map}
 ///
-/// @prop {Color} header-background [igx-color: 'surface'] - The panel header background color.
-/// @prop {Color} body-background [igx-color: 'surface'] - The panel body background color.
-/// @prop {Map} header-focus-background [igx-color: ('primary', 500), rgba: .5] - The panel header focus background color.
+/// @prop {Map} header-focus-background [igx-color: ('primary', 500, .5)] - The panel header focus background color.
 /// @prop {Map} header-title-color [igx-color: ('grays', 800)] - The panel header title text color.
 /// @prop {Number} border-radius [3px] - The border radius used for expansion-panel.
 ///
@@ -52,21 +50,12 @@ $dark-bootstrap-expansion-panel: extend($bootstrap-expansion-panel, $base-dark-e
 $dark-indigo-expansion-panel: extend(
     $indigo-expansion-panel,
     (
-        header-background: (
-            igx-color: 'surface'
-        ),
-
-        body-background: (
-            igx-color: 'surface'
-        ),
-
         header-title-color: (
             igx-color: ('grays', 800)
         ),
 
         header-focus-background: (
-            igx-color: ('primary', 500),
-            rgba: .5
+            igx-color: ('primary', 500, .5)
         )
     )
 );

@@ -10,7 +10,9 @@
 /// @prop {Color} background-color [#fff] - The background color of the panel.
 /// @see $default-palette
 $light-column-actions: (
-    background-color: #fff,
+    background-color: (
+        igx-color: ('surface')
+    ),
 
     title-color: (
         igx-color: ('primary', 500)

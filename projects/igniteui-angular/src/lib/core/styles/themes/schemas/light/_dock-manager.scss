@@ -11,7 +11,7 @@
 /// @prop {Color} accent-color [null] - Sets the pinned header background color, the joystick background and border colors, as well as the context menu background color.
 /// @prop {Color} active-color [igx-color: 'primary'] - Sets the active text and border colors for tabs, panes, and menus.
 /// @prop {Color} background-color [null] - Sets the base dock manager color as well as the pane headers and tabs background colors.
-/// @prop {Color} border-color [igx-color: ('primary', 100), rgba: .1, to-opaque: ()] - Sets the global border color in the dock manager. Also sets the pane content background and the context menu active background colors.
+/// @prop {Color} border-color [igx-color: ('surface')] - Sets the global border color in the dock manager. Also sets the pane content background and the context menu active background colors.
 /// @prop {Color} button-text [igx-color: ('grays', 800)] - Sets the button text color.
 /// @prop {Color} context-menu-background-active [null] - Sets the background color for active context menus.
 /// @prop {Color} context-menu-background [null] - Sets the background color for context menus.
@@ -19,15 +19,15 @@
 /// @prop {Color} context-menu-color [null] - Sets the text color for context menus.
 /// @prop {Color} dock-background [null] - Sets the background color of the dock manager.
 /// @prop {Color} dock-text [null] - Sets the text color of the dock manager.
-/// @prop {Color} drop-shadow-background [igx-color: 'primary', rgba: .2] - Sets the drop-shadow background color.
+/// @prop {Color} drop-shadow-background [igx-color: ('primary', 500, .2)] - Sets the drop-shadow background color.
 /// @prop {Color} floating-pane-border-color [igx-color: 'surface'] - Sets the border color for floating panes.
-/// @prop {Color} flyout-shadow-color [rgba(0, 0, 0, .08)] - Sets the flyout shadow color.
+/// @prop {Color} flyout-shadow-color [igx-color: ('grays', 900, .8)] - Sets the flyout shadow color.
 /// @prop {Color} joystick-background [null] - Sets the background color of the joystick.
 /// @prop {Color} joystick-background-active [null] - Sets the background color of the joysticks.
 /// @prop {Color} joystick-border-color [igx-color: ('grays', 300)] - Sets the border color of the joystick.
 /// @prop {Color} joystick-icon-color [igx-color: ('grays', 600)] - Sets the color for the joystick icons.
 /// @prop {Color} joystick-icon-color-active [igx-contrast-color: 'surface'] - Sets the color of the active joystick icons.
-/// @prop {Color} pane-content-background [igx-color: ('primary', 100), rgba: .1, to-opaque: ()] - Sets the background color of the content panes.
+/// @prop {Color} pane-content-background [igx-color: ('primary', 100)] - Sets the background color of the content panes.
 /// @prop {Color} pane-content-text [null] - Sets the text color of the content panes.
 /// @prop {Color} pane-header-background [null] - Sets the background color for pane headers.
 /// @prop {Color} pane-header-text [null] - Sets the text color for pane headers.
@@ -35,7 +35,7 @@
 /// @prop {Color} pinned-header-text [null] - Sets the text colors of pinned headers.
 /// @prop {Color} splitter-background [igx-color: ('grays', 300)] - Sets the background color for the splitters.
 /// @prop {Color} splitter-handle [null] - Sets the background color for the splitter handles.
-/// @prop {Color} tab-background-active [igx-color: ('primary', 100), rgba: .1, to-opaque: ()] - Sets the background color for active tabs.
+/// @prop {Color} tab-background-active [igx-color: ('primary', 100)] - Sets the background color for active tabs.
 /// @prop {Color} tab-background [null] - Sets the background color for tabs.
 /// @prop {Color} tab-border-color [null] - Sets the border color for tabs.
 /// @prop {Color} tab-border-color-active [null] - Sets the border color for active tabs.
@@ -45,69 +45,101 @@
 /// @see $default-palette
 $light-dock-manager: (
     accent-color: null,
+
     active-color: (
         igx-color: primary,
     ),
-    background-color: null,
-    border-color: (
-        igx-color: ('primary', 100),
-        rgba: .1,
-        to-opaque: (),
+
+    background-color: (
+        igx-color: ('grays', 200)
     ),
+
+    border-color: (
+        igx-color: ('surface'),
+    ),
+
     button-text: (
         igx-color: ('grays', 800),
     ),
+
     context-menu-background-active: null,
+
     context-menu-background: null,
+
     context-menu-color-active: (
         igx-contrast-color: 'surface',
     ),
+
     context-menu-color: null,
-    dock-background: null,
-    dock-text: null,
-    drop-shadow-background: (
-        igx-color: ('primary', 500),
-        rgba: .2
+
+    dock-background: (
+        igx-color: ('grays', 50)
     ),
+
+    dock-text: null,
+
+    drop-shadow-background: (
+        igx-color: ('primary', 900, .1),
+    ),
+
     floating-pane-border-color: (
         igx-color: 'surface',
     ),
-    flyout-shadow-color: rgba(0, 0, 0, .08),
+
+    flyout-shadow-color: (
+        igx-color: ('grays', 900, .1)
+    ),
+
     joystick-background-active: null,
+
     joystick-background: null,
+
     joystick-border-color: (
         igx-color: ('grays', 300),
     ),
+
     joystick-icon-color: (
         igx-color: ('grays', 600),
     ),
+
     joystick-icon-color-active: (
         igx-contrast-color: 'surface',
     ),
+
     pane-content-background: (
-        igx-color: ('primary', 100),
-        rgba: .1,
-        to-opaque: (),
+        igx-color: ('surface'),
     ),
+
     pane-content-text: null,
-    pane-header-background: null,
+
+    pane-header-background: (
+        igx-color: ('grays', 200)
+    ),
+
     pane-header-text: null,
-    pinned-header-background: null,
+
+    pinned-header-background: (
+        igx-color: ('grays', 50)
+    ),
+
     pinned-header-text: null,
+
     splitter-background: (
         igx-color: ('grays', 300),
     ),
+
     splitter-handle: null,
+
     tab-background-active: (
-        igx-color: ('primary', 100),
-        rgba: .1,
-        to-opaque: (),
+        igx-color: ('surface'),
     ),
+
     tab-background: null,
     tab-border-color-active: null,
     tab-border-color: null,
     tab-text-active: null,
     tab-text: null,
+
     text-color: (
         igx-color: ('grays', 800),
     ),
@@ -115,106 +147,87 @@ $light-dock-manager: (
 
 /// Generates a fluent dock-manager schema.
 /// @type {Map}
-/// @prop {Color} background-color [igx-color: ('grays', 50), to-opaque: ()] - Sets the base dock manager color as well as the pane headers and tabs background colors.
-/// @prop {Color} border-color [igx-color: 'surface'] - Sets the global border color in the dock manager. Also sets the pane content background and the context menu active background colors.
-/// @prop {Color} context-menu-background-active [igx-color: ('grays', 200), to-opaque: ()] - Sets the background color for active context menus.
+/// @prop {Color} context-menu-background-active [igx-color: ('grays', 200)] - Sets the background color for active context menus.
 /// @prop {Color} context-menu-color-active [igx-color: ('grays', 800)] - Sets the text color for active context menus.
 /// @prop {Color} context-menu-color [igx-color: ('grays', 800)] - Sets the text color for active context menus.
-/// @prop {Color} dock-background [igx-color: ('grays', 50), to-opaque: ()] - Sets the background color of the dock manager.
-/// @prop {Color} floating-pane-border-color [igx-color: ('grays', 400), to-opaque: ()] - Sets the border color for floating panes.
-/// @prop {Color} joystick-background-active [igx-color: ('grays', 200), to-opaque: ()] - Sets the background color of the joysticks.
-/// @prop {Color} joystick-border-color [igx-color: ('grays', 400), to-opaque: ()] - Sets the border color of the joystick.
+/// @prop {Color} floating-pane-border-color [igx-color: ('grays', 400)] - Sets the border color for floating panes.
+/// @prop {Color} joystick-background-active [igx-color: ('grays', 200)] - Sets the background color of the joysticks.
+/// @prop {Color} joystick-border-color [igx-color: ('grays', 400)] - Sets the border color of the joystick.
 /// @prop {Color} joystick-icon-color [igx-color: ('grays', 800)] - Sets the color for the joystick icons.
 /// @prop {Color} joystick-icon-color-active [igx-color: ('grays', 800)] - Sets the color of the active joystick icons.
-/// @prop {Color} pane-content-background [igx-color: 'surface'] - Sets the background color of the content panes.
-/// @prop {Color} pane-header-background [igx-color: ('grays', 50), to-opaque: ()] - Sets the background color for pane headers.
-/// @prop {Color} splitter-background [igx-color: ('grays', 100), to-opaque: ()] - Sets the background color for the splitters.
-/// @prop {Color} splitter-handle [igx-color: ('grays', 400), rgba: .2, to-opaque: ()] - Sets the background color for the splitter handles.
-/// @prop {Color} tab-background-active [igx-color: 'surface'] - Sets the background color for active tabs.
+/// @prop {Color} pane-header-background [igx-color: ('grays', 100)] - Sets the background color for pane headers.
+/// @prop {Color} splitter-background [igx-color: ('grays', 100) - Sets the background color for the splitters.
+/// @prop {Color} splitter-handle [igx-color: ('grays', 400)] - Sets the background color for the splitter handles.
 /// @prop {Color} tab-background [igx-color: 'surface'] - Sets the background color for tabs.
 /// @prop {Color} tab-border-color [igx-color: 'surface'] - Sets the border color for tabs.
 /// @prop {Color} tab-border-color-active [igx-color: 'surface'] - Sets the border color for active tabs.
-/// @prop {Color} tab-text-active [igx-color: 'surface'] - Sets the text color for active tabs.
+/// @prop {Color} tab-text-active [igx-color: 'primary'] - Sets the text color for active tabs.
 /// @prop {Color} tab-text [igx-color: ('grays', 700)] - Sets the text color for tabs.
 /// @requires {function} extend
 /// @requires {Map} $light-dock-manager
 $fluent-dock-manager: extend(
     $light-dock-manager,
     (
-        background-color: (
-            igx-color: ('grays', 50),
-            to-opaque: (),
-        ),
-        border-color: (
-            igx-color: 'surface',
-        ),
         context-menu-background-active: (
             igx-color: ('grays', 200),
-            to-opaque: (),
         ),
+
         context-menu-color-active: (
             igx-color: ('grays', 800),
         ),
+
         context-menu-color: (
             igx-color: ('grays', 800),
         ),
-        dock-background: (
-            igx-color: ('grays', 50),
-            to-opaque: (),
-        ),
+
         floating-pane-border-color: (
             igx-color: ('grays', 400),
-            to-opaque: (),
         ),
+
         joystick-background-active: (
             igx-color: ('grays', 200),
-            to-opaque: (),
         ),
+
         joystick-border-color: (
             igx-color: ('grays', 400),
-            to-opaque: (),
         ),
+
         joystick-icon-color: (
             igx-color: ('grays', 800),
         ),
+
         joystick-icon-color-active: (
             igx-color: ('grays', 800),
         ),
-        pane-content-background: (
-            igx-color: 'surface',
-        ),
+
         pane-header-background: (
-            igx-color: ('grays', 50),
-            to-opaque: (),
+            igx-color: ('grays', 100),
         ),
-        pinned-header-background: (
-            igx-color: ('grays', 50),
-            to-opaque: (),
-        ),
+
         splitter-background: (
             igx-color: ('grays', 100),
-            to-opaque: (),
         ),
+
         splitter-handle: (
             igx-color: ('grays', 400),
-            rgba: .2,
-            to-opaque: (),
         ),
-        tab-background-active: (
-            igx-color: 'surface',
-        ),
+
         tab-background: (
             igx-color: 'surface',
         ),
+
         tab-border-color-active: (
             igx-color: 'surface',
         ),
+
         tab-border-color: (
             igx-color: 'surface',
         ),
+
         tab-text-active: (
             igx-color: 'primary',
         ),
+
         tab-text: (
             igx-color: ('grays', 700)
         ),
@@ -223,22 +236,19 @@ $fluent-dock-manager: extend(
 
 /// Generates a bootstrap dock-manager schema.
 /// @type {Map}
-/// @prop {Color} background-color [igx-color: ('grays', 100), to-opaque: ()] - Sets the base dock manager color as well as the pane headers and tabs background colors.
-/// @prop {Color} border-color [igx-color: 'surface'] - Sets the global border color in the dock manager. Also sets the pane content background and the context menu active background colors.
 /// @prop {Color} button-text [igx-color: 'primary'] - Sets the button text color.
+/// @prop {Color} context-menu-background [igx-color: 'surface'] - Sets the background color for context menus.
 /// @prop {Color} context-menu-background-active [igx-color: 'primary'] - Sets the background color for active context menus.
 /// @prop {Color} context-menu-color-active [igx-color: 'surface'] - Sets the text color for active context menus.
 /// @prop {Color} context-menu-color [igx-color: 'primary'] - Sets the text color for context menus.
-/// @prop {Color} dock-background [igx-color: ('grays', 100), to-opaque: ()] - Sets the background color of the dock manager.
+/// @prop {Color} dock-background [igx-color: ('grays', 100)] - Sets the background color of the dock manager.
 /// @prop {Color} floating-pane-border-color [igx-color: ('grays', 300)] - Sets the border color for floating panes.
 /// @prop {Color} joystick-background-active [igx-color: 'primary'] - Sets the background color of the joysticks.
 /// @prop {Color} joystick-icon-color [igx-color: 'primary'] - Sets the color for the joystick icons.
-/// @prop {Color} pane-content-background [igx-color: 'surface'] - Sets the background color of the content panes.
-/// @prop {Color} pane-header-background [igx-color: ('grays', 100), to-opaque: ()] - Sets the background color for pane headers.
-/// @prop {Color} pinned-header-background [igx-color: ('grays', 100), to-opaque: ()] - Sets the background colors of pinned headers.
-/// @prop {Color} splitter-background [igx-color: ('grays', 200), to-opaque: ()] - Sets the background color for the splitters.
-/// @prop {Color} splitter-handle [igx-color: ('grays', 400), rgba: .2, to-opaque: ()] - Sets the background color for the splitter handles.
-/// @prop {Color} tab-background-active [igx-color: 'surface'] - Sets the background color for active tabs.
+/// @prop {Color} pane-header-background [igx-color: ('grays', 100)] - Sets the background color for pane headers.
+/// @prop {Color} pinned-header-background [igx-color: ('grays', 100)] - Sets the background colors of pinned headers.
+/// @prop {Color} splitter-background [igx-color: ('grays', 200)] - Sets the background color for the splitters.
+/// @prop {Color} splitter-handle [igx-color: ('grays', 400)] - Sets the background color for the splitter handles.
 /// @prop {Color} tab-background [igx-color: 'surface'] - Sets the background color for tabs.
 /// @prop {Color} tab-border-color-active [igx-color: ('grays', 300)] - Sets the border color for active tabs.
 /// @prop {Color} tab-border-color [igx-color: 'surface'] - Sets the border color for tabs.
@@ -249,73 +259,74 @@ $fluent-dock-manager: extend(
 $bootstrap-dock-manager: extend(
     $light-dock-manager,
     (
-        background-color: (
-            igx-color: ('grays', 100),
-            to-opaque: (),
-        ),
-        border-color: (
-            igx-color: 'surface',
-        ),
         button-text: (
             igx-color: 'primary',
         ),
+
+        context-menu-background: (
+            igx-color: 'surface',
+        ),
+
         context-menu-background-active: (
             igx-color: 'primary',
         ),
+
         context-menu-color-active: (
             igx-color: 'surface',
         ),
+
         context-menu-color: (
             igx-color: 'primary',
         ),
+
         dock-background: (
             igx-color: ('grays', 100),
-            to-opaque: (),
         ),
+
         floating-pane-border-color: (
             igx-color: ('grays', 300),
         ),
+
         joystick-background-active: (
             igx-color: 'primary',
         ),
+
         joystick-icon-color: (
             igx-color: 'primary',
         ),
-        pane-content-background: (
-            igx-color: 'surface',
-        ),
+
         pane-header-background: (
             igx-color: ('grays', 100),
-            to-opaque: (),
         ),
+
         pinned-header-background: (
             igx-color: ('grays', 100),
-            to-opaque: (),
         ),
+
         splitter-background: (
             igx-color: ('grays', 200),
-            to-opaque: (),
         ),
+
         splitter-handle: (
             igx-color: ('grays', 400),
-            rgba: .2,
-            to-opaque: (),
         ),
-        tab-background-active: (
-            igx-color: 'surface',
-        ),
+
         tab-background: (
             igx-color: 'surface',
         ),
+
         tab-border-color-active: (
             igx-color: ('grays', 300)
         ),
+
         tab-border-color: (
             igx-color: 'surface',
         ),
+
         tab-text-active: (
             igx-color: ('grays', 800)
         ),
+
         tab-text: (
             igx-color: 'primary',
         ),
@@ -324,8 +335,7 @@ $bootstrap-dock-manager: extend(
 
 /// Generates a light indigo dock-manager schema.
 /// @type Map
-/// @prop {Color} background-color [igx-color: ('grays', 100), to-opaque: (igx-color: 'surface')] - Sets the base dock manager color as well as the pane headers and tabs background colors.
-/// @prop {Color} border-color [igx-color: 'surface'] - Sets the global border color in the dock manager. Also sets the pane content background and the context menu active background colors.
+/// @prop {Color} background-color [igx-color: ('grays', 100)] - Sets the base dock manager color as well as the pane headers and tabs background colors.
 /// @prop {Color} button-text [igx-color: 'primary'] - Sets the button text color.
 /// @prop {Color} context-menu-background-active [igx-color: 'primary'] - Sets the background color for active context menus.
 /// @prop {Color} context-menu-color-active [igx-contrast-color: 'primary'] - Sets the text color for active context menus.
@@ -335,12 +345,9 @@ $bootstrap-dock-manager: extend(
 /// @prop {Color} joystick-border-color [igx-color: ('primary', 50)] - Sets the border color of the joystick.
 /// @prop {Color} joystick-icon-color [igx-color: 'primary'] - Sets the color for the joystick icons.
 /// @prop {Color} joystick-icon-color-active [igx-contrast-color: 'primary'] - Sets the color of the active joystick icons.
-/// @prop {Color} pane-content-background [igx-color: 'surface'] - Sets the background color of the content panes.
-/// @prop {Color} pinned-header-background [igx-color: ('grays', 100), to-opaque: (igx-color: 'surface')] - Sets the background colors of pinned headers.
-/// @prop {Color} splitter-background [igx-color: ('grays',300), to-opaque: (igx-color: 'surface')] - Sets the background color for the splitters.
+/// @prop {Color} pinned-header-background [igx-color: ('grays', 100)] - Sets the background colors of pinned headers.
 /// @prop {Color} splitter-handle [igx-color: 'surface'] - Sets the background color for the splitter handles.
-/// @prop {Color} tab-background-active [igx-color: 'surface'] - Sets the background color for active tabs.
-/// @prop {Color} tab-background [igx-color: ('grays', 100), to-opaque: (igx-color: 'surface')] - Sets the background color for tabs.
+/// @prop {Color} tab-background [igx-color: ('grays', 100)] - Sets the background color for tabs.
 /// @prop {Color} tab-text-active [igx-color: ('grays', 900)] - Sets the text color for active tabs.
 /// @prop {Color} tab-text [igx-color: ('grays', 700)] - Sets the text color for tabs.
 /// @prop {Color} text-color [igx-color: ('grays', 900)] - Sets the text color for most elements in the dock manager. Used as the default joystick icon color.
@@ -351,73 +358,64 @@ $indigo-dock-manager: extend(
     (
         background-color: (
             igx-color: ('grays', 100),
-            to-opaque: (
-                igx-color: 'surface',
-            )
         ),
-        border-color: (
-            igx-color: 'surface',
-        ),
+
         button-text: (
             igx-color: 'primary',
         ),
+
         context-menu-background-active: (
             igx-color: 'primary',
         ),
+
         context-menu-color-active: (
             igx-contrast-color: 'primary',
         ),
+
         context-menu-color: (
             igx-color: ('grays', 700),
         ),
+
         joystick-background: (
             igx-color: ('primary', 50),
         ),
+
         joystick-background-active: (
             igx-color: 'primary',
         ),
+
         joystick-border-color: (
             igx-color: ('primary', 50),
         ),
+
         joystick-icon-color: (
             igx-color: 'primary',
         ),
+
         joystick-icon-color-active: (
             igx-contrast-color: 'primary',
         ),
-        pane-content-background: (
-            igx-color: 'surface',
-        ),
+
         pinned-header-background: (
             igx-color: ('grays', 100),
-            to-opaque: (
-                igx-color: 'surface',
-            )
         ),
-        splitter-background: (
-            igx-color: ('grays',300),
-            to-opaque: (
-                igx-color: 'surface',
-            )
-        ),
+
         splitter-handle: (
             igx-color: 'surface',
         ),
-        tab-background-active: (
-            igx-color: 'surface',
-        ),
+
         tab-background: (
             igx-color: ('grays', 100),
-            to-opaque: (
-                igx-color: 'surface',
-            )
         ),
+
         tab-text-active: (
             igx-color: ('grays', 900),
         ),
+
         tab-text: (
             igx-color: ('grays', 700),
         ),
+
         text-color: (
             igx-color: ('grays', 900),
         ),

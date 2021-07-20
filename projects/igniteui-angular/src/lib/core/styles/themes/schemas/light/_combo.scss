@@ -9,8 +9,8 @@
 /// Generates a light combo schema.
 /// @type {Map}
 /// @prop {Map} empty-list-background [igx-color: 'surface'] - The combo list background color.
-/// @prop {Map} search-separator-border-color [igx-color: 'surface', to-opaque: (), text-contrast: (), rgba: .12] - The combo search box separator color.
-/// @prop {Map} empty-list-placeholder-color [igx-color: 'surface', to-opaque: (), text-contrast: (), rgba: .26] - The combo placeholder text color.
+/// @prop {Map} search-separator-border-color [igx-color: ('grays', 500)] - The combo search box separator color.
+/// @prop {Map} empty-list-placeholder-color [igx-color: ('grays', 700)] - The combo placeholder text color.
 /// @see $default-palette
 $light-combo: (
     empty-list-background: (
@@ -18,17 +18,11 @@ $light-combo: (
     ),
 
     search-separator-border-color: (
-        igx-color: 'surface',
-        to-opaque: (),
-        text-contrast: (),
-        rgba: .12
+        igx-color: ('grays', 500),
     ),
 
     empty-list-placeholder-color: (
-        igx-color: 'surface',
-        to-opaque: (),
-        text-contrast: (),
-        rgba: .26
+        igx-color: ('grays', 700),
     )
 );
 
@@ -40,7 +34,7 @@ $fluent-combo: $light-combo;
 
 /// Generates a bootstrap combo schema.
 /// @type {Map}
-/// @prop {Color} empty-list-background [#fff] - The combo list background color.
+/// @prop {Color} empty-list-background [igx-color: ('surface')] - The combo list background color.
 /// @prop {Map} search-separator-border-color [igx-color: ('grays', 400)] - The combo search box separator color.
 /// @prop {Map} empty-list-placeholder-color [igx-color: ('grays', 600)] - The combo placeholder text color.
 /// @requires {function} extend
@@ -48,7 +42,9 @@ $fluent-combo: $light-combo;
 $bootstrap-combo: extend(
     $light-combo,
     (
-        empty-list-background: #fff,
+        empty-list-background: (
+            igx-color: ('surface')
+        ),
 
         search-separator-border-color: (
             igx-color: ('grays', 400)

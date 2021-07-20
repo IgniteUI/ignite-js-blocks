@@ -1,3 +1,4 @@
+@use '../../../base' as *;
 @use '../light/dialog' as *;
 
 ////
@@ -6,23 +7,49 @@
 /// @author <a href="https://github.com/simeonoff" target="_blank">Simeon Simeonoff</a>
 ////
 
+/// Generates a base dark dialog schema.
+/// @type {Map}
+/// @prop {Map} message-color [igx-color: ('grays', 500)] - The dialog message text color.
+$base-dark-dialog: (
+    message-color: (
+        igx-color: ('grays', 500)
+    ),
+);
+
 /// Generates a dark dialog schema.
 /// @type {Map}
+/// @requires {function} extend
 /// @requires $light-dialog
 /// @see $default-palette
-$dark-dialog: $light-dialog;
+/// @requires $base-dark-dialog
+$dark-dialog: extend($light-dialog, $base-dark-dialog);
 
 /// Generates a dark fluent dialog schema.
 /// @type {Map}
-/// @requires $luent-dialog
-$dark-fluent-dialog: $fluent-dialog;
+/// @requires {function} extend
+/// @requires $fluent-dialog
+/// @requires $base-dark-dialog
+$dark-fluent-dialog: extend($fluent-dialog, $base-dark-dialog);
 
 /// Generates a dark bootstrap dialog schema.
 /// @type {Map}
+/// @prop {Map} border-color [igx-color: ('grays', 100)] - The border color for dialog component.
+/// @requires {function} extend
 /// @requires $bootstrap-dialog
-$dark-bootstrap-dialog: $bootstrap-dialog;
+/// @requires $base-dark-dialog
+$dark-bootstrap-dialog: extend(
+    $bootstrap-dialog,
+    $base-dark-dialog,
+    (
+        border-color: (
+            igx-color: ('grays', 100)
+        )
+    )
+);
 
 /// Generates a dark indigo dialog schema.
 /// @type {Map}
+/// @requires {function} extend
 /// @requires $indigo-dialog
-$dark-indigo-dialog: $indigo-dialog;
+/// @requires $base-dark-dialog
+$dark-indigo-dialog: extend($indigo-dialog, $base-dark-dialog);

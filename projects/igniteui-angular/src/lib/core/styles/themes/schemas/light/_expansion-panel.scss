@@ -9,8 +9,8 @@
 
 /// Generates a light expansion panel schema.
 /// @type {Map}
-/// @prop {Color} header-background [#fff] - The panel header background color.
-/// @prop {Color} body-background [#fff] - The panel body background color.
+/// @prop {Map} header-background [igx-color: ('surface')] - The panel header background color.
+/// @prop {Map} body-background [igx-color: ('surface')] - The panel body background color.
 /// @prop {Map} header-focus-background [igx-color: ('grays', 100)] - The panel header focus background color.
 /// @prop {Map} header-title-color [igx-color: ('grays', 800)] - The panel header title text color.
 /// @prop {Map} header-description-color [igx-color: ('grays', 600)] - The panel header description text color.
@@ -26,8 +26,13 @@
 $light-expansion-panel: extend(
     $default-shape-expansion-panel,
     (
-        header-background: #fff,
-        body-background: #fff,
+        header-background: (
+            igx-color: ('surface')
+        ),
+
+        body-background: (
+            igx-color: ('surface')
+        ),
 
         header-focus-background: (
             igx-color: ('grays', 100)
@@ -76,7 +81,7 @@ $bootstrap-expansion-panel: extend(
 
 // Generates an indigo expansion panel schema.
 /// @type {Map}
-/// @prop {Map} header-focus-background [igx-color: ('primary', 500), rgba: .15] - The panel header focus background color.
+/// @prop {Map} header-focus-background [igx-color: ('primary', 500, .15)] - The panel header focus background color.
 /// @prop {Map} header-title-color [igx-color: ('grays', 900)] - The panel header title text color.
 /// @prop {Map} header-description-color [igx-color: ('grays', 700)] - The panel header description text color.
 /// @prop {Map} header-icon-color [igx-color: ('grays', 600)] - The panel header icon color.
@@ -103,8 +108,7 @@ $indigo-expansion-panel: extend(
         ),
 
         header-focus-background: (
-            igx-color: ('primary', 500),
-            rgba: .15
+            igx-color: ('primary', 500, .15),
         ),
 
         disabled-color: (

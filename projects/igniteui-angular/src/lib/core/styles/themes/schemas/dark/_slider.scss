@@ -7,60 +7,120 @@
 /// @author <a href="https://github.com/desig9stein" target="_blank">Marin Popov</a>
 ////
 
+/// Generates a dark base slider schema.
+/// @type {Map}
+/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 100)] - The thumb border color when its disabled
+/// @property {Map} disabled-thumb-color [igx-color: ('grays', 200)] - The thumb color when its disabled.
+/// @property {Map} disabled-base-track-color [igx-color: ('grays', 100)] - The base background color of the track when is disabled.
+/// @property {Map} tick-color [igx-color: ('grays', 100)] - The background-color of the tick.
+/// @property {Map} tick-color-tall [igx-color: ('grays', 100)] - The background-color of the tall tick.
+
+$dark-base-slider: (
+    tick-color:  (
+        igx-color: ('grays', 100)
+    ),
+
+    tick-color-tall:  (
+        igx-color: ('grays', 100)
+    ),
+
+    disabled-thumb-color: (
+        igx-color: ('grays', 200),
+    ),
+
+    disabled-base-track-color: (
+        igx-color: ('grays', 100)
+    ),
+
+    thumb-disabled-border-color: (
+        igx-color: ('grays', 100)
+    ),
+);
+
 /// Generates a dark slider schema.
 /// @type {Map}
+/// @property {Map} track-color [igx-color: ('secondary', 500)] - The thumb border color.
 /// @requires $light-slider
 /// @see $default-palette
-$dark-slider: $light-slider;
+$dark-slider: extend(
+    $light-slider,
+    $dark-base-slider,
+    (
+        track-color: (
+            igx-color: ('secondary', 500),
+        ),
+    )
+);
 
 /// Generates a dark fluent slider schema.
 /// @type {Map}
-/// @property {Map} track-color [igx-color: ('secondary', 700), to-opaque: #222] - The thumb border color.
-/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400), to-opaque: #222] - The thumb border color when its disabled
+/// @property {Map} track-color [igx-color: ('grays', 400)] - The thumb border color.
+/// @property {Map} thumb-border-color [igx-color: ('grays', 400)] - The thumb border color.
+/// @property {Map} base-track-color [igx-color: ('grays', 100)] - The base background color of the track.
 /// @requires {function} extend
 /// @requires $fluent-slider
+/// @requires $dark-base-slider
 $dark-fluent-slider: extend(
     $fluent-slider,
+    $dark-base-slider,
     (
         track-color: (
-            igx-color: ('grays', 700),
-            to-opaque: #222
+            igx-color: ('grays', 400),
         ),
 
-        thumb-disabled-border-color: (
-            igx-color: ('grays', 400),
-            to-opaque: #222
+        thumb-border-color: (
+            igx-color: ('grays', 400)
+        ),
+
+        base-track-color: (
+            igx-color: ('grays', 100),
         ),
     )
 );
 
 /// Generates a dark bootstrap slider schema.
 /// @type {Map}
-/// @property {Map} track-color [igx-color: ('secondary', 700), to-opaque: #222] - The thumb border color.
-/// @property {Map} thumb-disabled-border-color [igx-color: ('grays', 400), to-opaque: #222] - The thumb border color when its disabled
+/// @property {Map} track-color [igx-color: ('grays', 400)] - The thumb border color.
+/// @property {Map} thumb-border-color [igx-color: ('grays', 400)] - The thumb border color.
+/// @property {Map} base-track-color [igx-color: ('grays', 100)] - The base background color of the track.
 /// @requires {function} extend
 /// @requires $bootstrap-slider
-$dark-bootstrap-slider: extend($bootstrap-slider, (
-    track-color: (
-        igx-color: ('grays', 700),
-        to-opaque: #222
-    ),
+/// @requires $dark-base-slider
+$dark-bootstrap-slider: extend(
+    $bootstrap-slider,
+    $dark-base-slider,
+    (
+        track-color: (
+            igx-color: ('grays', 400),
+        ),
 
-    thumb-disabled-border-color: (
-        igx-color: ('grays', 400),
-        to-opaque: #222
-    ),
-));
+        thumb-border-color: (
+            igx-color: ('grays', 400)
+        ),
+
+        base-track-color: (
+            igx-color: ('grays', 100),
+        ),
+    )
+);
 
 /// Generates a dark indigo slider schema.
 /// @type {Map}
 ///
-/// @property {Map} base-track-hover-color [igx-color: ('grays', 600)] - The base background color of the track on hover.
-///
+/// @property {Map} base-track-color [igx-color: ('grays', 200)] - The base background color of the track.
+/// @property {Map} base-track-hover-color [igx-color: ('grays', 400)] - The base background color of the track on hover.
 /// @requires {function} extend
 /// @requires $indigo-slider
-$dark-indigo-slider: extend($indigo-slider, (
-    base-track-hover-color: (
-        igx-color: ('grays', 600)
-    ),
-));
+$dark-indigo-slider: extend(
+    $indigo-slider,
+    $dark-base-slider,
+    (
+        base-track-color: (
+            igx-color: ('grays', 200)
+        ),
+
+        base-track-hover-color: (
+            igx-color: ('grays', 400)
+        ),
+    )
+);

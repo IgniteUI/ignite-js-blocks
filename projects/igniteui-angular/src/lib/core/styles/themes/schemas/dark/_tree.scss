@@ -9,11 +9,11 @@
 
 /// Generates a base dark tree schema.
 /// @type {Map}
-/// @prop {Map} background-active [igx-color: ('grays', 300)] - The background color used for the active tree node.
-/// @prop {Map} foreground-active [igx-color: ('grays', 300)] - The color used for the content in active state of the tree node.
+/// @prop {Map} background-active [igx-color: ('grays', 100)] - The background color used for the active tree node.
+/// @prop {Map} foreground-active [igx-color: ('grays', 900)] - The color used for the content in active state of the tree node.
 $base-dark-tree: (
     background-active: (
-        igx-color: ('grays', 300),
+        igx-color: ('grays', 100),
     ),
 
     foreground-active: (
@@ -21,8 +21,8 @@ $base-dark-tree: (
     ),
 
     hover-color: (
-        igx-color: ('grays', 300)
-    )
+        igx-color: ('grays', 50, .1)
+    ),
 );
 
 /// Generates a dark tree schema.
@@ -34,7 +34,8 @@ $dark-tree: extend($light-tree, $base-dark-tree);
 
 /// Generates a dark fluent tree schema.
 /// @type {Map}
-/// @prop {Map} background-selected [igx-color: ('grays', 400)] - The background color used for the selected tree node.
+/// @prop {Map} background-active [igx-color: ('grays', 100)] - The background color used for the active tree node.
+/// @prop {Map} background-selected [igx-color: ('grays', 100)] - The background color used for the selected tree node.
 /// @prop {Map} foreground-selected [igx-color: ('grays', 900)] - The color used for the content of the selected tree node.
 /// @prop {Map} background-active-selected [igx-color: ('grays', 200)] - The background color used for the active selected tree node.
 /// @prop {Map} foreground-active-selected [igx-color: ('grays', 900)] - The color used for the content of the active selected tree node.
@@ -45,8 +46,12 @@ $dark-fluent-tree: extend(
     $fluent-tree,
     $base-dark-tree,
     (
-        backgroubd-selected: (
-            igx-color: ('grays', 400)
+        background-active: (
+            igx-color: ('grays', 100)
+        ),
+
+        background-selected: (
+            igx-color: ('grays', 100)
         ),
 
         foreground-selected: (
@@ -60,6 +65,10 @@ $dark-fluent-tree: extend(
         foreground-active-selected: (
             igx-color: ('grays', 900)
         ),
+
+        hover-color: (
+            igx-color: ('grays', 200, .5)
+        ),
     )
 );
 
@@ -68,11 +77,27 @@ $dark-fluent-tree: extend(
 /// @requires {function} extend
 /// @requires $bootstrap-tree
 /// @requires $base-dark-tree
-$dark-bootstrap-tree: extend($bootstrap-tree, $base-dark-tree);
+$dark-bootstrap-tree: extend(
+    $bootstrap-tree,
+    $base-dark-tree,
+    (
+        hover-color: (
+            igx-color: ('grays', 300, .3)
+        )
+    )
+);
 
 /// Generates a dark indigo tree schema.
 /// @type {Map}
 /// @requires {function} extend
 /// @requires $indigo-tree
 /// @requires $base-dark-tree
-$dark-indigo-tree: extend($indigo-tree, $base-dark-tree);
+$dark-indigo-tree: extend(
+    $indigo-tree,
+    $base-dark-tree,
+    (
+        hover-color: (
+            igx-color: ('primary', 200, .5)
+        )
+    )
+);

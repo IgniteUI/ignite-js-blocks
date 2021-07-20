@@ -7,39 +7,60 @@
 /// @author <a href="https://github.com/simeonoff" target="_blank">Simeon Simeonoff</a>
 ////
 
+/// Generates a base dark grid-toolbar schema.
+/// @property {Map} resting-background [igx-color: ('grays', 200)] - The background color used for the highlight in its resting state.
+/// @property {Map} resting-color [igx-contrast-color: ('grays', 200)] - The icon color used for the highlight in its resting state.
+/// @type {Map}
+$dark-base-highlight: (
+    resting-background: (
+        igx-color: ('grays', 200)
+    ),
+
+    resting-color: (
+        igx-contrast-color: ('grays', 200)
+    ),
+);
+
 /// Generates a dark highlight schema.
 /// @type {Map}
-/// @property {Map} resting-color [igx-color: ('grays', 300), to-opaque: #222, text-contrast: ()] - The icon color used for the highlight in its resting state.
 /// @requires {function} extend
 /// @requires $light-highlight
+/// @requires $dark-base-highlight
 /// @see $default-palette
-$dark-highlight: extend($light-highlight, (
-    resting-color: (
-        igx-color: ('grays', 300),
-        to-opaque: (#222),
-        text-contrast: ()
-    ),
-));
+$dark-highlight: extend($light-highlight, $dark-base-highlight);
 
 /// Generates a dark fluent highlight schema.
 /// @type {Map}
-/// @property {Map} resting-color [igx-color: ('grays', 300), to-opaque: #222, text-contrast: ()] - The icon color used for the highlight in its resting state.
 /// @requires {function} extend
 /// @requires $fluent-highlight
-$dark-fluent-highlight: extend($fluent-highlight, (
-    resting-color: (
-        igx-color: ('grays', 300),
-        to-opaque: (#222),
-        text-contrast: ()
-    ),
-));
+/// @requires $dark-base-highlight
+$dark-fluent-highlight: extend($fluent-highlight, $dark-base-highlight);
 
 /// Generates a dark bootstrap highlight schema.
+/// @type {Map}
+/// @property {Map} active-background [igx-color: ('primary', A100)] - The background color used for the highlight in its active state.
+/// @property {Map} active-color [igx-contrast-color: ('primary', A100) - The text color used for the highlight in its active state.
+/// @requires {function} extend
 /// @requires $bootstrap-highlight
-$dark-bootstrap-highlight: $bootstrap-highlight;
+/// @requires $dark-base-highlight
+$dark-bootstrap-highlight: extend(
+    $bootstrap-highlight,
+    $dark-base-highlight,
+    (
+        active-background: (
+            igx-color: ('primary', 'A100')
+        ),
+
+        active-color: (
+            igx-contrast-color: ('primary', 'A100'),
+        ),
+    )
+);
 
 /// Generates a dark indigo highlight schema.
 /// @type {Map}
+/// @requires {function} extend
 /// @requires $indigo-highlight
-$dark-indigo-highlight: $indigo-highlight;
+/// @requires $dark-base-highlight
+$dark-indigo-highlight: extend($indigo-highlight, $dark-base-highlight);
 

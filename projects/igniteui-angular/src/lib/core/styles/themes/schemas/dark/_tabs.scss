@@ -9,11 +9,16 @@
 
 /// Generates a base dark tabs schema.
 /// @type {Map}
-/// @prop {Color} item-background [#222] - The background color used for the tabs header.
-/// @prop {Color} button-background [#222] - The color used for the button background.
+/// @property {Map} item-hover-background [igx-color: ('grays', 100, .5)] - The background used for the tabs on hover.
+/// @property {Map} item-active-background [igx-color: ('grays', 100, .5)] - The color used for the active/focused tab background.
 $base-dark-tabs: (
-    item-background: #222,
-    button-background: #222
+    item-hover-background: (
+        igx-color: ('grays', 100, .5)
+    ),
+
+    item-active-background: (
+        igx-color: ('grays', 100, .5)
+    ),
 );
 
 /// Generates a dark tabs schema based on a mix of $light-tabs and $base-dark-tabs.
