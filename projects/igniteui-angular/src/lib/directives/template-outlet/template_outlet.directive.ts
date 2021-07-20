@@ -31,9 +31,10 @@ export class IgxTemplateOutletDirective implements OnChanges {
 
     /**
      * The embedded views cache. Collection is key-value paired.
-     * Key is the template id, value is the embedded view for the related template.
+     * Key is the template type, value is another key-value paired collection
+     * where the key is the template id and value is the embedded view for the related template.
      */
-    private _embeddedViewsMap: Map<string, EmbeddedViewRef<any>> = new Map();
+    private _embeddedViewsMap: Map<string, Map<any, EmbeddedViewRef<any>>> = new Map();
 
     constructor(public _viewContainerRef: ViewContainerRef, private _zone: NgZone, public cdr: ChangeDetectorRef) {
     }
@@ -49,19 +50,23 @@ export class IgxTemplateOutletDirective implements OnChanges {
     }
 
     public cleanCache() {
-        this._embeddedViewsMap.forEach((item) => {
-            if (!item.destroyed) {
-                item.destroy();
-            }
+        this._embeddedViewsMap.forEach((collection) => {
+            collection.forEach((item => {
+                if (!item.destroyed) {
+                    item.destroy();
+                }
+            }));
+            collection.clear();
         });
         this._embeddedViewsMap.clear();
     }
 
     public cleanView(tmplID) {
-        const embView = this._embeddedViewsMap.get(tmplID);
+        const embViewCollection = this._embeddedViewsMap.get(tmplID.type);
+        const embView = embViewCollection?.get(tmplID.id);
         if (embView) {
             embView.destroy();
-            this._embeddedViewsMap.delete(tmplID);
+            this._embeddedViewsMap.get(tmplID.type).delete(tmplID.id);
         }
     }
 
@@ -81,9 +86,11 @@ export class IgxTemplateOutletDirective implements OnChanges {
                 // if context contains a template id, check if we have a view for that template already stored in the cache
                 // if not create a copy and add it to the cache in detached state.
                 // Note: Views in detached state do not appear in the DOM, however they remain stored in memory.
-                const res = this._embeddedViewsMap.get(this.igxTemplateOutletContext['templateID']);
+                const resCollection = this._embeddedViewsMap.get(this.igxTemplateOutletContext['templateID'].type);
+                const res = resCollection?.get(this.igxTemplateOutletContext['templateID'].id);
                 if (!res) {
-                    this._embeddedViewsMap.set(this.igxTemplateOutletContext['templateID'], this._viewRef);
+                    this._embeddedViewsMap.set(this.igxTemplateOutletContext['templateID'].type,
+                        new Map([[this.igxTemplateOutletContext['templateID'].id, this._viewRef]]));
                 }
             }
         }
@@ -115,7 +122,7 @@ export class IgxTemplateOutletDirective implements OnChanges {
         // use view for specific template cached in the current template outlet
         const tmplID = this.igxTemplateOutletContext['templateID'];
         const cachedView = tmplID ?
-            this._embeddedViewsMap.get(tmplID) :
+            this._embeddedViewsMap.get(tmplID.type)?.get(tmplID.id) :
             null;
         // if view exists, but template has been changed and there is a view in the cache with the related template
         // then detach old view and insert the stored one with the matching template
@@ -171,7 +178,7 @@ export class IgxTemplateOutletDirective implements OnChanges {
         const movedView = this.igxTemplateOutletContext['moveView'];
         const tmplID = this.igxTemplateOutletContext['templateID'];
         const cachedView = tmplID ?
-            this._embeddedViewsMap.get(tmplID) :
+            this._embeddedViewsMap.get(tmplID.type)?.get(tmplID.id) :
             null;
         const shouldRecreate = this._shouldRecreateView(changes);
         if (movedView) {
