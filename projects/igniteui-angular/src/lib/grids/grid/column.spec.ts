@@ -129,7 +129,7 @@ describe('IgxGrid - Column properties #grid', () => {
         expect(grid.columnList.first.formatter).toBeDefined();
 
         for (let i = 0; i < 3; i++) {
-            const cell = grid.getCellByColumn(i, 'ID');
+            const cell = grid.gridAPI.get_cell_by_index(i, 'ID');
             expect(cell.nativeElement.textContent).toMatch(formatter(cell.value));
         }
     });
@@ -295,17 +295,17 @@ describe('IgxGrid - Column properties #grid', () => {
 
         const grid = fixture.componentInstance.instance;
 
-        grid.getColumnByName('Name').cells.forEach(c =>
+        grid.getColumnByName('Name')._cells.forEach(c =>
             expect(c.nativeElement.querySelector('.customCellTemplate')).toBeDefined());
 
         grid.headerCellList.forEach(header =>
             expect(header.nativeElement.querySelector('.customHeaderTemplate')).toBeDefined());
 
         const cell = grid.getCellByColumn(0, 'ID');
-        cell.setEditMode(true);
+        cell.editMode = true;
         fixture.detectChanges();
 
-        expect(cell.nativeElement.querySelector('.customEditorTemplate')).toBeDefined();
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.querySelector('.customEditorTemplate')).toBeDefined();
 
     });
 
@@ -319,8 +319,8 @@ describe('IgxGrid - Column properties #grid', () => {
         const secondColumn = grid.columns[1];
 
         expect(firstColumn.additionalTemplateContext).toEqual(contextObject);
-        expect(firstColumn.cells[0].nativeElement.innerText).toEqual(contextObject.property1);
-        expect(secondColumn.cells[0].nativeElement.innerText).toEqual(contextObject.property2);
+        expect(firstColumn._cells[0].nativeElement.innerText).toEqual(contextObject.property1);
+        expect(secondColumn._cells[0].nativeElement.innerText).toEqual(contextObject.property2);
     });
 
     it('should apply column\'s formatter programmatically', () => {
@@ -335,7 +335,7 @@ describe('IgxGrid - Column properties #grid', () => {
         const rowCount = grid.rowList.length;
         for (let i = 0; i < rowCount; i++) {
             // Check the display value
-            expect(grid.getCellByColumn(i, 'Name').nativeElement.textContent).toBe(expectedVal[i]);
+            expect(grid.gridAPI.get_cell_by_index(i, 'Name').nativeElement.textContent).toBe(expectedVal[i]);
             // Check the cell's value is not changed
             expect(grid.getCellByColumn(i, 'Name').value).toBe(expectedVal[i]);
         }
@@ -348,7 +348,7 @@ describe('IgxGrid - Column properties #grid', () => {
         expect(col.formatter).toBeDefined();
         for (let i = 0; i < rowCount; i++) {
             // Check the cell's formatter value(display value)
-            expect(grid.getCellByColumn(i, 'Name').nativeElement.textContent).toBe(expectedValToLower[i]);
+            expect(grid.gridAPI.get_cell_by_index(i, 'Name').nativeElement.textContent).toBe(expectedValToLower[i]);
             // Check the cell's value is not changed
             expect(grid.getCellByColumn(i, 'Name').value).toBe(expectedVal[i]);
         }
@@ -459,10 +459,10 @@ describe('IgxGrid - Column properties #grid', () => {
             const grid = fix.componentInstance.grid;
             const unitsColumn = grid.getColumnByName('UnitsInStock');
 
-            expect(unitsColumn.cells[0].nativeElement.innerText).toEqual('$2,760');
-            expect(unitsColumn.cells[5].nativeElement.innerText).toEqual('$1,098');
-            expect(unitsColumn.cells[6].nativeElement.innerText).toEqual('$0');
-            expect(unitsColumn.cells[8].nativeElement.innerText).toEqual('$6,998');
+            expect(unitsColumn._cells[0].nativeElement.innerText).toEqual('$2,760');
+            expect(unitsColumn._cells[5].nativeElement.innerText).toEqual('$1,098');
+            expect(unitsColumn._cells[6].nativeElement.innerText).toEqual('$0');
+            expect(unitsColumn._cells[8].nativeElement.innerText).toEqual('$6,998');
 
             unitsColumn.pipeArgs = {
                 digitsInfo: '3.4-4',
@@ -471,10 +471,10 @@ describe('IgxGrid - Column properties #grid', () => {
             };
             fix.detectChanges();
 
-            expect(unitsColumn.cells[0].nativeElement.innerText).toEqual('$2,760.0000');
-            expect(unitsColumn.cells[5].nativeElement.innerText).toEqual('$1,098.0000');
-            expect(unitsColumn.cells[6].nativeElement.innerText).toEqual('$000.0000');
-            expect(unitsColumn.cells[8].nativeElement.innerText).toEqual('$6,998.0000');
+            expect(unitsColumn._cells[0].nativeElement.innerText).toEqual('$2,760.0000');
+            expect(unitsColumn._cells[5].nativeElement.innerText).toEqual('$1,098.0000');
+            expect(unitsColumn._cells[6].nativeElement.innerText).toEqual('$000.0000');
+            expect(unitsColumn._cells[8].nativeElement.innerText).toEqual('$6,998.0000');
 
         });
 
@@ -485,20 +485,20 @@ describe('IgxGrid - Column properties #grid', () => {
             const grid = fix.componentInstance.grid;
             const unitsColumn = grid.getColumnByName('UnitsInStock');
 
-            expect(unitsColumn.cells[8].nativeElement.innerText).toEqual('$6,998');
+            expect(unitsColumn._cells[8].nativeElement.innerText).toEqual('$6,998');
             grid.locale = 'fr-FR';
             fix.detectChanges();
 
-            expect(unitsColumn.cells[8].nativeElement.innerText).toEqual('6 998 €');
-            expect(unitsColumn.cells[5].nativeElement.innerText).toEqual('1 098 €');
-            expect(unitsColumn.cells[3].nativeElement.innerText).toEqual('0 €');
+            expect(unitsColumn._cells[8].nativeElement.innerText).toEqual('6 998 €');
+            expect(unitsColumn._cells[5].nativeElement.innerText).toEqual('1 098 €');
+            expect(unitsColumn._cells[3].nativeElement.innerText).toEqual('0 €');
 
             grid.locale = 'ja';
             fix.detectChanges();
 
-            expect(unitsColumn.cells[8].nativeElement.innerText).toEqual('￥6,998');
-            expect(unitsColumn.cells[5].nativeElement.innerText).toEqual('￥1,098');
-            expect(unitsColumn.cells[3].nativeElement.innerText).toEqual('￥0');
+            expect(unitsColumn._cells[8].nativeElement.innerText).toEqual('￥6,998');
+            expect(unitsColumn._cells[5].nativeElement.innerText).toEqual('￥1,098');
+            expect(unitsColumn._cells[3].nativeElement.innerText).toEqual('￥0');
         });
 
         it('should display the currency symbol in edit mode correctly according the grid locale #ivy', fakeAsync(() => {
@@ -510,7 +510,7 @@ describe('IgxGrid - Column properties #grid', () => {
             unitsColumn.editable = true;
             fix.detectChanges();
 
-            let firstCell = unitsColumn.cells[0];
+            let firstCell = unitsColumn._cells[0];
 
             expect(firstCell.nativeElement.innerText).toEqual('$2,760');
 
@@ -532,7 +532,7 @@ describe('IgxGrid - Column properties #grid', () => {
             fix.detectChanges();
             tick();
 
-            firstCell = grid.getCellByColumn(0, 'UnitsInStock');
+            firstCell = grid.gridAPI.get_cell_by_index(0, 'UnitsInStock');
             expect(grid.locale).toEqual('fr-FR');
             expect(firstCell.nativeElement.innerText).toEqual('2 760 €');
 
@@ -623,9 +623,9 @@ describe('IgxGrid - Column properties #grid', () => {
             const grid = fix.componentInstance.grid;
             let discountColumn = grid.getColumnByName('Discount');
 
-            expect(discountColumn.cells[0].nativeElement.innerText).toEqual('27%');
-            expect(discountColumn.cells[5].nativeElement.innerText).toEqual('2.7%');
-            expect(discountColumn.cells[8].nativeElement.innerText).toEqual('12.3%');
+            expect(discountColumn._cells[0].nativeElement.innerText).toEqual('27%');
+            expect(discountColumn._cells[5].nativeElement.innerText).toEqual('2.7%');
+            expect(discountColumn._cells[8].nativeElement.innerText).toEqual('12.3%');
 
             discountColumn.pipeArgs = {
                 digitsInfo: '3.2-2',
@@ -639,9 +639,9 @@ describe('IgxGrid - Column properties #grid', () => {
             fix.detectChanges();
 
             discountColumn = grid.getColumnByName('Discount');
-            expect(discountColumn.cells[0].nativeElement.innerText).toEqual('027.00%');
-            expect(discountColumn.cells[5].nativeElement.innerText).toEqual('002.70%');
-            expect(discountColumn.cells[8].nativeElement.innerText).toEqual('012.30%');
+            expect(discountColumn._cells[0].nativeElement.innerText).toEqual('027.00%');
+            expect(discountColumn._cells[5].nativeElement.innerText).toEqual('002.70%');
+            expect(discountColumn._cells[8].nativeElement.innerText).toEqual('012.30%');
         });
 
         it('should be able to change the locale runtime ', () => {
@@ -651,7 +651,7 @@ describe('IgxGrid - Column properties #grid', () => {
             const grid = fix.componentInstance.grid;
             let discountColumn = grid.getColumnByName('Discount');
 
-            expect(discountColumn.cells[8].nativeElement.innerText).toEqual('12.3%');
+            expect(discountColumn._cells[8].nativeElement.innerText).toEqual('12.3%');
             grid.locale = 'fr-FR';
             fix.detectChanges();
 
@@ -662,8 +662,8 @@ describe('IgxGrid - Column properties #grid', () => {
             fix.detectChanges();
 
             discountColumn = grid.getColumnByName('Discount');
-            expect(discountColumn.cells[8].nativeElement.innerText).toEqual('12,3 %');
-            expect(discountColumn.cells[5].nativeElement.innerText).toEqual('2,7 %');
+            expect(discountColumn._cells[8].nativeElement.innerText).toEqual('12,3 %');
+            expect(discountColumn._cells[5].nativeElement.innerText).toEqual('2,7 %');
         });
 
         it('should preview the percent value correctly when cell is in edit mode correctly', fakeAsync(() => {
@@ -675,7 +675,7 @@ describe('IgxGrid - Column properties #grid', () => {
             discountColumn.editable = true;
             fix.detectChanges();
 
-            let firstCell = discountColumn.cells[0];
+            let firstCell = discountColumn._cells[0];
 
             expect(firstCell.nativeElement.innerText).toEqual('27%');
 
@@ -702,7 +702,7 @@ describe('IgxGrid - Column properties #grid', () => {
             grid.gridAPI.crudService.endEdit(true);
             fix.detectChanges();
 
-            firstCell = discountColumn.cells[0];
+            firstCell = discountColumn._cells[0];
             expect(firstCell.nativeElement.innerText).toEqual('33%');
         }));
 
@@ -774,9 +774,9 @@ describe('IgxGrid - Column properties #grid', () => {
             const grid = fix.componentInstance.grid;
             let orderDateColumn = grid.getColumnByName('OrderDate');
 
-            expect(orderDateColumn.cells[0].nativeElement.innerText).toEqual('Oct 1, 2015, 11:37:22 AM');
-            expect(orderDateColumn.cells[5].nativeElement.innerText).toEqual('Oct 30, 2019, 4:17:27 PM');
-            expect(orderDateColumn.cells[8].nativeElement.innerText).toEqual('Aug 3, 2021, 3:15:00 PM');
+            expect(orderDateColumn._cells[0].nativeElement.innerText).toEqual('Oct 1, 2015, 11:37:22 AM');
+            expect(orderDateColumn._cells[5].nativeElement.innerText).toEqual('Oct 30, 2019, 4:17:27 PM');
+            expect(orderDateColumn._cells[8].nativeElement.innerText).toEqual('Aug 3, 2021, 3:15:00 PM');
 
             orderDateColumn.pipeArgs = { format: 'short' };
             fix.detectChanges();
@@ -788,9 +788,9 @@ describe('IgxGrid - Column properties #grid', () => {
             fix.detectChanges();
 
             orderDateColumn = grid.getColumnByName('OrderDate');
-            expect(orderDateColumn.cells[0].nativeElement.innerText).toEqual('10/1/15, 11:37 AM');
-            expect(orderDateColumn.cells[5].nativeElement.innerText).toEqual('10/30/19, 4:17 PM');
-            expect(orderDateColumn.cells[8].nativeElement.innerText).toEqual('8/3/21, 3:15 PM');
+            expect(orderDateColumn._cells[0].nativeElement.innerText).toEqual('10/1/15, 11:37 AM');
+            expect(orderDateColumn._cells[5].nativeElement.innerText).toEqual('10/30/19, 4:17 PM');
+            expect(orderDateColumn._cells[8].nativeElement.innerText).toEqual('8/3/21, 3:15 PM');
         });
 
         it('should display correctly the data when column dataType is time #ivy', () => {
@@ -800,8 +800,8 @@ describe('IgxGrid - Column properties #grid', () => {
             const grid = fix.componentInstance.grid;
             let receiveTime = grid.getColumnByName('ReceiveTime');
 
-            expect(receiveTime.cells[0].nativeElement.innerText).toEqual('8:37:11 AM');
-            expect(receiveTime.cells[5].nativeElement.innerText).toEqual('12:47:42 PM');
+            expect(receiveTime._cells[0].nativeElement.innerText).toEqual('8:37:11 AM');
+            expect(receiveTime._cells[5].nativeElement.innerText).toEqual('12:47:42 PM');
 
             receiveTime.pipeArgs = { format: 'shortTime' };
             fix.detectChanges();
@@ -813,8 +813,8 @@ describe('IgxGrid - Column properties #grid', () => {
             fix.detectChanges();
 
             receiveTime = grid.getColumnByName('ReceiveTime');
-            expect(receiveTime.cells[0].nativeElement.innerText).toEqual('8:37 AM');
-            expect(receiveTime.cells[5].nativeElement.innerText).toEqual('12:47 PM');
+            expect(receiveTime._cells[0].nativeElement.innerText).toEqual('8:37 AM');
+            expect(receiveTime._cells[5].nativeElement.innerText).toEqual('12:47 PM');
         });
 
         it('DateTime: should preview the dateTime value correctly when cell is in edit mode correctly', fakeAsync(() => {
@@ -826,7 +826,7 @@ describe('IgxGrid - Column properties #grid', () => {
             orderColumn.editable = true;
             fix.detectChanges();
 
-            const firstCell = orderColumn.cells[0];
+            const firstCell = orderColumn._cells[0];
 
             expect(firstCell.nativeElement.innerText).toEqual('Oct 1, 2015, 11:37:22 AM');
 
@@ -861,7 +861,7 @@ describe('IgxGrid - Column properties #grid', () => {
             timeColumn.editable = true;
             fix.detectChanges();
 
-            const cell = timeColumn.cells[1];
+            const cell = timeColumn._cells[1];
 
             expect(cell.nativeElement.innerText).toEqual('12:12:02 PM');
 

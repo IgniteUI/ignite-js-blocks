@@ -179,7 +179,7 @@ export class IgxGridRowPinningPipe implements PipeTransform {
         const grid = this.gridAPI.grid;
 
         if (grid.hasPinnedRecords && isPinned) {
-            const result = collection.filter(rec => !grid.isSummaryRecord(rec) && grid.isRecordPinned(rec));
+            const result = collection.filter(rec => !grid.isSummaryRow(rec) && grid.isRecordPinned(rec));
             result.sort((rec1, rec2) => grid.getInitialPinnedIndex(rec1) - grid.getInitialPinnedIndex(rec2));
             return result;
         }
@@ -190,7 +190,7 @@ export class IgxGridRowPinningPipe implements PipeTransform {
             return isPinned ? [] : collection;
         }
 
-        return collection.map((rec) => !grid.isSummaryRecord(rec) &&
+        return collection.map((rec) => !grid.isSummaryRow(rec) &&
             grid.isRecordPinned(rec) ? { recordRef: rec, ghostRecord: true } : rec);
     }
 }

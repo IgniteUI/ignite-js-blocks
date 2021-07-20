@@ -1,37 +1,25 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import {
     IgxGridComponent,
-    RowType,
     IgxTreeGridComponent,
     IgxHierarchicalGridComponent,
-    IPinningConfig,
-    RowPinningPosition,
-    IRowDragStartEventArgs,
-    GridSummaryCalculationMode,
-    GridSummaryPosition
+    CellType
 } from 'igniteui-angular';
 import { HIERARCHICAL_SAMPLE_DATA } from '../shared/sample-data';
 
 @Component({
-    selector: 'app-grid-row-api-sample',
-    styleUrls: ['grid-row-api.sample.css'],
-    templateUrl: 'grid-row-api.sample.html'
+    selector: 'app-grid-cell-api-sample',
+    styleUrls: ['grid-cell-api.sample.css'],
+    templateUrl: 'grid-cell-api.sample.html',
+    // providers: [
+    //     { provide: IgxGridTransaction, useClass: IgxTransactionService }
+    // ],
 })
 
-export class GridRowAPISampleComponent implements OnInit {
+export class GridCellAPISampleComponent implements OnInit {
     @ViewChild('grid', { static: true })
     private grid: IgxGridComponent;
 
-    @ViewChild('targetGrid', { static: true })
-    private targetGrid: IgxGridComponent;
-
-    @ViewChild('treeGridHier', { static: true })
-    private treeGridHier: IgxTreeGridComponent;
-
-    @ViewChild('hGrid', { static: true })
-    private hGrid: IgxTreeGridComponent;
-    public countIcon = 'drag_indicator';
-    public dragIcon = 'arrow_right_alt';
     public data2: any;
     public data: any[];
     public treeGridHierData: any[];
@@ -42,28 +30,29 @@ export class GridRowAPISampleComponent implements OnInit {
     public treeColumns: any[];
     public treeData: any[];
 
-    public index = 0;
-    public tIndex = 0;
-    public tHIndex = 0;
-    public hIndex = 0;
+    public index = '00';
+    public tIndex = '00';
+    public tHIndex = '00';
+    public hIndex = '00';
 
-    public key = '';
-    public tKey = '';
-    public tHKey = '';
-    public hKey = '';
+    public cellKey = 'ALFKI';
+    public tCellKey = '0';
+    public tHCellKey = 'ALFKI';
+    public hCellKey = '0';
 
-    public pinningConfig: IPinningConfig = { rows: RowPinningPosition.Top };
+    public columnField = 'ContactName';
+    public tcolumnField = 'Salary';
+    public tHcolumnField = 'ContactName';
+    public hcolumnField = 'ProductName';
+
+    public selectedCell: CellType;
 
     constructor(private renderer: Renderer2) { }
 
     public ngOnInit(): void {
-			this.grid.summaryCalculationMode = GridSummaryCalculationMode.childLevelsOnly;
-			this.grid.summaryPosition = GridSummaryPosition.bottom;
-
-			this.treeGridHier.summaryCalculationMode = GridSummaryCalculationMode.childLevelsOnly;
         this.columns = [
             { field: 'ID', width: '200px', hidden: true },
-            { field: 'CompanyName', width: '200px', groupable: true },
+            { field: 'CompanyName', header: 'Company Name', width: '200px', groupable: true },
             { field: 'ContactName', width: '200px', pinned: false, groupable: true },
             { field: 'ContactTitle', width: '300px', pinned: false, groupable: true },
             { field: 'Address', width: '250px' },
@@ -176,45 +165,28 @@ export class GridRowAPISampleComponent implements OnInit {
         /* eslint-enable max-len */
     }
 
-    public togglePinning(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent,
-        byIndex: boolean, index: number, key: any) {
-        const row: RowType = byIndex ? grid.getRowByIndex(index) : grid.getRowByKey(key);
-        const index2: number = row.index;
-        if (row.pinned) {
-            row.unpin();
-        } else {
-            row.pin();
-        }
+    public updateCell(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, indices: string,
+        logger: HTMLElement) {
+        const indxs = this.getIndices(indices);
+        const cell = grid.getCellByColumnVisibleIndex(indxs[0], indxs[1]);
+        cell.update('New Value');
+        this.logState(grid, indices, logger);
     }
 
-
-    public deleteRow(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, index: number) {
-        const row = grid.getRowByIndex(index);
-        row.delete();
+    public select(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, indices: string, logger: HTMLElement) {
+        const indxs = this.getIndices(indices);
+        const cell = grid.getCellByColumnVisibleIndex(indxs[0], indxs[1]);
+        cell.selected = !cell.selected;
+        this.selectedCell = cell;
+        this.logState(grid, indices, logger);
     }
 
-    public toggle(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, index: number) {
-        const row = grid.getRowByIndex(index);
-        row.expanded = !row.expanded;
-    }
-
-    public select(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, index: number) {
-        const row = grid.getRowByIndex(index);
-        row.selected = !row.selected;
-    }
-
-    public selectChildren(grid: IgxGridComponent | IgxTreeGridComponent, index: number) {
-        const row = grid.getRowByIndex(index);
-        const children = row.children;
-        children.forEach(ch => {
-            ch.selected = !ch.selected;
-        });
-    }
-
-    public selectParent(grid: IgxGridComponent | IgxTreeGridComponent, index: number) {
-        const row = grid.getRowByIndex(index);
-        const parent = row.parent;
-        parent.selected = !parent.selected;
+    public setEditMode(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, indices: string,
+        logger: HTMLElement) {
+        const indxs = this.getIndices(indices);
+        const cell = grid.getCellByColumnVisibleIndex(indxs[0], indxs[1]);
+        cell.editMode = !cell.editMode;
+        this.logState(grid, indices, logger);
     }
 
     public generateDataUneven(count: number, level: number, parendID: string = null) {
@@ -250,34 +222,38 @@ export class GridRowAPISampleComponent implements OnInit {
         });
     }
 
-    public logState(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, index: number, logger: HTMLElement) {
+    public logState(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, indices: string, logger: HTMLElement) {
         this.clearLog(logger);
-        const row = grid.getRowByIndex(index);
-        const state = `
-            index: ${row.index},
-            viewIndex: ${row.viewIndex},
-            -----------------------------,
-            isSummaryRow: ${row.isSummaryRow},
-            summaries: ${row.summaries},
-            -----------------------------,
-            isGroupByRow: ${row.isGroupByRow},
-            groupByRow: ${row.groupRow?.value},
-            -----------------------------,
-            parent: ${row.parent},
-            expanded: ${row.expanded},
-            key: ${row.key},
-            pinned: ${row.pinned},
-            deleted: ${row.deleted},
-            inEditMode: ${row.inEditMode},
-            selected: ${row.selected},
-            hasChildren: ${row.hasChildren},
-            disabled: ${row.disabled},
-            --------------------------------,
-            cells.length: ${row.cells?.length}`;
-            // firstCell: ${row.cells[0].value},
-            // lastCell: ${row.cells[row.cells.length - 1].value}`;
+        const indxs = this.getIndices(indices);
+        const cell = grid.getCellByColumnVisibleIndex(indxs[0], indxs[1]);
+        let state: string;
+        let states: string[];
 
-        const states = state.split(',');
+        if (cell) {
+            state = `
+						value: ${cell.value},
+						selected: ${cell.selected},
+						editable: ${cell.editable},
+						editMode: ${cell.editMode},
+						editValue: ${cell.editValue},
+						-----------------------------,
+						colIndex: ${cell.column.index},
+						visibleColIndex: ${cell.column.visibleIndex},
+						colField: ${cell.column.field},
+						-----------------------------,
+						rowIndex: ${cell.row.index},
+						rowKey: ${cell.row.key},
+						rowData: ${cell.row.data},
+						-----------------------------,
+						gridId: ${cell.grid.id},
+						cellID: ${cell.cellID},
+						width: ${cell.width}`;
+
+            states = state.split(',');
+        } else {
+            states = [`Cell is: ${cell}`];
+        }
+
         const createElem = this.renderer.createElement('p');
 
         states.forEach(st => {
@@ -289,35 +265,101 @@ export class GridRowAPISampleComponent implements OnInit {
         this.renderer.insertBefore(logger, createElem, logger.children[0]);
     }
 
-    public onRowDragEnd(args) {
-        args.animation = true;
-    }
+    public logStateByKey(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, key: any,
+    field: string, logger: HTMLElement) {
+        this.clearLog(logger);
+        const cell = grid.getCellByKey(key, field);
+        let state: string;
+        let states: string[];
 
-    public onDropAllowed(args) {
-        let selected = false;
-        const ids = this.grid.selectedRows;
-        const selectedRowData = this.grid.data.filter((record) => ids.includes(record.ID));
-        selectedRowData.forEach((rowData) => {
-            selected = true;
-            this.targetGrid.addRow(rowData);
-            this.grid.deleteRow(rowData.ID);
-        });
-        if (selected === false) {
-            this.targetGrid.addRow(args.dragData.rowData);
-            // this.grid.deleteRow(args.dragData.rowID);
+        if (cell) {
+            state = `
+                value: ${cell.value},
+                selected: ${cell.selected},
+                editable: ${cell.editable},
+                editMode: ${cell.editMode},
+                editValue: ${cell.editValue},
+                -----------------------------,
+                colIndex: ${cell.column.index},
+                visibleColIndex: ${cell.column.visibleIndex},
+                colField: ${cell.column.field},
+                -----------------------------,
+                rowIndex: ${cell.row.index},
+                rowKey: ${cell.row.key},
+                rowData: ${cell.row.data},
+                -----------------------------,
+                gridId: ${cell.grid.id},
+                cellID: ${cell.cellID},
+                width: ${cell.width}`;
+
+            states = state.split(',');
+        } else {
+            states = [`Cell is: ${cell}`];
         }
+
+        const createElem = this.renderer.createElement('p');
+
+        states.forEach(st => {
+            const text = this.renderer.createText(st);
+            this.renderer.appendChild(createElem, text);
+            this.renderer.appendChild(createElem, this.renderer.createElement('br'));
+        });
+
+        this.renderer.insertBefore(logger, createElem, logger.children[0]);
     }
 
-    public onEnter(args) {
-        this.dragIcon = 'add';
+    public logStateByColumn(grid: IgxGridComponent | IgxTreeGridComponent | IgxHierarchicalGridComponent, indices: string,
+    field: string, logger: HTMLElement) {
+        this.clearLog(logger);
+        const indxs = this.getIndices(indices);
+        const cell = grid.getCellByColumn(indxs[0], field);
+        let state: string;
+        let states: string[];
+
+        if (cell) {
+            state = `
+						value: ${cell.value},
+						selected: ${cell.selected},
+						editable: ${cell.editable},
+						editMode: ${cell.editMode},
+						editValue: ${cell.editValue},
+						-----------------------------,
+						colIndex: ${cell.column.index},
+						visibleColIndex: ${cell.column.visibleIndex},
+						colField: ${cell.column.field},
+						-----------------------------,
+						rowIndex: ${cell.row.index},
+						rowKey: ${cell.row.key},
+						rowData: ${cell.row.data},
+						-----------------------------,
+						gridId: ${cell.grid.id},
+						cellID: ${cell.cellID},
+						width: ${cell.width}`;
+
+            states = state.split(',');
+        } else {
+            states = [`Cell is: ${cell}`];
+        }
+
+        const createElem = this.renderer.createElement('p');
+
+        states.forEach(st => {
+            const text = this.renderer.createText(st);
+            this.renderer.appendChild(createElem, text);
+            this.renderer.appendChild(createElem, this.renderer.createElement('br'));
+        });
+
+        this.renderer.insertBefore(logger, createElem, logger.children[0]);
     }
-    public onRowDragStart(args: IRowDragStartEventArgs) {
-        const row = args.dragData;
-        const count = this.grid.selectedRows.length || 1;
-        this.countIcon = `filter_${count > 9 ? '9_plus' : `${count}`}`;
-    }
-    public onLeave(args) {
-        this.onRowDragStart(args);
-        this.dragIcon = 'arrow_right_alt';
+
+    private getIndices(indices: string): number[] {
+        if (indices.length === 1) {
+            indices = `0${indices}`;
+        }
+        let nums: number[] = indices.split('').map(n => parseInt(n, 10));
+        if (nums.length === 0) {
+            nums = [0, 0];
+        }
+        return nums;
     }
 }

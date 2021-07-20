@@ -234,6 +234,11 @@ export class AppComponent implements OnInit {
             name: 'Grid Row API'
         },
         {
+            link: '/gridCellAPI',
+            icon: 'view_column',
+            name: 'Grid Cell API'
+        },
+        {
             link: '/gridColumnResizing',
             icon: 'view_column',
             name: 'Grid Column Resizing'

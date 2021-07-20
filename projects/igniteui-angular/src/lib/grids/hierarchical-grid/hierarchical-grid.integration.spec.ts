@@ -229,10 +229,10 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
             hierarchicalGrid.expandRow(hierarchicalGrid.dataRowList.first.rowID);
             childGrid.updateRow({ ProductName: 'Changed' }, '00');
             fixture.detectChanges();
-            expect(childGrid.getCellByColumn(0, 'ProductName').nativeElement.innerText).toEqual('Changed');
+            expect(childGrid.gridAPI.get_cell_by_index(0, 'ProductName').nativeElement.innerText).toEqual('Changed');
             childGrid.transactions.clear();
             fixture.detectChanges();
-            expect(childGrid.getCellByColumn(0, 'ProductName').nativeElement.innerText).toEqual('Product: A0');
+            expect(childGrid.gridAPI.get_cell_by_index(0, 'ProductName').nativeElement.innerText).toEqual('Product: A0');
         }));
 
         it('should return correctly the rowData', () => {
@@ -822,13 +822,13 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
             expect(childGrid.unpinnedColumns.length).toBe(1);
             // check cells
             expect(childGrid.gridAPI.get_row_by_index(0).cells.length).toBe(3);
-            let cell = childGrid.getCellByColumn(0, 'ChildLevels');
+            let cell = childGrid.gridAPI.get_cell_by_index(0, 'ChildLevels');
             expect(cell.visibleColumnIndex).toEqual(0);
             expect(GridFunctions.isCellPinned(cell)).toBeTruthy();
-            cell = childGrid.getCellByColumn(0, 'ProductName');
+            cell = childGrid.gridAPI.get_cell_by_index(0, 'ProductName');
             expect(cell.visibleColumnIndex).toEqual(1);
             expect(GridFunctions.isCellPinned(cell)).toBeTruthy();
-            cell = childGrid.getCellByColumn(0, 'ID');
+            cell = childGrid.gridAPI.get_cell_by_index(0, 'ID');
             expect(cell.visibleColumnIndex).toEqual(2);
             expect(GridFunctions.isCellPinned(cell)).toBeFalsy();
         }));
@@ -842,7 +842,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
             fixture.detectChanges();
             const rightMostGridPart = hierarchicalGrid.nativeElement.getBoundingClientRect().right;
             const leftMostGridPart = hierarchicalGrid.nativeElement.getBoundingClientRect().left;
-            const leftMostRightPinnedCellsPart = hierarchicalGrid.getCellByColumn(0, 'ID').nativeElement.getBoundingClientRect().left;
+            const leftMostRightPinnedCellsPart = hierarchicalGrid.gridAPI.get_cell_by_index(0, 'ID')
+                .nativeElement.getBoundingClientRect().left;
             const pinnedCellWidth = hierarchicalGrid.getCellByColumn(0, 'ID').width;
             // Expects that right pinning has been in action
             expect(leftMostGridPart).not.toEqual(leftMostRightPinnedCellsPart);

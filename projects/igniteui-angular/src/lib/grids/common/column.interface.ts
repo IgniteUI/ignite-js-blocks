@@ -44,7 +44,6 @@ export interface ColumnType {
     width: string;
     topLevelParent?: ColumnType;
     parent?: ColumnType;
-    hasLastPinnedChildColumn: boolean;
     pipeArgs: IColumnPipeArgs;
     hasNestedPath: boolean;
     defaultTimeFormat: string;

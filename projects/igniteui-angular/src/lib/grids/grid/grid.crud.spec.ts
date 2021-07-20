@@ -329,7 +329,9 @@ describe('IgxGrid - CRUD operations #grid', () => {
 
         const cell = grid.getCellByKey(rowID, columnName);
         expect(grid.data.length).toBe(11);
-        expect(cell).toBeUndefined();
+        expect(cell.row.index).toBe(7);
+        expect(cell.row.key).toBe(rowID);
+        expect(cell.column.field).toBe(columnName);
 
         grid.updateCell( 97, rowID, columnName);
         fix.detectChanges();

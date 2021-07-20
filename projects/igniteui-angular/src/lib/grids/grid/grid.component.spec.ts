@@ -729,7 +729,7 @@ describe('IgxGrid Component Tests #grid', () => {
             const initialScroll = grid.verticalScrollContainer.getScroll().scrollTop;
             const initialHorScroll = grid.rowList.first.virtDirRow.getScroll().scrollLeft;
 
-            const cell = grid.getCellByColumn(3, 'value');
+            const cell = grid.gridAPI.get_cell_by_index(3, 'value');
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
 

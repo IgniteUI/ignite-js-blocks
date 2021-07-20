@@ -241,7 +241,7 @@ describe('IgxGrid - Column Moving #grid', () => {
             let columnsList = grid.columnList.toArray();
 
             // step 1 - select a cell from 'ID' column
-            const cell = grid.getCellByColumn(0, 'ID');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'ID');
             UIInteractions.simulateClickAndSelectEvent(cell);
             fixture.detectChanges();
 
@@ -663,7 +663,7 @@ describe('IgxGrid - Column Moving #grid', () => {
             const headers: DebugElement[] = fixture.debugElement.queryAll(By.css(COLUMN_HEADER_CLASS));
 
             // step 1 - select a cell from 'ID' column
-            const cell = grid.getCellByColumn(0, 'ID');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'ID');
             UIInteractions.simulateClickAndSelectEvent(cell);
             fixture.detectChanges();
 
@@ -867,7 +867,7 @@ describe('IgxGrid - Column Moving #grid', () => {
             let headers: DebugElement[] = fixture.debugElement.queryAll(By.css(COLUMN_HEADER_CLASS));
 
             // step 1 - select a cell from the 'ID' column
-            const cell = grid.getCellByColumn(0, 'ID');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'ID');
             cell.activate(null);
             fixture.detectChanges();
             expect(cell.selected).toBeTruthy();
@@ -914,7 +914,7 @@ describe('IgxGrid - Column Moving #grid', () => {
             let columnsList = grid.columnList.toArray();
 
             // step 1 - select a cell from the 'ID' column
-            const cell = grid.getCellByColumn(0, 'ID');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'ID');
             cell.activate(null);
             fixture.detectChanges();
             expect(cell.selected).toBeTruthy();
@@ -935,7 +935,7 @@ describe('IgxGrid - Column Moving #grid', () => {
             const headers: DebugElement[] = fixture.debugElement.queryAll(By.css(COLUMN_HEADER_CLASS));
 
             // step 1 - select a visible cell from the 'ID' column
-            const cell = grid.getCellByColumn(0, 'ID');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'ID');
             UIInteractions.simulateClickAndSelectEvent(cell);
             fixture.detectChanges();
             expect(cell.selected).toBeTruthy();
@@ -973,7 +973,7 @@ describe('IgxGrid - Column Moving #grid', () => {
             await wait(100);
             fixture.detectChanges();
 
-            const cell = grid.getCellByColumn(25, 'Phone');
+            const cell = grid.gridAPI.get_cell_by_index(25, 'Phone');
             const selectedData = [{ Phone: '40.32.21.21'}];
             UIInteractions.simulateClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -1883,7 +1883,7 @@ describe('IgxGrid - Column Moving #grid', () => {
         it('MCH - should not break selection and keyboard navigation when reordering columns.', (async () => {
 
             // step 1 - select a cell from 'ContactName' column
-            const cell = grid.getCellByColumn(0, 'ContactName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
             UIInteractions.simulateClickAndSelectEvent(cell);
             fixture.detectChanges();
 

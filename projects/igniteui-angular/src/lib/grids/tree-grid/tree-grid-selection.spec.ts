@@ -1,7 +1,7 @@
 import { TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { SortingDirection } from '../../data-operations/sorting-expression.interface';
 import { IgxTreeGridComponent } from './tree-grid.component';
-import { IgxTreeGridModule, IgxGridCellComponent } from './public_api';
+import { IgxGridCell, IgxTreeGridModule } from './public_api';
 import { IgxTreeGridCellComponent } from './tree-cell.component';
 import {
     IgxTreeGridSimpleComponent,
@@ -798,14 +798,14 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
 
             let treeGridCell = TreeGridFunctions.getTreeCell(rows[0]);
             UIInteractions.simulateClickAndSelectEvent(treeGridCell);
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
 
             // perform 2 clicks and check selection again
             treeGridCell = TreeGridFunctions.getTreeCell(rows[0]);
@@ -815,7 +815,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
         });
 
         it('should return the correct type of cell when clicking on child cells', () => {
@@ -826,7 +826,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             UIInteractions.simulateClickAndSelectEvent(treeGridCell);
             fix.detectChanges();
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(147);
 
             // level 2
@@ -834,7 +834,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             UIInteractions.simulateClickAndSelectEvent(treeGridCell);
             fix.detectChanges();
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(475);
 
             // level 3
@@ -842,7 +842,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             UIInteractions.simulateClickAndSelectEvent(treeGridCell);
             fix.detectChanges();
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(957);
         });
 
@@ -853,7 +853,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(TreeGridFunctions.verifyGridCellHasSelectedClass(treeGridCell)).toBe(true);
 
             // Clicking on the pager buttons triggers a blur event.
@@ -872,7 +872,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(TreeGridFunctions.verifyGridCellHasSelectedClass(treeGridCell)).toBe(true);
 
             GridFunctions.navigateToLastPage(treeGrid.nativeElement);
@@ -894,7 +894,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(TreeGridFunctions.verifyGridCellHasSelectedClass(treeGridCell)).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(147);
 
@@ -904,7 +904,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(TreeGridFunctions.verifyGridCellHasSelectedClass(treeGridCell)).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(847);
         }));
@@ -931,7 +931,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(147);
         });
 
@@ -942,14 +942,14 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(147);
 
             treeGrid.sort({ fieldName: 'ID', dir: SortingDirection.Desc, ignoreCase: false });
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(847);
         });
 
@@ -960,21 +960,21 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(147);
 
             treeGrid.deleteRow(847);
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(147);
 
             treeGrid.deleteRow(147);
             fix.detectChanges();
 
             expect(treeGrid.selectedCells.length).toBe(1);
-            expect(treeGrid.selectedCells[0] instanceof IgxTreeGridCellComponent).toBe(true);
+            expect(treeGrid.selectedCells[0] instanceof IgxGridCell).toBe(true);
             expect(treeGrid.selectedCells[0].value).toBe(19);
         });
     });
@@ -1004,7 +1004,7 @@ describe('IgxTreeGrid - Selection #tGrid', () => {
             expect(treeGrid.selectedRows.length).toBeGreaterThan(0);
 
             // enter edit mode
-            targetCell.setEditMode(true);
+            targetCell.editMode = true;
             tick(16);
             fix.detectChanges();
 

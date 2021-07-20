@@ -102,18 +102,18 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             const childGridLevel1 = hierarchicalGrid.hgridAPI.getChildGrids(false)[0];
             childGridLevel1.cellSelection = GridSelectionMode.single;
             fix.detectChanges();
-            const startCell = hierarchicalGrid.getCellByColumn(2, 'ID');
+            const startCell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ID');
 
             UIInteractions.simulatePointerOverElementEvent('pointerdown', startCell.nativeElement);
             fix.detectChanges();
 
-            let cell = hierarchicalGrid.getCellByColumn(2, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
             GridSelectionFunctions.verifyCellsRegionSelected(hierarchicalGrid, 2, 2, 0, 1);
 
-            cell = hierarchicalGrid.getCellByColumn(3, 'ChildLevels');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(3, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
             UIInteractions.simulatePointerOverElementEvent('pointerup', cell.nativeElement);
@@ -123,15 +123,15 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             GridSelectionFunctions.verifySelectedRange(hierarchicalGrid, 2, 3, 0, 1);
             expect(startCell.active).toBe(true);
 
-            cell = childGridLevel1.getCellByColumn(0, 'ChildLevels');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(0, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerdown', cell.nativeElement);
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(1, 'ChildLevels');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(1, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(3, 'ProductName');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(3, 'ProductName');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
@@ -146,7 +146,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             childGridLevel1.cellSelection = GridSelectionMode.none;
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(2, 'ID');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(2, 'ID');
             UIInteractions.simulateClickAndSelectEvent(cell.nativeElement, true);
             fix.detectChanges();
 
@@ -154,12 +154,12 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             expect(cell.selected).toBeFalse();
             expect(childGridLevel1.getSelectedRanges().length).toBe(0);
 
-            cell = hierarchicalGrid.getCellByColumn(2, 'ID');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ID');
 
             UIInteractions.simulatePointerOverElementEvent('pointerdown', cell.nativeElement);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(2, 'ChildLevels');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
             UIInteractions.simulatePointerOverElementEvent('pointerup', cell.nativeElement);
@@ -179,24 +179,24 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             await wait(30);
             expect(row.expanded).toBeTruthy();
 
-            const startCell = hierarchicalGrid.getCellByColumn(1, 'ID');
+            const startCell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ID');
 
             UIInteractions.simulatePointerOverElementEvent('pointerdown', startCell.nativeElement);
             fix.detectChanges();
 
-            let cell = hierarchicalGrid.getCellByColumn(1, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
             GridSelectionFunctions.verifyCellsRegionSelected(hierarchicalGrid, 1, 1, 0, 1);
 
-            cell = hierarchicalGrid.getCellByColumn(2, 'ChildLevels');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
             GridSelectionFunctions.verifyCellsRegionSelected(hierarchicalGrid, 1, 2, 0, 1);
 
-            cell = hierarchicalGrid.getCellByColumn(3, 'ChildLevels');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(3, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
@@ -206,7 +206,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             await wait(100);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(5, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(5, 'ProductName');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
@@ -228,33 +228,33 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             tick(30);
             expect(row.expanded).toBeTruthy();
 
-            const startCell = hierarchicalGrid.getCellByColumn(2, 'ID');
+            const startCell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ID');
 
             UIInteractions.simulatePointerOverElementEvent('pointerdown', startCell.nativeElement);
             fix.detectChanges();
 
-            let cell = hierarchicalGrid.getCellByColumn(2, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
             GridSelectionFunctions.verifyCellsRegionSelected(hierarchicalGrid, 2, 2, 0, 1);
 
-            cell = hierarchicalGrid.getCellByColumn(3, 'ChildLevels');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(3, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
             GridSelectionFunctions.verifyCellsRegionSelected(hierarchicalGrid, 2, 3, 0, 1);
 
             const childGridLevel1 = hierarchicalGrid.hgridAPI.getChildGrids(false)[0];
-            cell = childGridLevel1.getCellByColumn(0, 'ChildLevels');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(0, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(1, 'ChildLevels');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(1, 'ChildLevels');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(3, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(3, 'ProductName');
             UIInteractions.simulatePointerOverElementEvent('pointerenter', cell.nativeElement);
             fix.detectChanges();
 
@@ -271,7 +271,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             hierarchicalGrid.displayDensity = 'compact';
             fix.detectChanges();
 
-            let cell = hierarchicalGrid.getCellByColumn(1, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -280,12 +280,12 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             tick(100);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(1, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ProductName');
             UIInteractions.triggerKeyDownEvtUponElem('arrowdown', cell.nativeElement, true, false, true, false);
             tick(100);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(2, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ProductName');
             UIInteractions.triggerKeyDownEvtUponElem('arrowdown', cell.nativeElement, true, false, true, false);
             tick(100);
             fix.detectChanges();
@@ -308,7 +308,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
 
             const childGridLevel1 = hierarchicalGrid.hgridAPI.getChildGrids(false)[0];
 
-            let cell = childGridLevel1.getCellByColumn(1, 'ChildLevels');
+            let cell = childGridLevel1.gridAPI.get_cell_by_index(1, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -317,12 +317,12 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             tick(100);
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(1, 'ProductName');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(1, 'ProductName');
             UIInteractions.triggerKeyDownEvtUponElem('arrowdown', cell.nativeElement, true, false, true, false);
             tick(100);
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(2, 'ProductName');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(2, 'ProductName');
             UIInteractions.triggerKeyDownEvtUponElem('arrowdown', cell.nativeElement, true, false, true, false);
             tick(100);
             fix.detectChanges();
@@ -343,7 +343,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             await wait(30);
             expect(forthRow.expanded).toBeTruthy();
 
-            let cell = hierarchicalGrid.getCellByColumn(1, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -355,7 +355,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             await wait(100);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(5, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(5, 'ProductName');
             UIInteractions.simulateClickAndSelectEvent(cell, true);
             fix.detectChanges();
 
@@ -375,7 +375,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             await wait(30);
             expect(forthRow.expanded).toBeTruthy();
 
-            let cell = hierarchicalGrid.getCellByColumn(1, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -387,7 +387,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             await wait(100);
             fix.detectChanges();
 
-            cell = hierarchicalGrid.getCellByColumn(5, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(5, 'ProductName');
             UIInteractions.simulateClickAndSelectEvent(cell, true);
             fix.detectChanges();
 
@@ -396,7 +396,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             GridSelectionFunctions.verifyCellsRegionSelected(hierarchicalGrid, 1, 5, 1, 2);
             GridSelectionFunctions.verifySelectedRange(hierarchicalGrid, 1, 5, 1, 2);
 
-            cell = hierarchicalGrid.getCellByColumn(5, 'ID');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(5, 'ID');
             UIInteractions.simulateClickAndSelectEvent(cell, false, true);
             fix.detectChanges();
 
@@ -415,12 +415,12 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             expect(row.expanded).toBeTruthy();
             const childGridLevel1 = hierarchicalGrid.hgridAPI.getChildGrids(false)[0];
 
-            let cell = hierarchicalGrid.getCellByColumn(2, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell, false, true);
             fix.detectChanges();
 
-            cell = childGridLevel1.getCellByColumn(0, 'ProductName');
+            cell = childGridLevel1.gridAPI.get_cell_by_index(0, 'ProductName');
             UIInteractions.simulateClickAndSelectEvent(cell, false, true);
             fix.detectChanges();
 
@@ -428,7 +428,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             expect(cell.selected).toBeTrue();
             GridSelectionFunctions.verifySelectedRange(childGridLevel1, 0, 0, 2, 2);
 
-            cell = hierarchicalGrid.getCellByColumn(0, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(0, 'ProductName');
 
             UIInteractions.simulateClickAndSelectEvent(cell, false, true);
             fix.detectChanges();
@@ -447,7 +447,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             tick(30);
             expect(row.expanded).toBeTruthy();
 
-            let cell = hierarchicalGrid.getCellByColumn(1, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(1, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -455,7 +455,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             expect(cell.selected).toBeTrue();
             expect(cell.active).toBeTrue();
 
-            cell = hierarchicalGrid.getCellByColumn(4, 'ChildLevels');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(4, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell, true);
             fix.detectChanges();
@@ -480,7 +480,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             tick(30);
             expect(row.expanded).toBeTruthy();
 
-            let cell = hierarchicalGrid.getCellByColumn(2, 'ChildLevels');
+            let cell = hierarchicalGrid.gridAPI.get_cell_by_index(2, 'ChildLevels');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -493,7 +493,7 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
 
             expect(hierarchicalGrid.getSelectedRanges().length).toBe(0);
 
-            cell = hierarchicalGrid.getCellByColumn(0, 'ProductName');
+            cell = hierarchicalGrid.gridAPI.get_cell_by_index(0, 'ProductName');
 
             UIInteractions.simulateClickAndSelectEvent(cell, true);
             fix.detectChanges();

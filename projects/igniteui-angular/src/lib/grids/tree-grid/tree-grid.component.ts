@@ -51,6 +51,9 @@ import { IgxSummaryRow, IgxTreeGridRow } from '../grid-public-row';
 import { RowType } from '../common/row.interface';
 import { IgxGridCRUDService } from '../common/crud.service';
 import { IgxTreeGridGroupByAreaComponent } from '../grouping/tree-grid-group-by-area.component';
+import { IgxGridCell } from '../grid-public-cell';
+import { CellType } from '../common/cell.interface';
+import { DeprecateMethod } from '../../core/deprecateDecorators';
 import { IgxHierarchicalTransactionFactory } from '../../services/transaction/transaction-factory.service';
 import { IgxColumnResizingService } from '../resizing/resizing.service';
 import { DOCUMENT } from '@angular/common';
@@ -413,6 +416,26 @@ export class IgxTreeGridComponent extends IgxGridBaseDirective implements GridTy
     }
 
     /**
+     * @deprecated
+     * Returns a `CellType` object that matches the conditions.
+     *
+     * @example
+     * ```typescript
+     * const myCell = this.grid1.getCellByColumnVisibleIndex(2,"UnitPrice");
+     * ```
+     * @param rowIndex
+     * @param index
+     */
+    @DeprecateMethod('`getCellByColumnVisibleIndex` is deprecated. Use `getCellByColumn` or `getCellByKey` instead')
+    public getCellByColumnVisibleIndex(rowIndex: number, index: number): CellType {
+        const row = this.getRowByIndex(rowIndex);
+        const column = this.columnList.find((col) => col.visibleIndex === index);
+        if (row && row instanceof IgxTreeGridRow && column) {
+            return new IgxGridCell(this, rowIndex, column.field);
+        }
+    }
+
+    /**
      * @hidden
      */
     public ngOnInit() {
@@ -699,6 +722,75 @@ export class IgxTreeGridComponent extends IgxGridBaseDirective implements GridTy
         return new IgxTreeGridRow(this, index, rec);
     }
 
+    /**
+     * Returns the collection of all RowType for current page.
+     *
+     * @hidden @internal
+     */
+    public allRows(): RowType[] {
+        return this.dataView.map((rec, index) => this.createRow(index));
+    }
+
+    /**
+     * Returns the collection of `IgxTreeGridRow`s for current page.
+     *
+     * @hidden @internal
+     */
+    public dataRows(): RowType[] {
+        return this.allRows().filter(row => row instanceof IgxTreeGridRow);
+    }
+
+    /**
+     * Returns an array of the selected `IgxGridCell`s.
+     *
+     * @example
+     * ```typescript
+     * const selectedCells = this.grid.selectedCells;
+     * ```
+     */
+    public get selectedCells(): CellType[] {
+        return this.dataRows().map((row) => row.cells.filter((cell) => cell.selected))
+            .reduce((a, b) => a.concat(b), []);
+    }
+
+    /**
+     * Returns a `CellType` object that matches the conditions.
+     *
+     * @example
+     * ```typescript
+     * const myCell = this.grid1.getCellByColumn(2, "UnitPrice");
+     * ```
+     * @param rowIndex
+     * @param columnField
+     */
+    public getCellByColumn(rowIndex: number, columnField: string): CellType {
+        const row = this.getRowByIndex(rowIndex);
+        const column = this.columnList.find((col) => col.field === columnField);
+        if (row && row instanceof IgxTreeGridRow && column) {
+            return new IgxGridCell(this, rowIndex, columnField);
+        }
+    }
+
+    /**
+     * Returns a `CellType` object that matches the conditions.
+     *
+     * @remarks
+     * Requires that the primaryKey property is set.
+     * @example
+     * ```typescript
+     * grid.getCellByKey(1, 'index');
+     * ```
+     * @param rowSelector match any rowID
+     * @param columnField
+     */
+    public getCellByKey(rowSelector: any, columnField: string): CellType {
+        const row = this.getRowByKey(rowSelector);
+        const column = this.columnList.find((col) => col.field === columnField);
+        if (row && column) {
+            return new IgxGridCell(this, row.index, columnField);
+        }
+    }
+
     public pinRow(rowID: any, index?: number): boolean {
         const row = this.getRowByKey(rowID);
         return super.pinRow(rowID, index, row);
@@ -725,6 +817,27 @@ export class IgxTreeGridComponent extends IgxGridBaseDirective implements GridTy
     /** @hidden */
     public isTreeRow(record: any): boolean {
         return record.rowID !== undefined && record.data;
+    }
+
+    /**
+     * @hidden
+     */
+    public createRow(index: number): RowType {
+        let row: RowType;
+        const rec: any = this.dataView[index];
+
+        if (this.isSummaryRow(rec)) {
+            row = new IgxSummaryRow(this, index, rec.summaries, GridInstanceType.TreeGrid);
+        }
+
+        if (!row && rec) {
+            const isTreeRow = this.isTreeRow(rec);
+            const data = isTreeRow ? rec.data : rec;
+            const treeRow = isTreeRow ? rec : undefined;
+            row = new IgxTreeGridRow(this, index, data, treeRow);
+        }
+
+        return row;
     }
 
     /**
@@ -833,27 +946,6 @@ export class IgxTreeGridComponent extends IgxGridBaseDirective implements GridTy
             this.columnList.reset(nonColumnLayoutColumns);
         }
         super.initColumns(collection, cb);
-    }
-
-    /**
-     * @hidden
-     */
-    protected createRow(index: number): RowType {
-        let row: RowType;
-        const rec: any = this.dataView[index];
-
-        if (this.isSummaryRecord(rec)) {
-            row = new IgxSummaryRow(this, index, rec.summaries, GridInstanceType.TreeGrid);
-        }
-
-        if (!row && rec) {
-            const isTreeRow = this.isTreeRow(rec);
-            const data = isTreeRow ? rec.data : rec;
-            const treeRow = isTreeRow ? rec : undefined;
-            row = new IgxTreeGridRow(this, index, data, treeRow);
-        }
-
-        return row;
     }
 
     /**

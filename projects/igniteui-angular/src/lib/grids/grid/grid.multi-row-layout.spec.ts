@@ -132,10 +132,10 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         const grid = fixture.componentInstance.grid;
         // col span is 3 => columns should have grid width - scrollbarWitdh/3 width
         // check columns
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(200 * 3);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(200 * 3);
 
         // check group blocks
         let groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -162,15 +162,15 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
 
         // col span is 6 => columns should have grid width - scrollbarWitdh/6 width
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(150);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(150);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(150);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(150 * 3);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(150);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(150);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(150);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(150 * 3);
 
-        expect(grid.getCellByColumn(0, 'Fax').nativeElement.offsetWidth).toBe(150);
-        expect(grid.getCellByColumn(0, 'Region').nativeElement.offsetWidth).toBe(150);
-        expect(grid.getCellByColumn(0, 'PostalCode').nativeElement.offsetWidth).toBe(150);
-        expect(grid.getCellByColumn(0, 'Country').nativeElement.offsetWidth).toBe(150 * 3);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Fax').nativeElement.offsetWidth).toBe(150);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Region').nativeElement.offsetWidth).toBe(150);
+        expect(grid.gridAPI.get_cell_by_index(0, 'PostalCode').nativeElement.offsetWidth).toBe(150);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Country').nativeElement.offsetWidth).toBe(150 * 3);
 
         // check group blocks
         groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -195,17 +195,17 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
 
         // col span is 8 => min-width exceeded should use 136px
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(136 * 3);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(136 * 3);
 
-        expect(grid.getCellByColumn(0, 'Fax').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'Region').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'PostalCode').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'Country').nativeElement.offsetWidth).toBe(136 * 3);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Fax').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Region').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'PostalCode').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Country').nativeElement.offsetWidth).toBe(136 * 3);
 
-        expect(grid.getCellByColumn(0, 'Phone').nativeElement.offsetWidth).toBe(136 * 2);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Phone').nativeElement.offsetWidth).toBe(136 * 2);
 
         // check group blocks
         groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -238,10 +238,10 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
         const grid = fixture.componentInstance.grid;
         // check columns
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(100);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(300);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(100);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(300);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
 
         // check group blocks
         let groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -269,17 +269,17 @@ describe('IgxGrid - multi-row-layout #grid', () => {
 
         // first group takes 600px, 500px left for second group
         // check columns
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(100);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(300);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(100);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(300);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
 
         // This fails for unknown reasons only in travis with 2px difference
-        //  expect(grid.getCellByColumn(0, 'Country').nativeElement.offsetWidth).toBe(500);
-        //  expect(grid.getCellByColumn(0, 'Region').nativeElement.offsetWidth).toBe(100);
+        //  expect(grid.gridAPI.get_cell_by_index(0, 'Country').nativeElement.offsetWidth).toBe(500);
+        //  expect(grid.gridAPI.get_cell_by_index(0, 'Region').nativeElement.offsetWidth).toBe(100);
         //  // postal code has no width - auto width should be assigned based on available space.
-        //  expect(grid.getCellByColumn(0, 'PostalCode').nativeElement.offsetWidth).toBe(200);
-        //  expect(grid.getCellByColumn(0, 'Fax').nativeElement.offsetWidth).toBe(200);
+        //  expect(grid.gridAPI.get_cell_by_index(0, 'PostalCode').nativeElement.offsetWidth).toBe(200);
+        //  expect(grid.gridAPI.get_cell_by_index(0, 'Fax').nativeElement.offsetWidth).toBe(200);
 
         //  // check group blocks
         //  groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -304,9 +304,9 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
 
         // check columns
-        expect(grid.getCellByColumn(0, 'Phone').nativeElement.offsetWidth).toBe(500);
-        expect(grid.getCellByColumn(0, 'Phone1').nativeElement.offsetWidth).toBe(250);
-        expect(grid.getCellByColumn(0, 'Phone2').nativeElement.offsetWidth).toBe(250);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Phone').nativeElement.offsetWidth).toBe(500);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Phone1').nativeElement.offsetWidth).toBe(250);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Phone2').nativeElement.offsetWidth).toBe(250);
 
         groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
         expect(groupHeaderBlocks[2].nativeElement.clientWidth).toBe(500);
@@ -628,10 +628,10 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
 
         // check columns
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(100);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(300);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(100);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(300);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
 
         // check group blocks
         // let groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -656,10 +656,10 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
 
         // check columns
-        expect(grid.getCellByColumn(0, 'Country').nativeElement.offsetWidth).toBe(100 + 200 + 136);
-        expect(grid.getCellByColumn(0, 'Region').nativeElement.offsetWidth).toBe(100);
-        expect(grid.getCellByColumn(0, 'PostalCode').nativeElement.offsetWidth).toBe(136);
-        expect(grid.getCellByColumn(0, 'Fax').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Country').nativeElement.offsetWidth).toBe(100 + 200 + 136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Region').nativeElement.offsetWidth).toBe(100);
+        expect(grid.gridAPI.get_cell_by_index(0, 'PostalCode').nativeElement.offsetWidth).toBe(136);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Fax').nativeElement.offsetWidth).toBe(200);
 
         // check group blocks
         // groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -686,12 +686,12 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         fixture.detectChanges();
 
         // check columns
-        expect(grid.getCellByColumn(0, 'ID').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetWidth).toBe(200);
-        expect(grid.getCellByColumn(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
-        expect(grid.getCellByColumn(0, 'Country').nativeElement.offsetWidth).toBe(400);
-        expect(grid.getCellByColumn(0, 'Region').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ID').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'CompanyName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetWidth).toBe(200);
+        expect(grid.gridAPI.get_cell_by_index(0, 'ContactTitle').nativeElement.offsetWidth).toBe(600);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Country').nativeElement.offsetWidth).toBe(400);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Region').nativeElement.offsetWidth).toBe(200);
 
         // check group blocks
         // groupHeaderBlocks = fixture.debugElement.query(By.css('.igx-grid-thead')).queryAll(By.css(GRID_MRL_BLOCK));
@@ -820,8 +820,8 @@ describe('IgxGrid - multi-row-layout #grid', () => {
         expect(secondLayout.headerGroup.nativeElement.offsetHeight).toBe((grid.rowHeight + 1) * 2);
 
         // check cell height in row. By default should span 1 row
-        const firstCell = grid.getCellByColumn(0, 'Fax').nativeElement;
-        expect(firstCell.offsetHeight).toEqual(grid.getCellByColumn(0, 'ContactName').nativeElement.offsetHeight);
+        const firstCell = grid.gridAPI.get_cell_by_index(0, 'Fax').nativeElement;
+        expect(firstCell.offsetHeight).toEqual(grid.gridAPI.get_cell_by_index(0, 'ContactName').nativeElement.offsetHeight);
     }));
 
     // Virtualization

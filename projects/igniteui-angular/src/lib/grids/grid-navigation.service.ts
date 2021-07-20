@@ -381,7 +381,7 @@ export class IgxGridNavigationService {
                 break;
             case 'enter':
             case 'f2':
-                const cell = this.grid.getCellByColumnVisibleIndex(this.activeNode.row, this.activeNode.column);
+                const cell = this.grid.gridAPI.get_cell_by_visible_index(this.activeNode.row, this.activeNode.column);
                 if (!this.isDataRow(rowIndex) || !cell.editable) {
                     break;
                 }

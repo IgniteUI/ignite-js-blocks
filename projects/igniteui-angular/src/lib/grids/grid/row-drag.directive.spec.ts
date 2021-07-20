@@ -861,7 +861,7 @@ describe('Row Drag Tests #grid', () => {
             pointerMoveEvent = UIInteractions.createPointerEvent('pointermove', movePoint);
             pointerUpEvent = UIInteractions.createPointerEvent('pointerup', dropPoint);
 
-            const dragCell = dragGrid.getCellByColumn(1, 'Downloads');
+            const dragCell = dragGrid.gridAPI.get_cell_by_index(1, 'Downloads');
             const cacheValue = dragCell.value;
             const cellElement = dragCell.nativeElement;
             let cellInput = null;

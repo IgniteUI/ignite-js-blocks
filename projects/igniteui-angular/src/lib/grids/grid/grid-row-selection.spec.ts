@@ -410,7 +410,7 @@ describe('IgxGrid - Row Selection #grid', () => {
             spyOn(grid.rowSelected, 'emit').and.callThrough();
             const firstRow = grid.gridAPI.get_row_by_index(0);
             const secondRow = grid.gridAPI.get_row_by_index(1);
-            let cell = grid.getCellByColumn(0, 'ProductName');
+            let cell = grid.gridAPI.get_cell_by_index(0, 'ProductName');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             await wait(DEBOUNCETIME);
@@ -429,7 +429,7 @@ describe('IgxGrid - Row Selection #grid', () => {
             fix.detectChanges();
 
 
-            cell = grid.getCellByColumn(1, 'ProductName');
+            cell = grid.gridAPI.get_cell_by_index(1, 'ProductName');
             GridSelectionFunctions.verifyCellSelected(cell);
             GridSelectionFunctions.verifyRowSelected(firstRow);
 
@@ -851,7 +851,7 @@ describe('IgxGrid - Row Selection #grid', () => {
 
             spyOn(grid.rowSelected, 'emit').and.callThrough();
             const firstRow = grid.gridAPI.get_row_by_index(0);
-            const cell = grid.getCellByColumnVisibleIndex(0, 0);
+            const cell = grid.gridAPI.get_cell_by_index(0, 0);
             UIInteractions.simulateClickEvent(cell.nativeElement);
             fix.detectChanges();
 
@@ -909,7 +909,7 @@ describe('IgxGrid - Row Selection #grid', () => {
             spyOn(grid.rowSelected, 'emit').and.callThrough();
             const firstRow = grid.gridAPI.get_row_by_index(0);
             const secondRow = grid.gridAPI.get_row_by_index(1);
-            let cell = grid.getCellByColumn(0, 'ProductName');
+            let cell = grid.gridAPI.get_cell_by_index(0, 'ProductName');
 
             UIInteractions.simulateClickAndSelectEvent(cell);
             fix.detectChanges();
@@ -928,7 +928,7 @@ describe('IgxGrid - Row Selection #grid', () => {
             await wait(DEBOUNCETIME);
 
             // Click Space on the cell
-            cell = grid.getCellByColumn(1, 'ProductName');
+            cell = grid.gridAPI.get_cell_by_index(1, 'ProductName');
             UIInteractions.triggerKeyDownEvtUponElem('space', grid.tbody.nativeElement, true);
             fix.detectChanges();
             await wait(DEBOUNCETIME);

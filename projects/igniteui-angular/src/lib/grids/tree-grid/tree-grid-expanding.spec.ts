@@ -1197,7 +1197,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(1, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         expect(treeGrid.rowEditingOverlay.collapsed).toBeFalsy('Edit overlay should be visible');
@@ -1217,7 +1217,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
 
     it('Hide banner with collapsing a node, using API', fakeAsync(() => {
         const cell = treeGrid.getCellByColumn(1, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         expect(treeGrid.rowEditingOverlay.collapsed).toBeFalsy('Edit overlay should be visible');
@@ -1246,7 +1246,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(1, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const overlayContent = treeGrid.rowEditingOverlay.element.parentElement;
@@ -1270,7 +1270,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(1, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const overlayContent = treeGrid.rowEditingOverlay.element.parentElement;
@@ -1292,7 +1292,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(0, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const overlayContent = treeGrid.rowEditingOverlay.element.parentElement;
@@ -1316,7 +1316,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(1, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const overlayContent = treeGrid.rowEditingOverlay.element.parentElement;
@@ -1338,7 +1338,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(9, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const overlayContent = treeGrid.rowEditingOverlay.element.parentElement;
@@ -1362,7 +1362,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         const rows = TreeGridFunctions.getAllRows(fix);
 
         const cell = treeGrid.getCellByColumn(9, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const editRow = cell.row.nativeElement;
@@ -1398,7 +1398,7 @@ describe('Row editing expanding/collapsing #tGrid', () => {
         fix.detectChanges();
 
         const cell = treeGrid.getCellByColumn(3, 'Name');
-        cell.setEditMode(true);
+        cell.editMode = true;
         tick(16);
         fix.detectChanges();
         const overlayContent = treeGrid.rowEditingOverlay.element.parentElement;

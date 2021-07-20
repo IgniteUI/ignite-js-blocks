@@ -1,5 +1,4 @@
 import { Component, TemplateRef, ViewChild, Input, AfterViewInit, ChangeDetectorRef, QueryList, ViewChildren, OnInit } from '@angular/core';
-import { IgxGridCellComponent } from '../grids/cell.component';
 import { IgxDateSummaryOperand, IgxNumberSummaryOperand, IgxSummaryResult } from '../grids/summaries/grid-summary';
 import { IGridCellEventArgs, IGridEditEventArgs } from '../grids/common/events';
 import {
@@ -14,7 +13,7 @@ import { IgxFilteringOperand, IgxNumberFilteringOperand } from '../data-operatio
 import { ExpressionUI } from '../grids/filtering/grid-filtering.service';
 import { IFilteringExpressionsTree, FilteringExpressionsTree } from '../data-operations/filtering-expressions-tree';
 import { FilteringStrategy } from '../data-operations/filtering-strategy';
-import { IgxGridComponent } from '../grids/grid/public_api';
+import { CellType, IgxGridComponent } from '../grids/grid/public_api';
 import { IgxRowEditTabStopDirective } from '../grids/grid.rowEdit.directive';
 import { IgxGridExcelStyleFilteringComponent } from '../grids/filtering/excel-style/grid.excel-style-filtering.component';
 import { FilteringLogic } from '../data-operations/filtering-expression.interface';
@@ -678,7 +677,7 @@ export class PinningComponent extends GridWithSizeComponent
     public width = '800px';
     public height = '300px';
 
-    public selectedCell: IgxGridCellComponent;
+    public selectedCell: CellType;
     public cellSelected(event: IGridCellEventArgs) {
         this.selectedCell = event.cell;
     }
@@ -954,7 +953,7 @@ export class VirtualGridComponent extends BasicGridComponent {
         { field: 'other' },
         { field: 'another' }
     ];
-    public selectedCell: IgxGridCellComponent;
+    public selectedCell: CellType;
     constructor() {
         super();
         this.data = this.generateData(1000);
@@ -1715,7 +1714,7 @@ export class IgxGridCustomOverlayComponent extends BasicGridComponent {
         return this.grid.gridAPI.crudService.cell;
     }
 
-    public getCurrentEditCell(): IgxGridCellComponent {
+    public getCurrentEditCell(): CellType {
         const grid = this.grid as any;
         const currentCell = grid.gridAPI.crudService.cell;
         return this.grid.getCellByColumn(currentCell.id.rowIndex, currentCell.column.field);

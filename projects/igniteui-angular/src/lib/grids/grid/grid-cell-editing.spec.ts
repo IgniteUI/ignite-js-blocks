@@ -47,7 +47,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         }));
 
         it('should be able to enter edit mode on dblclick, enter and f2', () => {
-            const cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -78,7 +78,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             grid.primaryKey = 'personNumber';
             fixture.detectChanges();
 
-            const cell = grid.getCellByColumn(0, 'personNumber');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'personNumber');
             const cellDomPK = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[4];
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -98,7 +98,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('edit template should be according column data type -- number', () => {
-            const cell = grid.getCellByColumn(0, 'age');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'age');
             const cellDomNumber = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[1];
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -119,7 +119,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('should validate input data when edit numeric column', () => {
-            const cell = grid.getCellByColumn(0, 'age');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'age');
             const cellDomNumber = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[1];
             const expectedValue = 0;
             let editValue = 'some696';
@@ -151,7 +151,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('edit template should be according column data type -- boolean', fakeAsync(() => {
-            const cell = grid.getCellByColumn(0, 'isActive');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'isActive');
             const cellDomBoolean = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[2];
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -163,7 +163,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
             const editTemplate = cellDomBoolean.query(By.css('.igx-checkbox'));
             expect(editTemplate).toBeDefined();
             expect(cell.value).toBe(true);
-            expect(cell.nativeElement.querySelector('.igx-checkbox--checked')).toBeInstanceOf(HTMLElement);
+            expect(grid.gridAPI.get_cell_by_index(0, 'isActive')
+                .nativeElement.querySelector('.igx-checkbox--checked')).toBeInstanceOf(HTMLElement);
 
             editTemplate.nativeElement.click();
             fixture.detectChanges();
@@ -173,11 +174,11 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
             expect(cell.editMode).toBe(false);
             expect(cell.value).toBe(false);
-            expect(cell.nativeElement.querySelector('.igx-checkbox--checked')).toBeNull();
+            expect(grid.gridAPI.get_cell_by_index(0, 'isActive').nativeElement.querySelector('.igx-checkbox--checked')).toBeNull();
         }));
 
         it('edit template should be according column data type -- date', () => {
-            const cell = grid.getCellByColumn(0, 'birthday');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'birthday');
             const cellDomDate = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[3];
             const selectedDate = new Date('04/12/2017');
 
@@ -200,7 +201,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('should be able to change value form date picker input-- date', () => {
-            const cell = grid.getCellByColumn(0, 'birthday');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'birthday');
             const cellDomDate = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[3];
             const selectedDate = new Date('04/12/2017');
             const editValue = '04/12/2017';
@@ -227,7 +228,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('should be able to clear value -- date', () => {
-            const cell = grid.getCellByColumn(0, 'birthday');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'birthday');
             const cellDomDate = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[3];
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -250,9 +251,9 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         it('Should not revert cell\' value when doubleClick while in editMode',  fakeAsync(() => {
             const cellElem = fixture.debugElement.query(By.css(CELL_CSS_CLASS));
-            const firstCell = grid.getCellByColumn(0, 'fullName');
+            const firstCell = grid.gridAPI.get_cell_by_index(0, 'fullName');
 
-            expect(firstCell.nativeElement.textContent).toBe('John Brown');
+            expect(grid.gridAPI.get_cell_by_index(0, 'fullName').nativeElement.textContent).toBe('John Brown');
             expect(firstCell.editMode).toBeFalsy();
 
             UIInteractions.simulateDoubleClickAndSelectEvent(firstCell);
@@ -272,7 +273,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         }));
 
         it('should end cell editing when clearing or applying advanced filter', () => {
-            const cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
 
             // Enter cell edit mode
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -324,7 +325,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         it('edit mode - leaves edit mode on blur', fakeAsync(/** height/width setter rAF */() => {
             const rv = fixture.debugElement.query(By.css(CELL_CSS_CLASS));
-            const cell = grid.getCellByColumn(0, 'firstName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'firstName');
             const button = fixture.debugElement.query(By.css('.btnTest'));
 
             cell.column.editable = true;
@@ -343,7 +344,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         }));
 
         it('edit mode - exit edit mode and submit when pin/unpin unpin column', fakeAsync(/** height/width setter rAF */() => {
-            let cell = grid.getCellByColumn(0, 'firstName');
+            let cell = grid.gridAPI.get_cell_by_index(0, 'firstName');
             const cacheValue = cell.value;
             const cellDom = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[0];
 
@@ -359,17 +360,17 @@ describe('IgxGrid - Cell Editing #grid', () => {
             fixture.detectChanges();
             expect(grid.gridAPI.crudService.cell).toBeNull();
             expect(grid.pinnedColumns.length).toBe(1);
-            cell = grid.getCellByColumn(0, 'firstName');
+            cell = grid.gridAPI.get_cell_by_index(0, 'firstName');
             expect(cell.value).toBe(cacheValue);
-            cell = grid.getCellByColumn(1, 'firstName');
+            cell = grid.gridAPI.get_cell_by_index(1, 'firstName');
             const cellValue = cell.value;
-            cell.setEditMode(true);
+            cell.editMode = true;
             fixture.detectChanges();
 
             expect(grid.gridAPI.crudService.cell).toBeDefined();
             grid.unpinColumn('firstName');
             fixture.detectChanges();
-            cell = grid.getCellByColumn(1, 'firstName');
+            cell = grid.gridAPI.get_cell_by_index(1, 'firstName');
             expect(grid.pinnedColumns.length).toBe(0);
             expect(grid.gridAPI.crudService.cell).toBeNull();
             expect(cell.editMode).toBe(false);
@@ -377,7 +378,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         }));
 
         it('edit mode - leaves cell in edit mode on scroll', (async () => {
-            const cell = grid.getCellByColumn(0, 'firstName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'firstName');
             const editableCellId = cell.cellID;
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             await wait();
@@ -404,7 +405,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         it('When cell in editMode and try to navigate with `ArrowDown` - focus should remain over the input.', async () => {
             const verticalScroll = grid.verticalScrollContainer.getScroll();
             const cellElem = fixture.debugElement.query(By.css(CELL_CSS_CLASS)).nativeElement;
-            const cell = grid.getCellByColumn(0, 'firstName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'firstName');
             expect(cellElem.classList.contains(CELL_CLASS_IN_EDIT_MODE)).toBe(false);
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -431,7 +432,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             await wait(500);
             fixture.detectChanges();
 
-            const testCells = grid.getColumnByName('firstName').cells;
+            const testCells = grid.getColumnByName('firstName')._cells;
             const cell = testCells[testCells.length - 1];
             const cellElem = cell.nativeElement;
 
@@ -513,7 +514,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             await wait(100);
             fixture.detectChanges();
 
-            let cell = grid.getCellByColumn(1, 'birthday');
+            let cell = grid.gridAPI.get_cell_by_index(1, 'birthday');
             cell.nativeElement.dispatchEvent(new MouseEvent('dblclick'));
             fixture.detectChanges();
 
@@ -537,7 +538,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             expect(picker.length).toBe(0);
 
             // Verify cell is still in edit mode
-            cell = grid.getCellByColumn(1, 'birthday');
+            cell = grid.gridAPI.get_cell_by_index(1, 'birthday');
             expect(cell.nativeElement.classList.contains(CELL_CLASS_IN_EDIT_MODE)).toBe(true);
             const editCellID = grid.gridAPI.crudService.cell.id;
             expect(4).toBe(editCellID.columnID);
@@ -565,8 +566,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         it(`Should properly emit 'cellEditEnter' event`, () => {
             spyOn(grid.cellEditEnter, 'emit').and.callThrough();
-            let cell = grid.getCellByColumn(0, 'fullName');
-            let initialRowData = {...cell.rowData};
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
+            let initialRowData = {...cell.row.data};
             expect(cell.editMode).toBeFalsy();
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -591,21 +592,21 @@ describe('IgxGrid - Cell Editing #grid', () => {
             fixture.detectChanges();
 
             expect(cell.editMode).toBeFalsy();
-            cell = grid.getCellByColumn(0, 'age');
-            initialRowData = {...cell.rowData};
+            const cell2 = grid.getCellByColumn(0, 'age');
+            initialRowData = {...cell2.row.data};
             cellArgs = {
-                cellID: cell.cellID,
-                rowID: cell.row.key,
+                cellID: cell2.cellID,
+                rowID: cell2.row.key,
                 rowData: initialRowData,
                 oldValue: 20,
                 cancel: false,
-                column: cell.column,
+                column: cell2.column,
                 owner: grid,
                 event: jasmine.anything() as any
             };
             expect(grid.cellEditEnter.emit).toHaveBeenCalledTimes(2);
             expect(grid.cellEditEnter.emit).toHaveBeenCalledWith(cellArgs);
-            expect(cell.editMode).toBeTruthy();
+            expect(cell2.editMode).toBeTruthy();
         });
 
         it(`Should be able to cancel 'cellEditEnter' event`, () => {
@@ -613,8 +614,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
             grid.cellEditEnter.subscribe((e: IGridEditEventArgs) => {
                 e.cancel = true;
             });
-            let cell = grid.getCellByColumn(0, 'fullName');
-            let initialRowData = {...cell.rowData};
+            let cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
+            let initialRowData = {...cell.row.data};
             expect(cell.editMode).toBeFalsy();
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -635,8 +636,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
             expect(cell.editMode).toBeFalsy();
 
             // press enter on a cell
-            cell = grid.getCellByColumn(0, 'age');
-            initialRowData = {...cell.rowData};
+            cell = grid.gridAPI.get_cell_by_index(0, 'age');
+            initialRowData = {...cell.row.data};
             UIInteractions.simulateClickAndSelectEvent(cell);
             fixture.detectChanges();
 
@@ -660,8 +661,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         it(`Should properly emit 'cellEditExit' event`, () => {
             spyOn(grid.cellEditExit, 'emit').and.callThrough();
-            let cell = grid.getCellByColumn(0, 'fullName');
-            let initialRowData = {...cell.rowData};
+            let cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
+            let initialRowData = {...cell.row.data};
             expect(cell.editMode).toBeFalsy();
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -690,8 +691,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
             fixture.detectChanges();
 
             expect(cell.editMode).toBeFalsy();
-            cell = grid.getCellByColumn(0, 'age');
-            initialRowData = {...cell.rowData};
+            cell = grid.gridAPI.get_cell_by_index(0, 'age');
+            initialRowData = {...cell.row.data};
             cellArgs = {
                 cellID: cell.cellID,
                 rowID: cell.row.key,
@@ -709,7 +710,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         it(`Should properly emit 'cellEdit' event`, () => {
             spyOn(grid.cellEdit, 'emit').and.callThrough();
             let cellArgs: IGridEditEventArgs;
-            let cell = grid.getCellByColumn(0, 'fullName');
+            let cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -727,7 +728,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             cellArgs = {
                 cellID: cell.cellID,
                 rowID: cell.row.key,
-                rowData: cell.rowData,
+                rowData: cell.row.data,
                 oldValue: 'John Brown',
                 newValue: 'New Name',
                 cancel: false,
@@ -738,7 +739,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             expect(grid.cellEdit.emit).toHaveBeenCalledTimes(1);
             expect(grid.cellEdit.emit).toHaveBeenCalledWith(cellArgs);
 
-            cell = grid.getCellByColumn(0, 'age');
+            cell = grid.gridAPI.get_cell_by_index(0, 'age');
             expect(cell.editMode).toBe(true);
             editTemplate = fixture.debugElement.query(By.css('input'));
             UIInteractions.clickAndSendInputElementValue(editTemplate, 1);
@@ -752,7 +753,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             cellArgs = {
                 cellID: cell.cellID,
                 rowID: cell.row.key,
-                rowData: cell.rowData,
+                rowData: cell.row.data,
                 oldValue: 20,
                 newValue: 1,
                 cancel: false,
@@ -769,8 +770,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
             grid.cellEdit.subscribe((e: IGridEditEventArgs) => {
                 e.cancel = true;
             });
-            const cell = grid.getCellByColumn(0, 'fullName');
-            const initialRowData = {...cell.rowData};
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
+            const initialRowData = {...cell.row.data};
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -817,7 +818,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
             // activate the new cell
             emitSpy.calls.reset();
-            nextCell.activate(new FocusEvent('focus'));
+            grid.gridAPI.get_cell_by_index(0, 'age').activate(new FocusEvent('focus'));
             fixture.detectChanges();
             expect(grid.cellEdit.emit).toHaveBeenCalledTimes(1);
             expect(grid.cellEdit.emit).toHaveBeenCalledWith(cellArgs);
@@ -849,7 +850,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
             let cell = grid.getCellByColumn(0, 'fullName');
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'fullName'));
             fixture.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -920,7 +921,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             const cell = grid.getCellByColumn(0, 'Name');
             const initialValue = cell.value;
             const newValue = 'New Name';
-            const updatedRowData = Object.assign({}, cell.rowData, { Name: newValue });
+            const updatedRowData = Object.assign({}, cell.row.data, { Name: newValue });
 
             spyOn(grid.cellEditDone, 'emit').and.callThrough();
 
@@ -944,8 +945,8 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         it(`Should properly emit 'cellEditExit' event`, () => {
             spyOn(grid.cellEditExit, 'emit').and.callThrough();
-            const cell = grid.getCellByColumn(0, 'fullName');
-            const initialRowData = {...cell.rowData};
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
+            const initialRowData = {...cell.row.data};
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -982,9 +983,9 @@ describe('IgxGrid - Cell Editing #grid', () => {
             let cell = grid.getCellByColumn(0, 'fullName');
             const firstNewValue = 'New Name';
             const secondNewValue = 1;
-            let updatedRowData = Object.assign({}, cell.rowData, { fullName: firstNewValue });
+            let updatedRowData = Object.assign({}, cell.row.data, { fullName: firstNewValue });
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'fullName'));
             fixture.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -1019,11 +1020,11 @@ describe('IgxGrid - Cell Editing #grid', () => {
             UIInteractions.triggerEventHandlerKeyDown('enter', gridContent);
             fixture.detectChanges();
 
-            updatedRowData = Object.assign({}, cell.rowData, { age: secondNewValue });
+            updatedRowData = Object.assign({}, cell.row.data, { age: secondNewValue });
             cellArgs = {
                 cellID: cell.cellID,
                 rowID: cell.row.key,
-                rowData: cell.rowData, // fixture is without rowEditing and without transactions
+                rowData: cell.row.data, // fixture is without rowEditing and without transactions
                 oldValue: 20,
                 newValue: secondNewValue,
                 column: cell.column,
@@ -1039,7 +1040,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         it('Should not enter cell edit when cellEditEnter is canceled', () => {
             let canceled = true;
-            const cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
             grid.cellEditEnter.pipe(takeUntil($destroyer)).subscribe((evt) => {
                 evt.cancel = canceled;
             });
@@ -1058,7 +1059,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('When cellEdit is canceled the new value of the cell should be committed and the editing should be closed (API call)', () => {
-            const cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
             grid.cellEdit.pipe(takeUntil($destroyer)).subscribe((evt) => {
                 evt.cancel = true;
             });
@@ -1092,7 +1093,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             const cell = grid.getCellByColumn(0, 'personNumber');
             expect(cell.editMode).toBeFalsy();
 
-            cell.setEditMode(true);
+            cell.editMode = true;
             fixture.detectChanges();
 
             expect(cell.editMode).toBeTruthy();
@@ -1104,7 +1105,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('should exit edit mode on filtering', () => {
-            let cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
             const cellDom = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[0];
             const cellValue = cell.value;
 
@@ -1122,18 +1123,18 @@ describe('IgxGrid - Cell Editing #grid', () => {
             grid.clearFilter('fullName');
             fixture.detectChanges();
 
-            cell = grid.getCellByColumn(0, 'fullName');
-            expect(cell.editMode).toBe(false);
-            expect(cell.value).toBe(cellValue);
+            const cell2 = grid.getCellByColumn(0, 'fullName');
+            expect(cell2.editMode).toBe(false);
+            expect(cell2.value).toBe(cellValue);
         });
 
         it('should not throw errors when update cell to value, which does not match filter criteria', () => {
             grid.filter('personNumber', 1, IgxStringFilteringOperand.instance().condition('equals'));
             fixture.detectChanges();
 
-            const cell = grid.getCellByColumn(0, 'personNumber');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'personNumber');
             const cellDomPK = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[4];
-            const previousCell = grid.getCellByColumn(0, 'birthday');
+            const previousCell = grid.gridAPI.get_cell_by_index(0, 'birthday');
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -1147,7 +1148,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         });
 
         it('should exit edit mode on sorting', () => {
-            const cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
             const cellDom = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[0];
 
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
@@ -1168,7 +1169,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
             grid.sort({ fieldName: 'age', dir: SortingDirection.Desc, ignoreCase: false });
             fixture.detectChanges();
 
-            const cell = grid.getCellByColumn(0, 'fullName');
+            const cell = grid.gridAPI.get_cell_by_index(0, 'fullName');
             const cellDom = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[0];
             UIInteractions.simulateDoubleClickAndSelectEvent(cell);
             fixture.detectChanges();
@@ -1218,7 +1219,7 @@ describe('IgxGrid - Cell Editing #grid', () => {
         let cell = grid.getCellByColumn(0, 'Age');
         let cellDomPK = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS_NUMBER_FORMAT))[1];
 
-        UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+        UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'Age'));
         fixture.detectChanges();
         expect(cell.editMode).toBe(true);
 
@@ -1230,12 +1231,12 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         expect(cell.editMode).toBe(false);
         expect(cell.value).toBe(0);
-        expect(cell.nativeElement.classList).toContain(EDITED_CELL_CSS_CLASS);
+        expect(grid.gridAPI.get_cell_by_index(0, 'Age').nativeElement.classList).toContain(EDITED_CELL_CSS_CLASS);
 
         cell = grid.getCellByColumn(1, 'OnPTO');
         cellDomPK = fixture.debugElement.queryAll(By.css(CELL_CSS_CLASS))[5];
 
-        UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+        UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(1, 'OnPTO'));
         fixture.detectChanges();
         tick();
 
@@ -1249,6 +1250,6 @@ describe('IgxGrid - Cell Editing #grid', () => {
 
         expect(cell.editMode).toBe(false);
         expect(cell.value).toBe(false);
-        expect(cell.nativeElement.classList).toContain(EDITED_CELL_CSS_CLASS);
+        expect(grid.gridAPI.get_cell_by_index(0, 'OnPTO').nativeElement.classList).toContain(EDITED_CELL_CSS_CLASS);
     }));
 });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { cloneArray, isEqual, reverseMapper, mergeObjects } from '../core/utils';
+import { cloneArray, reverseMapper, mergeObjects } from '../core/utils';
 import { DataUtil, GridColumnDataType } from '../data-operations/data-util';
 import { ISortingExpression, SortingDirection } from '../data-operations/sorting-expression.interface';
 import { IgxGridCellComponent } from './cell.component';
@@ -103,11 +103,16 @@ export class GridBaseAPIService<T extends IgxGridBaseDirective & GridType> {
         }
     }
 
-    public get_cell_by_index(rowIndex: number, columnIndex: number): IgxGridCellComponent {
+    public get_cell_by_index(rowIndex: number, columnID: number | string): IgxGridCellComponent {
         const row = this.get_row_by_index(rowIndex);
-        if (row && row.cells) {
-            return row.cells.find((cell) => cell.columnIndex === columnIndex);
+        const hasCells = row && row.cells;
+        if (hasCells && typeof columnID === 'number') {
+            return row.cells.find((cell) => cell.column.index === columnID);
         }
+        if (hasCells && typeof columnID === 'string'){
+            return row.cells.find((cell) => cell.column.field === columnID);
+        }
+
     }
 
     public get_cell_by_visible_index(rowIndex: number, columnIndex: number): IgxGridCellComponent {

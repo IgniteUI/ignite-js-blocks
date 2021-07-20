@@ -172,10 +172,10 @@ describe('IgxGrid - Column Selection #grid', () => {
             expect(productIDHeader.nativeElement.getAttribute('aria-selected')).toMatch('false');
             expect(productNameHeader.nativeElement.getAttribute('aria-selected')).toMatch('true');
 
-            colProductName.cells.forEach(cell => {
+            colProductName._cells.forEach(cell => {
                 expect(cell.nativeElement.getAttribute('aria-selected')).toMatch('true');
             });
-            colProductID.cells.forEach(cell => {
+            colProductID._cells.forEach(cell => {
                 expect(cell.nativeElement.getAttribute('aria-selected')).toMatch('false');
             });
         });
@@ -990,7 +990,7 @@ describe('IgxGrid - Column Selection #grid', () => {
 
             const productIDHeader = GridFunctions.getColumnHeader('ProductID', fix);
             expect(productIDHeader.nativeElement.classList.contains(SELECTED_COLUMN_CLASS)).toBeFalsy();
-            colProductID.cells.forEach(cell => {
+            colProductID._cells.forEach(cell => {
                 expect(cell.nativeElement.classList.contains(SELECTED_COLUMN_CELL_CLASS)).toEqual(true);
             });
             expect(grid.filteringRow.column.field).toEqual('ProductID');

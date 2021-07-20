@@ -68,10 +68,10 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 expect(grid.unpinnedColumns.length).toEqual(9);
 
                 // verify DOM
-                const firstIndexCell = grid.getCellByColumn(0, 'CompanyName');
+                const firstIndexCell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 expect(firstIndexCell.visibleColumnIndex).toEqual(0);
 
-                const lastIndexCell = grid.getCellByColumn(0, 'ContactName');
+                const lastIndexCell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(lastIndexCell.visibleColumnIndex).toEqual(1);
                 expect(GridFunctions.isCellPinned(lastIndexCell)).toBe(true);
 
@@ -102,7 +102,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 expect(col.visibleIndex).toEqual(2);
 
                 // verify DOM
-                let cell = grid.getCellByColumn(0, 'CompanyName');
+                let cell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 expect(cell.visibleColumnIndex).toEqual(2);
                 expect(GridFunctions.isCellPinned(cell)).toBe(false);
 
@@ -130,7 +130,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 expect(col.pinned).toBe(true);
                 expect(col.visibleIndex).toEqual(1);
 
-                cell = grid.getCellByColumn(0, 'CompanyName');
+                cell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 expect(cell.visibleColumnIndex).toEqual(1);
                 expect(GridFunctions.isCellPinned(cell)).toBe(true);
             });
@@ -233,7 +233,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
 
             it('should allow navigating to/from pinned area', (async () => {
 
-                const cellContactName = grid.getCellByColumn(0, 'ContactName');
+                const cellContactName = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 const range = {
                     rowStart: cellContactName.rowIndex,
                     rowEnd: cellContactName.rowIndex,
@@ -248,7 +248,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 await wait(DEBOUNCETIME);
                 fix.detectChanges();
 
-                const cellID = grid.getCellByColumn(0, 'ID');
+                const cellID = grid.gridAPI.get_cell_by_index(0, 'ID');
                 expect(cellID.active).toBe(true);
                 expect(cellContactName.active).toBe(false);
 
@@ -277,8 +277,8 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 // Contains filter
                 grid.filter('ProductName', 'Ignite', IgxStringFilteringOperand.instance().condition('contains'), true);
                 fix.detectChanges();
-                const firstCell = grid.getCellByColumn(0, 'ID');
-                const secondCell = grid.getCellByColumn(1, 'ID');
+                const firstCell = grid.gridAPI.get_cell_by_index(0, 'ID');
+                const secondCell = grid.gridAPI.get_cell_by_index(1, 'ID');
 
                 expect(grid.rowList.length).toEqual(2);
                 expect(parseInt(GridFunctions.getValueFromCellElement(firstCell), 10)).toEqual(1);
@@ -494,11 +494,11 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 expect(grid.unpinnedColumns.length).toEqual(9);
 
                 // verify DOM
-                const firstIndexCell = grid.getCellByColumn(0, 'CompanyName');
+                const firstIndexCell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 expect(firstIndexCell.visibleColumnIndex).toEqual(firstPinnedIndex);
                 expect(GridFunctions.isCellPinned(firstIndexCell)).toBe(true);
 
-                const lastIndexCell = grid.getCellByColumn(0, 'ContactName');
+                const lastIndexCell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(lastIndexCell.visibleColumnIndex).toEqual(secondPinnedIndex);
 
                 // const headers = GridFunctions.getColumnHeaders(fix);
@@ -529,7 +529,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 expect(col.visibleIndex).toEqual(1);
 
                 // verify DOM
-                let cell = grid.getCellByColumn(0, 'CompanyName');
+                let cell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 expect(cell.visibleColumnIndex).toEqual(1);
                 expect(GridFunctions.isCellPinned(cell)).toBe(false);
 
@@ -557,7 +557,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 expect(col.pinned).toBe(true);
                 expect(col.visibleIndex).toEqual(grid.unpinnedColumns.length + 1);
 
-                cell = grid.getCellByColumn(0, 'CompanyName');
+                cell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 expect(cell.visibleColumnIndex).toEqual(grid.unpinnedColumns.length + 1);
                 expect(GridFunctions.isCellPinned(cell)).toBe(true);
             });
@@ -623,7 +623,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
 
             it('should allow navigating to/from pinned area', (async () => {
                 setupGridScrollDetection(fix, grid);
-                const cellCompanyName = grid.getCellByColumn(0, 'CompanyName');
+                const cellCompanyName = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 const range = { rowStart: 0, rowEnd: 0, columnStart: 9, columnEnd: 9 };
                 grid.selectRange(range);
                 grid.navigation.activeNode = { row: 0, column: 9 };
@@ -633,7 +633,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 grid.navigation.dispatchEvent(UIInteractions.getKeyboardEvent('keydown', 'ArrowLeft'));
                 await wait(DEBOUNCETIME);
                 fix.detectChanges();
-                const cellFax = grid.getCellByColumn(0, 'Fax');
+                const cellFax = grid.gridAPI.get_cell_by_index(0, 'Fax');
                 expect(cellFax.active).toBe(true);
                 expect(cellCompanyName.active).toBe(false);
 
@@ -646,7 +646,7 @@ describe('IgxGrid - Column Pinning #grid', () => {
 
             it('should allow navigating to/from pinned area using Ctrl+Left/Right', (async () => {
 
-                const cellCompanyName = grid.getCellByColumn(0, 'CompanyName');
+                const cellCompanyName = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
                 const range = { rowStart: 0, rowEnd: 0, columnStart: 9, columnEnd: 9 };
                 grid.selectRange(range);
                 grid.navigation.activeNode = { row: 0, column: 9 };
@@ -656,14 +656,14 @@ describe('IgxGrid - Column Pinning #grid', () => {
                 grid.navigation.dispatchEvent(UIInteractions.getKeyboardEvent('keydown', 'ArrowLeft', false, false, true));
                 await wait(DEBOUNCETIME);
                 fix.detectChanges();
-                const cellID = grid.getCellByColumn(0, 'ID');
+                const cellID = grid.gridAPI.get_cell_by_index(0, 'ID');
                 expect(cellID.active).toBe(true);
                 expect(cellCompanyName.active).toBe(false);
 
                 grid.navigation.dispatchEvent(UIInteractions.getKeyboardEvent('keydown', 'ArrowRight', false, false, true));
                 await wait(DEBOUNCETIME);
                 fix.detectChanges();
-                const cellContactName = grid.getCellByColumn(0, 'ContactName');
+                const cellContactName = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(cellID.active).toBe(false);
                 expect(cellContactName.active).toBe(true);
             }));

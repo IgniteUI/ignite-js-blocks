@@ -2,7 +2,7 @@
 import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { IgxGridModule, IgxGridCellComponent, IGridCellEventArgs } from './public_api';
+import { IgxGridModule, IGridCellEventArgs } from './public_api';
 import { IgxGridComponent } from './grid.component';
 import { SampleTestData } from '../../test-utils/sample-test-data.spec';
 import { configureTestSuite } from '../../test-utils/configure-suite';
@@ -12,6 +12,7 @@ import { SortingDirection } from '../../data-operations/sorting-expression.inter
 import { DefaultSortingStrategy } from '../../data-operations/sorting-strategy';
 import { IgxGridGroupByRowComponent } from './groupby-row.component';
 import { GridFunctions } from '../../test-utils/grid-functions.spec';
+import { CellType } from '../tree-grid/public_api';
 
 const DEBOUNCETIME = 30;
 const CELL_CSS_CLASS = '.igx-grid__td';
@@ -784,11 +785,11 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check visible indexes are correct
-                expect(grid.getCellByColumn(0, 'ID').visibleColumnIndex).toBe(0);
-                expect(grid.getCellByColumn(0, 'Address').visibleColumnIndex).toBe(1);
-                expect(grid.getCellByColumn(0, 'PostalCode').visibleColumnIndex).toBe(2);
+                expect(grid.getCellByColumn(0, 'ID').column.visibleIndex).toBe(0);
+                expect(grid.getCellByColumn(0, 'Address').column.visibleIndex).toBe(1);
+                expect(grid.getCellByColumn(0, 'PostalCode').column.visibleIndex).toBe(2);
                 // focus last
-                let cell = grid.getCellByColumn(0, 'Address');
+                const cell = grid.gridAPI.get_cell_by_index(0, 'Address');
                 UIInteractions.simulateClickAndSelectEvent(cell);
                 fix.detectChanges();
 
@@ -797,8 +798,8 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check correct cell has focus
-                cell = grid.getCellByColumn(0, 'ID');
-                expect(cell.active).toBe(true);
+                const cell2 = grid.getCellByColumn(0, 'ID');
+                expect(cell2.active).toBe(true);
 
                 // arrow right
                 GridFunctions.simulateGridContentKeydown(fix, 'ArrowRight');
@@ -999,13 +1000,13 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check visible indexes are correct
-                expect(grid.getCellByColumn(0, 'ContactName').visibleColumnIndex).toBe(0);
-                expect(grid.getCellByColumn(0, 'Address').visibleColumnIndex).toBe(1);
-                expect(grid.getCellByColumn(0, 'ID').visibleColumnIndex).toBe(2);
-                expect(grid.getCellByColumn(0, 'Phone').visibleColumnIndex).toBe(3);
-                expect(grid.getCellByColumn(0, 'City').visibleColumnIndex).toBe(4);
-                expect(grid.getCellByColumn(0, 'ContactTitle').visibleColumnIndex).toBe(5);
-                expect(grid.getCellByColumn(0, 'PostalCode').visibleColumnIndex).toBe(6);
+                expect(grid.getCellByColumn(0, 'ContactName').column.visibleIndex).toBe(0);
+                expect(grid.getCellByColumn(0, 'Address').column.visibleIndex).toBe(1);
+                expect(grid.getCellByColumn(0, 'ID').column.visibleIndex).toBe(2);
+                expect(grid.getCellByColumn(0, 'Phone').column.visibleIndex).toBe(3);
+                expect(grid.getCellByColumn(0, 'City').column.visibleIndex).toBe(4);
+                expect(grid.getCellByColumn(0, 'ContactTitle').column.visibleIndex).toBe(5);
+                expect(grid.getCellByColumn(0, 'PostalCode').column.visibleIndex).toBe(6);
             });
         });
 
@@ -1043,13 +1044,13 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check visible indexes are correct
-                expect(grid.getCellByColumn(0, 'ContactName').visibleColumnIndex).toBe(0);
-                expect(grid.getCellByColumn(0, 'ID').visibleColumnIndex).toBe(1);
-                expect(grid.getCellByColumn(0, 'Address').visibleColumnIndex).toBe(2);
-                expect(grid.getCellByColumn(0, 'Phone').visibleColumnIndex).toBe(3);
-                expect(grid.getCellByColumn(0, 'City').visibleColumnIndex).toBe(4);
-                expect(grid.getCellByColumn(0, 'ContactTitle').visibleColumnIndex).toBe(5);
-                expect(grid.getCellByColumn(0, 'PostalCode').visibleColumnIndex).toBe(6);
+                expect(grid.getCellByColumn(0, 'ContactName').column.visibleIndex).toBe(0);
+                expect(grid.getCellByColumn(0, 'ID').column.visibleIndex).toBe(1);
+                expect(grid.getCellByColumn(0, 'Address').column.visibleIndex).toBe(2);
+                expect(grid.getCellByColumn(0, 'Phone').column.visibleIndex).toBe(3);
+                expect(grid.getCellByColumn(0, 'City').column.visibleIndex).toBe(4);
+                expect(grid.getCellByColumn(0, 'ContactTitle').column.visibleIndex).toBe(5);
+                expect(grid.getCellByColumn(0, 'PostalCode').column.visibleIndex).toBe(6);
             });
 
             it('should navigate left from unpinned to pinned area when pinning second block in template', () => {
@@ -1385,7 +1386,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 let targetCell = grid.getCellByColumn(0, 'CompanyName');
-                UIInteractions.simulateDoubleClickAndSelectEvent(targetCell);
+                UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'CompanyName'));
                 fix.detectChanges();
 
                 const rowEditingBannerElement = fix.debugElement.query(By.css('.igx-banner__row')).nativeElement;
@@ -1894,7 +1895,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                  fix.detectChanges();
 
                 // focus 3rd row, first cell
-                let cell = grid.getCellByColumn(2, 'ContactName');
+                let cell = grid.gridAPI.get_cell_by_index(2, 'ContactName');
                 UIInteractions.simulateClickAndSelectEvent(cell);
                 fix.detectChanges();
 
@@ -1904,14 +1905,15 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check next cell is active and is fully in view
-                cell = grid.getCellByColumn(2, 'Phone');
+                cell = grid.gridAPI.get_cell_by_index(2, 'Phone');
                 expect(cell.active).toBe(true);
                 expect(grid.verticalScrollContainer.getScroll().scrollTop).toBeGreaterThan(50);
-                let diff = cell.nativeElement.getBoundingClientRect().bottom - grid.tbody.nativeElement.getBoundingClientRect().bottom;
+                let diff = grid.gridAPI.get_cell_by_index(2, 'Phone')
+                    .nativeElement.getBoundingClientRect().bottom - grid.tbody.nativeElement.getBoundingClientRect().bottom;
                 expect(diff).toBe(0);
 
                 // focus 1st row, 2nd cell
-                cell = grid.getCellByColumn(0, 'Phone');
+                cell = grid.gridAPI.get_cell_by_index(0, 'Phone');
                 UIInteractions.simulateClickAndSelectEvent(cell);
                 fix.detectChanges();
 
@@ -1921,14 +1923,15 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check next cell is active and is fully in view
-                cell = grid.getCellByColumn(0, 'ContactName');
+                cell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(cell.active).toBe(true);
                 expect(grid.verticalScrollContainer.getScroll().scrollTop).toBe(0);
-                diff = cell.nativeElement.getBoundingClientRect().top - grid.tbody.nativeElement.getBoundingClientRect().top;
+                diff = grid.gridAPI.get_cell_by_index(0, 'ContactName')
+                    .nativeElement.getBoundingClientRect().top - grid.tbody.nativeElement.getBoundingClientRect().top;
                 expect(diff).toBe(0);
 
                 // focus 3rd row, first cell
-                cell = grid.getCellByColumn(2, 'ContactName');
+                cell = grid.gridAPI.get_cell_by_index(2, 'ContactName');
                 UIInteractions.simulateClickAndSelectEvent(cell);
                 fix.detectChanges();
 
@@ -1938,14 +1941,15 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check next cell is active and is fully in view
-                cell = grid.getCellByColumn(2, 'Address');
+                cell = grid.gridAPI.get_cell_by_index(2, 'Address');
                 expect(cell.active).toBe(true);
                 expect(grid.verticalScrollContainer.getScroll().scrollTop).toBeGreaterThan(50);
-                diff = cell.nativeElement.getBoundingClientRect().bottom - grid.tbody.nativeElement.getBoundingClientRect().bottom;
+                diff = grid.gridAPI.get_cell_by_index(2, 'Address')
+                    .nativeElement.getBoundingClientRect().bottom - grid.tbody.nativeElement.getBoundingClientRect().bottom;
                 expect(diff).toBe(0);
 
                 // focus 1st row, Address
-                cell = grid.getCellByColumn(0, 'Address');
+                cell = grid.gridAPI.get_cell_by_index(0, 'Address');
                 UIInteractions.simulateClickAndSelectEvent(cell);
                 fix.detectChanges();
 
@@ -1955,10 +1959,11 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check next cell is active and is fully in view
-                cell = grid.getCellByColumn(0, 'ContactName');
+                cell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(cell.active).toBe(true);
                 expect(grid.verticalScrollContainer.getScroll().scrollTop).toBe(0);
-                diff = cell.nativeElement.getBoundingClientRect().top - grid.tbody.nativeElement.getBoundingClientRect().top;
+                diff = grid.gridAPI.get_cell_by_index(0, 'ContactName')
+                    .nativeElement.getBoundingClientRect().top - grid.tbody.nativeElement.getBoundingClientRect().top;
                 expect(diff).toBe(0);
             });
 
@@ -1984,7 +1989,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
 
                 // focus 1st row, 2nd row cell
                 let cell = grid.getCellByColumn(0, 'Phone');
-                UIInteractions.simulateClickAndSelectEvent(cell);
+                UIInteractions.simulateClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'Phone'));
                 fix.detectChanges();
 
                 // arrow right
@@ -2039,7 +2044,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 await wait(DEBOUNCETIME);
                 fix.detectChanges();
 
-                let firstCell = grid.getCellByColumn(0, 'ID');
+                let firstCell = grid.gridAPI.get_cell_by_index(0, 'ID');
                 UIInteractions.simulateClickAndSelectEvent(firstCell);
                 fix.detectChanges();
 
@@ -2049,7 +2054,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check correct cell is active and is fully in view
-                const lastCell = grid.getCellByColumn(0, 'Address');
+                const lastCell = grid.gridAPI.get_cell_by_index(0, 'Address');
                 expect(lastCell.active).toBe(true);
                 expect(grid.headerContainer.getScroll().scrollLeft).toBeGreaterThan(800);
                 let diff = lastCell.nativeElement.getBoundingClientRect().right - grid.tbody.nativeElement.getBoundingClientRect().right;
@@ -2061,7 +2066,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // first cell should be active and is fully in view
-                firstCell = grid.getCellByColumn(0, 'ID');
+                firstCell = grid.gridAPI.get_cell_by_index(0, 'ID');
                 expect(firstCell.active).toBe(true);
                 expect(grid.headerContainer.getScroll().scrollLeft).toBe(0);
                 diff = firstCell.nativeElement.getBoundingClientRect().left - grid.tbody.nativeElement.getBoundingClientRect().left;
@@ -2154,7 +2159,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // focus first pinned cell
-                const firstCell = grid.getCellByColumn(0, 'ID');
+                const firstCell = grid.gridAPI.get_cell_by_index(0, 'ID');
                 UIInteractions.simulateClickAndSelectEvent(firstCell);
                 await wait();
                 fix.detectChanges();
@@ -2165,7 +2170,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 // check if first unpinned cell is active and is in view
-                let firstUnpinnedCell = grid.getCellByColumn(0, 'ContactName');
+                let firstUnpinnedCell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(firstUnpinnedCell.active).toBe(true);
                 let diff = firstUnpinnedCell.nativeElement.getBoundingClientRect().left -
                     grid.pinnedWidth - grid.tbody.nativeElement.getBoundingClientRect().left;
@@ -2186,7 +2191,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 await wait();
                 fix.detectChanges();
 
-                firstUnpinnedCell = grid.getCellByColumn(0, 'ContactName');
+                firstUnpinnedCell = grid.gridAPI.get_cell_by_index(0, 'ContactName');
                 expect(firstUnpinnedCell.active).toBe(true);
                 diff = firstUnpinnedCell.nativeElement.getBoundingClientRect().left -
                     grid.pinnedWidth - grid.tbody.nativeElement.getBoundingClientRect().left;
@@ -2410,7 +2415,7 @@ describe('IgxGrid Multi Row Layout - Keyboard navigation #grid', () => {
                 fix.detectChanges();
 
                 let cell = grid.getCellByColumn(0, 'CompanyName');
-                UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+                UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'CompanyName'));
                 fix.detectChanges();
 
                 const order = ['CompanyName', 'City', 'Phone', 'ContactTitle'];
@@ -2496,7 +2501,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
         fix.detectChanges();
 
         // cell should be at bottom of grid
-        let cell = grid.getCellByColumn(2, 'ContactTitle');
+        let cell = grid.gridAPI.get_cell_by_index(2, 'ContactTitle');
         expect(grid.verticalScrollContainer.getScroll().scrollTop).toBeGreaterThan(50);
         let diff = cell.nativeElement.getBoundingClientRect().bottom - grid.tbody.nativeElement.getBoundingClientRect().bottom;
         // there is 2px border at the bottom now
@@ -2509,7 +2514,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
         fix.detectChanges();
 
         // cell should be at top of grid
-        cell = grid.getCellByColumn(0, 'CompanyName');
+        cell = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
         expect(grid.verticalScrollContainer.getScroll().scrollTop).toBe(0);
         diff = cell.nativeElement.getBoundingClientRect().top - grid.tbody.nativeElement.getBoundingClientRect().top;
         expect(diff).toBe(0);
@@ -2557,7 +2562,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
         fix.detectChanges();
 
         // cell should be at bottom of grid
-        let cell = grid.getCellByColumn(10, 'CompanyName');
+        let cell = grid.gridAPI.get_cell_by_index(10, 'CompanyName');
         expect(grid.verticalScrollContainer.getScroll().scrollTop).toBeGreaterThan(50 * 10);
         let diff = cell.nativeElement.getBoundingClientRect().bottom - grid.tbody.nativeElement.getBoundingClientRect().bottom;
         // there is 2px border at the bottom now
@@ -2573,7 +2578,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
         fix.detectChanges();
 
         // cell should be at right edge of grid
-        cell = grid.getCellByColumn(10, 'City');
+        cell = grid.gridAPI.get_cell_by_index(10, 'City');
         expect(grid.headerContainer.getScroll().scrollLeft).toBeGreaterThan(100);
         // check if cell right edge is visible
         diff = cell.nativeElement.getBoundingClientRect().right - grid.tbody.nativeElement.getBoundingClientRect().right;
@@ -2590,7 +2595,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
         fix.detectChanges();
 
         // cell should be at left edge of grid
-        cell = grid.getCellByColumn(10, 'CompanyName');
+        cell = grid.gridAPI.get_cell_by_index(10, 'CompanyName');
         expect(grid.headerContainer.getScroll().scrollLeft).toBe(0);
         // check if cell right left is visible
         diff = cell.nativeElement.getBoundingClientRect().left - grid.tbody.nativeElement.getBoundingClientRect().left;
@@ -2607,7 +2612,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
         fix.detectChanges();
 
         // cell should be at right edge of grid
-        cell = grid.getCellByColumn(9, 'ID');
+        cell = grid.gridAPI.get_cell_by_index(9, 'ID');
         expect(grid.headerContainer.getScroll().scrollLeft).toBeGreaterThan(250);
         // check if cell right right is visible
         diff = cell.nativeElement.getBoundingClientRect().right - grid.tbody.nativeElement.getBoundingClientRect().right;
@@ -2629,7 +2634,7 @@ describe('IgxGrid Multi Row Layout - navigateTo #grid', () => {
 export class ColumnLayoutTestComponent {
     @ViewChild(IgxGridComponent, { read: IgxGridComponent, static: true })
     public grid: IgxGridComponent;
-    public selectedCell: IgxGridCellComponent;
+    public selectedCell: CellType;
     public cols: Array<any> = [
         { field: 'ID', rowStart: 1, colStart: 1 },
         { field: 'CompanyName', rowStart: 1, colStart: 2 },

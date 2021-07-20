@@ -596,8 +596,8 @@ describe('IgxGrid - GroupBy #grid', () => {
         fix.detectChanges();
         spyOn(grid.groupingExpressionsChange, 'emit');
         fix.detectChanges();
-        const firstCell = grid.getCellByColumn(2, 'Downloads');
-        UIInteractions.simulateClickAndSelectEvent(firstCell);
+        const firstCellElem = grid.gridAPI.get_cell_by_index(2, 'Downloads');
+        UIInteractions.simulateClickAndSelectEvent(firstCellElem);
         fix.detectChanges();
         expect(grid.groupingExpressionsChange.emit).toHaveBeenCalledTimes(0);
     }));
@@ -1579,7 +1579,7 @@ describe('IgxGrid - GroupBy #grid', () => {
             cell.column.editable = true;
             fix.detectChanges();
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_key(5, 'ProductName'));
             fix.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -1622,7 +1622,7 @@ describe('IgxGrid - GroupBy #grid', () => {
             cell.column.editable = true;
             fix.detectChanges();
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_key(5, 'ProductName'));
             fix.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -1667,7 +1667,7 @@ describe('IgxGrid - GroupBy #grid', () => {
 
             expect(GridSelectionFunctions.verifyGroupByRowCheckboxState(grRow, true, false));
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_key(5, 'ProductName'));
             fix.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -1710,7 +1710,7 @@ describe('IgxGrid - GroupBy #grid', () => {
 
             expect(GridSelectionFunctions.verifyGroupByRowCheckboxState(grRow, false, true));
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_key(8, 'ProductName'));
             fix.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -1753,7 +1753,7 @@ describe('IgxGrid - GroupBy #grid', () => {
 
             expect(GridSelectionFunctions.verifyGroupByRowCheckboxState(grRow, false, true));
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_key(2, 'ProductName'));
             fix.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -2051,7 +2051,7 @@ describe('IgxGrid - GroupBy #grid', () => {
         cell.column.editable = true;
         fix.detectChanges();
 
-        UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+        UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_key(5, 'ProductName'));
         await wait();
         fix.detectChanges();
 

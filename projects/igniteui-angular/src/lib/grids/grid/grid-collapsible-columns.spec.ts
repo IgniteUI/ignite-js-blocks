@@ -521,7 +521,7 @@ describe('IgxGrid - multi-column headers #grid', () => {
             contactNameCol.editable = true;
             fixture.detectChanges();
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'ContactName'));
             fixture.detectChanges();
 
             expect(cell.editMode).toBe(true);
@@ -542,7 +542,7 @@ describe('IgxGrid - multi-column headers #grid', () => {
             fixture.detectChanges();
 
             const cell = grid.getCellByColumn(0, 'Country');
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(0, 'Country'));
             fixture.detectChanges();
 
             expect(cell.editMode).toBe(true);

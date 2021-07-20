@@ -1194,14 +1194,14 @@ describe('IgxGrid - multi-row-layout Integration #grid - ', () => {
                 Country: 'Mexico',
                 Address: 'Avda. de la Constitución 2222'
             }];
-            let cell = grid.getCellByColumn(0, 'CompanyName');
-            UIInteractions.simulateClickAndSelectEvent(cell);
+            let cellElem = grid.gridAPI.get_cell_by_index(0, 'CompanyName');
+            UIInteractions.simulateClickAndSelectEvent(cellElem);
             fixture.detectChanges();
 
             expect(grid.getSelectedData()).toEqual(selectedData1);
 
-            cell = grid.getCellByColumn(1, 'City');
-            UIInteractions.simulateClickAndSelectEvent(cell);
+            cellElem = grid.gridAPI.get_cell_by_index(1, 'City');
+            UIInteractions.simulateClickAndSelectEvent(cellElem);
             fixture.detectChanges();
 
             expect(grid.getSelectedData()).toEqual(selectedData2);

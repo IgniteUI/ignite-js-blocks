@@ -488,9 +488,9 @@ describe('IgxGrid - Summaries #grid', () => {
                 expectedRowLenght = Math.ceil(parseFloat(tbody) / grid.defaultRowHeight) - 1;
 
                 firstCellsText = rowsRendered.map((item) => {
-                    const cell = GridFunctions.getRowCells(fix, 0, item)[0];
-                    if (cell) {
-                        return GridFunctions.getValueFromCellElement(cell);
+                    const cellElem = GridFunctions.getRowCells(fix, 0, item)[0];
+                    if (cellElem) {
+                        return GridFunctions.getValueFromCellElement(cellElem);
                     }
                 });
                 expect(rowsRendered.length).toEqual(expectedRowLenght);
@@ -510,9 +510,9 @@ describe('IgxGrid - Summaries #grid', () => {
                 expectedRowLenght = Math.ceil(parseFloat(tbody) / grid.defaultRowHeight) - 1;
 
                 firstCellsText = rowsRendered.map((item) => {
-                    const cell = GridFunctions.getRowCells(fix, 0, item)[0];
-                    if (cell) {
-                        return GridFunctions.getValueFromCellElement(cell);
+                    const cellElem = GridFunctions.getRowCells(fix, 0, item)[0];
+                    if (cellElem) {
+                        return GridFunctions.getValueFromCellElement(cellElem);
                     }
                 });
                 expect(rowsRendered.length).toEqual(expectedRowLenght);
@@ -972,7 +972,8 @@ describe('IgxGrid - Summaries #grid', () => {
             fix.detectChanges();
 
             let cell = grid.getCellByColumn(2, 'ID');
-            UIInteractions.simulateClickAndSelectEvent(cell);
+            const cellElem = grid.gridAPI.get_cell_by_index(2, 'ID');
+            UIInteractions.simulateClickAndSelectEvent(cellElem);
             fix.detectChanges();
 
             cell = grid.getCellByColumn(2, 'ID');
@@ -1472,7 +1473,7 @@ describe('IgxGrid - Summaries #grid', () => {
             let summaryRow = fix.debugElement.query(By.css(SUMMARY_ROW));
             GridSummaryFunctions.verifyColumnSummaries(summaryRow, 4, ['Min', 'Max'], ['27', '50']);
 
-            UIInteractions.simulateDoubleClickAndSelectEvent(cell);
+            UIInteractions.simulateDoubleClickAndSelectEvent(grid.gridAPI.get_cell_by_index(1, 'Age'));
             flush();
             fix.detectChanges();
 
@@ -1481,7 +1482,7 @@ describe('IgxGrid - Summaries #grid', () => {
             flush();
             fix.detectChanges();
 
-            UIInteractions.triggerKeyDownEvtUponElem('tab', cell.nativeElement, true, false, true);
+            UIInteractions.triggerKeyDownEvtUponElem('tab', grid.gridAPI.get_cell_by_index(1, 'Age').nativeElement, true, false, true);
             flush();
             fix.detectChanges();
 
@@ -1489,7 +1490,7 @@ describe('IgxGrid - Summaries #grid', () => {
             GridSummaryFunctions.verifyColumnSummaries(summaryRow, 4, ['Min', 'Max'], ['27', '50']);
 
             const hireDateCell = grid.getCellByColumn(1, 'HireDate');
-            UIInteractions.triggerKeyDownEvtUponElem('enter', hireDateCell.nativeElement, true);
+            UIInteractions.triggerKeyDownEvtUponElem('enter', grid.gridAPI.get_cell_by_index(1, 'HireDate').nativeElement, true);
             flush();
             fix.detectChanges();
 
@@ -1921,11 +1922,12 @@ describe('IgxGrid - Summaries #grid', () => {
 
             fix.detectChanges();
             let cell = grid.getCellByColumn(6, 'Age');
-            UIInteractions.simulateClickAndSelectEvent(cell);
+            let cellElem = grid.gridAPI.get_cell_by_index(6, 'Age');
+            UIInteractions.simulateClickAndSelectEvent(cellElem);
             fix.detectChanges();
 
             expect(cell.selected).toBe(true);
-            UIInteractions.triggerKeyDownEvtUponElem('Home', cell.nativeElement, true, false, false, true);
+            UIInteractions.triggerKeyDownEvtUponElem('Home', cellElem.nativeElement, true, false, false, true);
             fix.detectChanges();
 
             cell = grid.getCellByColumn(2, 'ID');
@@ -1933,10 +1935,11 @@ describe('IgxGrid - Summaries #grid', () => {
             expect(cell.active).toBe(true);
 
             cell = grid.getCellByColumn(6, 'Name');
-            UIInteractions.simulateClickAndSelectEvent(cell);
+            cellElem = grid.gridAPI.get_cell_by_index(6, 'Name');
+            UIInteractions.simulateClickAndSelectEvent(cellElem);
             fix.detectChanges();
 
-            UIInteractions.triggerKeyDownEvtUponElem('ArrowUp', cell.nativeElement, true, false, false, true);
+            UIInteractions.triggerKeyDownEvtUponElem('ArrowUp', cellElem.nativeElement, true, false, false, true);
             fix.detectChanges();
 
             cell = grid.getCellByColumn(2, 'Name');

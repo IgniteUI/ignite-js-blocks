@@ -3,13 +3,13 @@ import { SortingDirection } from '../../data-operations/sorting-expression.inter
 import { IgxGridComponent } from './grid.component';
 import { IgxGridModule } from './public_api';
 import { DefaultSortingStrategy, NoopSortingStrategy } from '../../data-operations/sorting-strategy';
-import { IgxGridCellComponent } from '../cell.component';
 import { configureTestSuite } from '../../test-utils/configure-suite';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { GridFunctions } from '../../test-utils/grid-functions.spec';
 import { GridDeclaredColumnsComponent, SortByParityComponent, GridWithPrimaryKeyComponent } from '../../test-utils/grid-samples.spec';
 import { UIInteractions } from '../../test-utils/ui-interactions.spec';
 import { SampleTestData } from '../../test-utils/sample-test-data.spec';
+import { CellType } from '../tree-grid/public_api';
 
 describe('IgxGrid - Grid Sorting #grid', () => {
 
@@ -347,8 +347,8 @@ describe('IgxGrid - Grid Sorting #grid', () => {
                 strategy: new SortByParityComponent()
             });
             fixture.detectChanges();
-            const oddHalf: IgxGridCellComponent[] = grid.getColumnByName('ID').cells.slice(0, 5);
-            const evenHalf: IgxGridCellComponent[] = grid.getColumnByName('ID').cells.slice(5);
+            const oddHalf: CellType[] = grid.getColumnByName('ID').cells.slice(0, 5);
+            const evenHalf: CellType[] = grid.getColumnByName('ID').cells.slice(5);
             const isFirstHalfOdd: boolean = oddHalf.every(cell => cell.value % 2 === 1);
             const isSecondHalfEven: boolean = evenHalf.every(cell => cell.value % 2 === 0);
             expect(isFirstHalfOdd).toEqual(true);

@@ -11,7 +11,7 @@ import { IgxGridHeaderGroupComponent } from '../grids/headers/grid-header-group.
 import { SortingDirection } from '../data-operations/sorting-expression.interface';
 import { UIInteractions, wait } from './ui-interactions.spec';
 import {
-    IgxGridCellComponent,
+    CellType,
     IgxColumnComponent,
     IgxGridBaseDirective
 } from '../grids/grid/public_api';
@@ -22,6 +22,7 @@ import { IgxColumnPinningDirective } from '../grids/column-actions/column-pinnin
 import { parseDate } from '../core/utils';
 import { IgxGridHeaderRowComponent } from '../grids/headers/grid-header-row.component';
 import { IgxGridRowComponent } from '../grids/grid/grid-row.component';
+import { IgxGridCellComponent } from '../grids/cell.component';
 
 const SUMMARY_LABEL_CLASS = '.igx-grid-summary__label';
 const SUMMARY_ROW = 'igx-grid-summary-row';
@@ -2196,7 +2197,7 @@ export class GridSelectionFunctions {
         const endCol = startColumnIndex < endColumnIndex ? endColumnIndex : startColumnIndex;
         for (let i = startCol; i <= endCol; i++) {
             for (let j = startRow; j <= endRow; j++) {
-                const cell = grid.getCellByColumn(j, grid.columnList.find(col => col.visibleIndex === i).field);
+                const cell = grid.gridAPI.get_cell_by_index(j, grid.columnList.find(col => col.visibleIndex === i).field);
                 if (cell) {
                     GridSelectionFunctions.verifyCellSelected(cell, selected);
                 }
@@ -2214,7 +2215,7 @@ export class GridSelectionFunctions {
         expect(range[rangeIndex].rowEnd).toBe(rowEnd);
     }
 
-    public static verifyCellSelected(cell, selected = true) {
+    public static verifyCellSelected(cell: IgxGridCellComponent, selected = true) {
         expect(cell.selected).toBe(selected);
         expect(cell.nativeElement.classList.contains(CELL_SELECTED_CSS_CLASS)).toBe(selected);
     }
@@ -2225,16 +2226,16 @@ export class GridSelectionFunctions {
     }
 
     // Check the grid selected cell and cell in in the selected function
-    public static verifyGridCellSelected(fix, cell: IgxGridCellComponent) {
+    public static verifyGridCellSelected(fix, cell: CellType) {
         const selectedCellFromGrid = cell.grid.selectedCells[0];
         const selectedCell = fix.componentInstance.selectedCell;
         expect(cell.selected).toBe(true);
         expect(selectedCell.value).toEqual(cell.value);
         expect(selectedCell.column.field).toMatch(cell.column.field);
-        expect(selectedCell.rowIndex).toEqual(cell.rowIndex);
+        expect(selectedCell.row.index).toEqual(cell.row.index);
         expect(selectedCellFromGrid.value).toEqual(cell.value);
         expect(selectedCellFromGrid.column.field).toMatch(cell.column.field);
-        expect(selectedCellFromGrid.rowIndex).toEqual(cell.rowIndex);
+        expect(selectedCellFromGrid.row.index).toEqual(cell.row.index);
     }
 
     public static verifyRowSelected(row, selected = true, hasCheckbox = true) {
@@ -2398,7 +2399,7 @@ export class GridSelectionFunctions {
 
     public static verifyColumnAndCellsSelected(column: IgxColumnComponent, selected = true) {
         this.verifyColumnSelected(column, selected);
-        column.cells.forEach(cell => {
+        column._cells.forEach(cell => {
             expect(cell.nativeElement.classList.contains(SELECTED_COLUMN_CELL_CLASS)).toEqual(selected);
         });
     }

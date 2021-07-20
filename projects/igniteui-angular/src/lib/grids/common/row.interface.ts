@@ -1,4 +1,5 @@
 import { IGroupByRecord } from '../../data-operations/groupby-record.interface';
+import { CellType } from '../hierarchical-grid/public_api';
 import { IgxSummaryResult } from '../summaries/grid-summary';
 import { ITreeGridRecord } from '../tree-grid/tree-grid.interfaces';
 import { GridType } from './grid.interface';
@@ -16,6 +17,7 @@ export interface RowType {
     /** Deprecated, will be removed. data is the new property */
     rowData?: any;
     data?: any;
+    cells?: CellType[];
     disabled?: boolean;
     pinned?: boolean;
     selected?: boolean;

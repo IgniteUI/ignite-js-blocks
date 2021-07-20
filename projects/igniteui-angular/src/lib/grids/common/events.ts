@@ -3,13 +3,13 @@ import { IgxBaseExporter, IgxExporterOptionsBase } from '../../services/public_a
 import { GridKeydownTargetType } from './enums';
 import { IgxDragDirective } from '../../directives/drag-drop/drag-drop.directive';
 import { GridType } from './grid.interface';
-import { IgxGridCellComponent } from '../cell.component';
 import { IgxColumnComponent } from '../columns/column.component';
 import { IgxGridBaseDirective } from '../grid-base.directive';
 import { ColumnType } from './column.interface';
 import { ISortingExpression } from '../../data-operations/sorting-expression.interface';
 import { IFilteringExpressionsTree } from '../../data-operations/filtering-expressions-tree';
 import { RowType } from './row.interface';
+import { CellType } from '../tree-grid/public_api';
 export { GridSelectionRange } from '../selection/selection.service';
 
 export interface IGridClipboardEvent {
@@ -18,7 +18,7 @@ export interface IGridClipboardEvent {
 }
 
 export interface IGridCellEventArgs extends IBaseEventArgs {
-    cell: IgxGridCellComponent;
+    cell: CellType;
     event: Event;
 }
 

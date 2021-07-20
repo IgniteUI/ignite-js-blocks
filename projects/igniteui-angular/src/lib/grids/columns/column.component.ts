@@ -52,6 +52,8 @@ import { DropPosition } from '../moving/moving.service';
 import { IgxColumnGroupComponent } from './column-group.component';
 import { IColumnVisibilityChangingEventArgs, IPinColumnCancellableEventArgs, IPinColumnEventArgs } from '../common/events';
 import { PlatformUtil } from '../../core/utils';
+import { CellType } from '../common/cell.interface';
+import { IgxGridCell } from '../grid-public-cell';
 
 const DEFAULT_DATE_FORMAT = 'mediumDate';
 const DEFAULT_TIME_FORMAT = 'mediumTime';
@@ -1202,19 +1204,33 @@ export class IgxColumnComponent implements AfterContentInit, OnDestroy {
     /**
      * Gets the cells of the column.
      * ```typescript
-     * let columnCells =  this.column.cells;
+     * let columnCells = this.column._cells;
      * ```
      *
-     * @memberof IgxColumnComponent
      */
-    public get cells(): IgxGridCellComponent[] {
+    public get cells(): CellType[] {
+        return this.grid.dataView
+            .map((rec, index) => {
+                if (!this.grid.isGroupByRecord(rec) && !this.grid.isSummaryRow(rec)) {
+                    const cell = new IgxGridCell(this.grid as any, index, this.field);
+                    return cell;
+                }
+            }).filter(cell => cell);
+    }
+
+
+    /**
+     * @hidden @internal
+     */
+    public get _cells(): IgxGridCellComponent[] {
         return this.grid.rowList.filter((row) => row instanceof IgxRowDirective)
             .map((row) => {
-                if (row.cells) {
-                    return row.cells.filter((cell) => cell.columnIndex === this.index);
+                if (row._cells) {
+                    return row._cells.filter((cell) => cell.columnIndex === this.index);
                 }
             }).reduce((a, b) => a.concat(b), []);
     }
+
     /**
      * Gets the column visible index.
      * If the column is not visible, returns `-1`.
@@ -2247,12 +2263,12 @@ export class IgxColumnComponent implements AfterContentInit, OnDestroy {
         const range = this.grid.document.createRange();
         const largest = new Map<number, number>();
 
-        if (this.cells.length > 0) {
+        if (this._cells.length > 0) {
             const cellsContentWidths = [];
-            this.cells.forEach((cell) => cellsContentWidths.push(cell.calculateSizeToFit(range)));
+            this._cells.forEach((cell) => cellsContentWidths.push(cell.calculateSizeToFit(range)));
 
             const index = cellsContentWidths.indexOf(Math.max(...cellsContentWidths));
-            const cellStyle = this.grid.document.defaultView.getComputedStyle(this.cells[index].nativeElement);
+            const cellStyle = this.grid.document.defaultView.getComputedStyle(this._cells[index].nativeElement);
             const cellPadding = parseFloat(cellStyle.paddingLeft) + parseFloat(cellStyle.paddingRight) +
                 parseFloat(cellStyle.borderLeftWidth) + parseFloat(cellStyle.borderRightWidth);
 

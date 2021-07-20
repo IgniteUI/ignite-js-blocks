@@ -113,7 +113,7 @@ export class IgxCellCrudState {
     public cancelAddMode = false;
 
     public createCell(cell): IgxCell {
-        return this.cell = new IgxCell(cell.cellID, cell.rowIndex, cell.column, cell.value, cell.value, cell.intRow.rowData, cell.grid);
+        return this.cell = new IgxCell(cell.cellID, cell.row.index, cell.column, cell.value, cell.value, cell.row.data, cell.grid);
     }
 
     public createRow(cell: IgxCell): IgxRow {
@@ -507,6 +507,7 @@ export class IgxRowAddCrudState extends IgxRowCrudState {
 export class IgxGridCRUDService extends IgxRowAddCrudState {
 
     public enterEditMode(cell, event?: Event) {
+        // TODO cell type cell
         if (this.isInCompositionMode) {
             return;
         }
@@ -519,7 +520,8 @@ export class IgxGridCRUDService extends IgxRowAddCrudState {
                 this.grid.tbody.nativeElement.focus();
             }
         } else {
-            if (cell?.intRow.addRow) {
+            // TODO cell cell.intRow is always undefined
+            if (cell?.intRow?.addRow) {
                 this.beginAddRow(cell, event);
                 return;
             }

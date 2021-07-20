@@ -351,7 +351,7 @@ describe('IgxGrid - Deferred Column Resizing #grid', () => {
             const headers = GridFunctions.getColumnHeaders(fixture);
             const resizeArea = GridFunctions.getHeaderResizeArea(headers[4]).nativeElement;
 
-            expect(grid.columns[4].cells[0].nativeElement.getBoundingClientRect().width).toEqual(50);
+            expect(grid.columns[4]._cells[0].nativeElement.getBoundingClientRect().width).toEqual(50);
             expect(grid.columns[4].maxWidth).toEqual('100px');
 
             UIInteractions.simulateMouseEvent('dblclick', resizeArea, 0, 0);

@@ -1,0 +1,289 @@
+<div class="sample-column">
+    <div>igxGrid</div>
+    <div style="width: 100%; margin-bottom: 15px; text-align:center; display: flex;">
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="updateCell(grid, index, gridLogger)">Update</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="select(grid, index, gridLogger)">Select</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="setEditMode(grid, index, gridLogger)">Set editMode</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logState(grid, index, gridLogger)">Log state by Index</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByKey(grid, cellKey, columnField, gridLogger)">Log state by key</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByColumn(grid, index, columnField, gridLogger)">Log state by field</button>
+        </div>
+        <div style="margin-right: 5px;">
+            <span>One digit indicates Column Index. Two digits indicates rowIndex, colIndex</span><br />
+            <input name="index" type="string" [(ngModel)]="index" />
+            <br/>
+            <input name="cellKey" [(ngModel)]="cellKey" />
+            <input name="columnField" [(ngModel)]="columnField" />
+        </div>
+    </div>
+    <div class="grid-wrapper">
+        <igx-grid #grid [rowDraggable]="true" (rowDragStart)="onRowDragStart($event)" (onRowDragEnd)="onRowDragEnd($event)" [data]="data" [cellSelection]="true" [rowEditable]="true" [allowFiltering]='true' [primaryKey]='"ID"' [paging]="true" [columnSelection]="'single'"
+            [width]="'800px'" [height]="'600px'" [rowSelection]="'multiple'">
+            <ng-template igxGridDetail let-dataItem>
+                <div>
+                    <div><span class='categoryStyle'>Country:</span> {{dataItem.Country}}</div>
+                    <div><span class='categoryStyle'>City:</span> {{dataItem.City}}</div>
+                    <div><span class='categoryStyle'>Address:</span> {{dataItem.Address}}</div>
+                </div>
+            </ng-template>
+            <igx-column *ngFor="let c of columns" [sortable]="true" [field]="c.field" [header]="c.field" [width]="c.width" [pinned]='c.pinned' [groupable]='c.groupable' [hidden]='c.hidden' [editable]='true' [hasSummary]='true'>
+            </igx-column>
+            <!-- <igx-column-layout [header]="'ID'">
+                <igx-column [rowStart]="1" [colStart]="1" [rowEnd]="3" field="ID" header="ID">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+            </igx-column-layout>
+            <igx-column-layout [header]="'Details'">
+                <igx-column [rowStart]="1" [colStart]="1" [colEnd]="3" field="CompanyName">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="2" [colStart]="1" [colEnd]="2" field="ContactName">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="2" [colStart]="2" [colEnd]="3" field="ContactTitle">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+            </igx-column-layout>
+            <igx-column-layout [header]="'Address'">
+                <igx-column [rowStart]="1" [colStart]="1" [colEnd]="3" field="Country">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="1" [colStart]="3" [colEnd]="5" field="Region">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="1" [colStart]="5" [colEnd]="7" field="PostalCode">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="2" [colStart]="1" [colEnd]="4" field="City">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="2" [colStart]="4" [colEnd]="7" field="Address">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+            </igx-column-layout>
+            <igx-column-layout [header]="'Phone'">
+                <igx-column [rowStart]="1" [colStart]="1" field="Phone">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+                <igx-column [rowStart]="2" [colStart]="1" field="Fax">
+                    <ng-template igxCell let-value let-cell="cell">
+                        {{ cell.columnIndex }} {{ cell.visibleColumnIndex }}
+                    </ng-template>
+                </igx-column>
+            </igx-column-layout> -->
+            <igx-grid-toolbar [displayDensity]="grid.displayDensity">
+                <igx-grid-toolbar-actions>
+                    <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
+                    <igx-grid-toolbar-hiding></igx-grid-toolbar-hiding>
+                </igx-grid-toolbar-actions>
+            </igx-grid-toolbar>
+        </igx-grid>
+    </div>
+    <div class="log-wrapper">
+        <div class="logContainer">
+            <hr />
+            <div #gridLogger class="logger"></div>
+            <button class="clearBtn" igxButton="flat" (click)="clearLog(gridLogger)">
+                <igx-icon>clear</igx-icon>
+                <span>Clear log</span>
+            </button>
+        </div>
+    </div>
+    <br/>
+</div>
+
+<div class="sample-column">
+    <div>IgxTreeGrid Hierarchical Data</div>
+    <div style="width: 100%; margin-bottom: 15px; text-align:center; display: flex;">
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="updateCell(treeGridHier, tHIndex, tHGridLogger)">Update</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="select(treeGridHier, tHIndex, tHGridLogger)">Select</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="setEditMode(treeGridHier, tHIndex, tHGridLogger)">Set editMode</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logState(treeGridHier, tHIndex, tHGridLogger, tHGridLogger)">Log state By Index</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByKey(treeGridHier, tHCellKey, tHcolumnField, tHGridLogger)">Log state by key</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByColumn(treeGridHier, tHIndex, tHcolumnField, tHGridLogger)">Log state by field</button>
+        </div>
+        <div style="margin-right: 5px;">
+            <span>One digit indicates Column Index. Two digits indicates rowIndex, colIndex</span><br />
+            <input name="tHIndex" type="string" [(ngModel)]="tHIndex" />
+            <br/>
+            <input name="tHCellKey" [(ngModel)]="tHCellKey" />
+            <input name="tHcolumnField" [(ngModel)]="tHcolumnField" />
+        </div>
+    </div>
+    <div class="grid-wrapper">
+        <igx-tree-grid #treeGridHier [width]="'900px'" [height]="'500px'" [data]="treeGridHierData" childDataKey="ChildCompanies" primaryKey="ID" [expansionDepth]="1" [columnSelection]="'single'" [rowSelection]="'multiple'" [paging]="false">
+            <igx-column *ngFor="let c of treeGridHierColumns" [field]="c.field" [header]="c.field" [pinned]="c.pinned" [movable]="c.movable" [groupable]="false" [resizable]="c.resizable" [width]="c.width" [sortable]="true" [filterable]="true" [editable]="true" [hidden]="c.hidden"
+                [hasSummary]="c.summary" [minWidth]="c.minWidth" [maxWidth]="c.maxWidth">
+            </igx-column>
+            <igx-grid-toolbar [displayDensity]="grid.displayDensity">
+                <igx-grid-toolbar-actions>
+                    <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
+                    <igx-grid-toolbar-hiding></igx-grid-toolbar-hiding>
+                </igx-grid-toolbar-actions>
+            </igx-grid-toolbar>
+        </igx-tree-grid>
+    </div>
+    <div class="log-wrapper">
+        <div class="logContainer">
+            <hr />
+            <div #tHGridLogger class="logger"></div>
+            <button class="clearBtn" igxButton="flat" (click)="clearLog(tGridLogger)">
+                <igx-icon>clear</igx-icon>
+                <span>Clear log</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="sample-column">
+    <div>IgxTreeGrid Flat Data</div>
+    <div style="width: 100%; margin-bottom: 15px; text-align:center; display: flex;">
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="updateCell(treeGrid, tIndex, tGridLogger)">Update</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="select(treeGrid, tIndex, tGridLogger)">Select</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="setEditMode(treeGrid, tIndex, tGridLogger)">Set editMode</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logState(treeGrid, tIndex, tGridLogger)">Log state By Index</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByKey(treeGrid, tCellKey, tcolumnField, tGridLogger)">Log state by key</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByColumn(treeGrid, tIndex, tcolumnField, tGridLogger)">Log state by field</button>
+        </div>
+        <div style="margin-right: 5px;">
+            <span>One digit indicates Column Index. Two digits indicates rowIndex, colIndex</span><br />
+            <input name="tIndex" type="string" [(ngModel)]="tIndex" />
+            <br/>
+            <input name="tCellKey" type="number" [(ngModel)]="tCellKey" />
+            <input name="tcolumnField" [(ngModel)]="tcolumnField" />
+        </div>
+    </div>
+    <div class="grid-wrapper">
+        <igx-tree-grid #treeGrid [paging]='true' [allowFiltering]='true' [data]="treeData" [columnSelection]="'single'" primaryKey="employeeID" foreignKey="PID" [rowSelection]="'multiple'" [width]="'900px'" [height]="'800px'">
+            <igx-column *ngFor="let c of treeColumns" [field]="c.field" [dataType]="c.dataType" [header]="c.label" [pinned]="c.pinned" [movable]="c.movable" [groupable]="false" [resizable]="c.resizable" [width]="c.width" [sortable]="true" [filterable]="true" [editable]="true"
+                [hidden]="c.hidden" [minWidth]="c.minWidth" [maxWidth]="c.maxWidth">
+            </igx-column>
+            <igx-grid-toolbar [displayDensity]="grid.displayDensity">
+                <igx-grid-toolbar-actions>
+                    <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
+                    <igx-grid-toolbar-hiding></igx-grid-toolbar-hiding>
+                </igx-grid-toolbar-actions>
+            </igx-grid-toolbar>
+        </igx-tree-grid>
+    </div>
+    <div class="log-wrapper">
+        <div class="logContainer">
+            <hr />
+            <div #tGridLogger class="logger"></div>
+            <button class="clearBtn" igxButton="flat" (click)="clearLog(tGridLogger)">
+                <igx-icon>clear</igx-icon>
+                <span>Clear log</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="sample-column">
+    <div>igxHierarchicalGrid</div>
+    <div style="width: 100%; margin-bottom: 15px; text-align:center; display: flex;">
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="updateCell(hGrid, hIndex, hGridLogger)">Update</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="select(hGrid, hIndex, hGridLogger)">Select</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="setEditMode(hGrid, hIndex, hGridLogger)">Set editMode</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logState(hGrid, hIndex, hGridLogger)">Log state By Index</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByKey(hGrid, hCellKey, hcolumnField, hGridLogger)">Log state by key</button>
+        </div>
+        <div style="margin-right: 5px; text-align: start">
+            <button (click)="logStateByColumn(hGrid, hIndex, hcolumnField, hGridLogger)">Log state by field</button>
+        </div>
+        <div style="margin-right: 5px;">
+            <span>One digit indicates Column Index. Two digits indicates rowIndex, colIndex</span><br />
+            <input name="hIndex" type="string" [(ngModel)]="hIndex" />
+            <br/>
+            <input name="hCellKey" [(ngModel)]="hCellKey" />
+            <input name="hcolumnField" [(ngModel)]="hcolumnField" />
+        </div>
+    </div>
+    <div class="grid-wrapper">
+        <igx-hierarchical-grid #hGrid [width]="'800px'" [height]="'600px'" [columnSelection]="'single'" [paging]="true" [primaryKey]='"ID"' [allowFiltering]='true' [showExpandAll]='true' [data]="hierarchicalData" [rowSelection]="'multiple'">
+            <igx-column *ngFor="let c of hColumns" [hasSummary]='true' [editable]="true" [sortable]="true" [field]="c.field" [header]="c.field" [width]="c.width" [pinned]='c.pinned' [groupable]='c.groupable'>
+            </igx-column>
+            <igx-grid-toolbar [displayDensity]="grid.displayDensity">
+                <igx-grid-toolbar-actions>
+                    <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
+                    <igx-grid-toolbar-hiding></igx-grid-toolbar-hiding>
+                </igx-grid-toolbar-actions>
+            </igx-grid-toolbar>
+            <igx-row-island [key]="'childData'" [autoGenerate]="true" [rowSelection]="'multiple'" [allowFiltering]='true'>
+                <igx-row-island [key]="'childData'" [autoGenerate]="true" [rowSelection]="'multiple'" [allowFiltering]='true'></igx-row-island>
+            </igx-row-island>
+            <igx-row-island [key]="'childData2'" [autoGenerate]="true" [allowFiltering]='true'></igx-row-island>
+        </igx-hierarchical-grid>
+    </div>
+    <div class="log-wrapper">
+        <div class="logContainer">
+            <hr />
+            <div #hGridLogger class="logger"></div>
+            <button class="clearBtn" igxButton="flat" (click)="clearLog(hGridLogger)">
+                <igx-icon>clear</igx-icon>
+                <span>Clear log</span>
+            </button>
+        </div>
+    </div>
+</div>

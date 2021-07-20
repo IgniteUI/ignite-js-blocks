@@ -124,6 +124,7 @@ import { AccordionSampleComponent } from './accordion/accordion.sample';
 import { GridLocalizationSampleComponent } from './grid-localization/grid-localization.sample';
 import { TreeGridGroupBySampleComponent } from './tree-grid-groupby/tree-grid-groupby.sample';
 import { PaginationSampleComponent } from './pagination/pagination.component';
+import { GridCellAPISampleComponent } from './grid-cell-api/grid-cell-api.sample';
 
 const appRoutes = [
     {
@@ -423,6 +424,10 @@ const appRoutes = [
     {
         path: 'gridRowAPI',
         component: GridRowAPISampleComponent
+    },
+    {
+        path: 'gridCellAPI',
+        component: GridCellAPISampleComponent
     },
     {
         path: 'gridRemotePaging',
