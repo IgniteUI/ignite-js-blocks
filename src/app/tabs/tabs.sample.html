@@ -261,5 +261,26 @@
                 </igx-tab-item>
             </igx-tabs>
         </div>
+
+        <div>
+            <h3 class="sample-title">Bind selected property</h3>
+            <button [igxButton]="'outlined'" class="action-button" (click)="addSelectedTab()">Add Tab</button>
+
+            <igx-tabs
+                #dynamicTabs
+            >
+                <igx-tab-item
+                    *ngFor="let tab of tabsArray; index as i"
+                    [(selected)]="tab.selected"
+                >
+                    <igx-tab-header>
+                        <span igxTabHeaderLabel>{{tab.name}}</span>
+                    </igx-tab-header>
+                    <igx-tab-content>
+                        {{tab.name}}
+                    </igx-tab-content>
+                </igx-tab-item>
+            </igx-tabs>
+        </div>
     </div>
 </div>

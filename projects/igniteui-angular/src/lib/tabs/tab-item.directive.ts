@@ -1,4 +1,4 @@
-import { ContentChild, Directive, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ContentChild, Directive, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Direction, IgxSlideComponentBase } from '../carousel/carousel-base';
 import { IgxTabHeaderBase, IgxTabItemBase, IgxTabContentBase, IgxTabsBase } from './tabs.base';
 
@@ -20,6 +20,12 @@ export abstract class IgxTabItemDirective implements IgxTabItemBase, IgxSlideCom
     /** @hidden */
     @ViewChild('panelTemplate', { static: true })
     public panelTemplate: TemplateRef<any>;
+
+    /**
+     * Output to enable support for two-way binding on [(selected)]
+     */
+    @Output()
+    public selectedChange = new EventEmitter<boolean>();
 
     /**
      * An @Input property that allows you to enable/disable the item.
@@ -46,6 +52,7 @@ export abstract class IgxTabItemDirective implements IgxTabItemBase, IgxSlideCom
         if (this._selected !== value) {
             this._selected = value;
             this.tabs.selectTab(this, this._selected);
+            this.selectedChange.emit(this._selected);
         }
     }
 
