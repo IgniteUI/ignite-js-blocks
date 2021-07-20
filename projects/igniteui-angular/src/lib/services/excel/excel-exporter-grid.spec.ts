@@ -572,11 +572,11 @@ describe('Excel Exporter', () => {
 
             fix.detectChanges();
 
-            const groupRows = grid.groupsRowList.toArray();
+            const groupRows = grid.groupsRecords;
 
-            grid.toggleGroup(groupRows[2].groupRow);
-            grid.toggleGroup(groupRows[3].groupRow);
-            grid.toggleGroup(groupRows[6].groupRow);
+            grid.toggleGroup(groupRows[0].groups[1]);
+            grid.toggleGroup(groupRows[1]);
+            grid.toggleGroup(groupRows[1].groups[2]);
 
             fix.detectChanges();
 

@@ -5880,7 +5880,7 @@ export abstract class IgxGridBaseDirective extends DisplayDensityBase implements
      */
     public cachedViewLoaded(args: ICachedViewLoadedEventArgs) {
         if (this.hasHorizontalScroll()) {
-            const tmplId = args.context.templateID;
+            const tmplId = args.context.templateID.type;
             const index = args.context.index;
             args.view.detectChanges();
             this.zone.onStable.pipe(first()).subscribe(() => {

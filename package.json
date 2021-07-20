@@ -20,7 +20,7 @@
     "test:lib:azure:tgrid": "ng test igniteui-angular --watch=false --no-progress --karma-config=./projects/igniteui-angular/karma.azure.tree-grid.conf.js",
     "test:lib:azure:hgrid": "ng test igniteui-angular --watch=false --no-progress --karma-config=./projects/igniteui-angular/karma.azure.hierarchical-grid.conf.js",
     "test:lib:azure:others": "ng test igniteui-angular --watch=false --no-progress --karma-config=./projects/igniteui-angular/karma.azure.non-grid.conf.js",
-    "test:lib:watch": "ng test igniteui-angular",
+    "test:lib:watch": "ng test igniteui-angular --karma-config=./projects/igniteui-angular/karma.watch.conf.js",
     "test:schematics": "ts-node --project projects/igniteui-angular/migrations/tsconfig.json ./node_modules/jasmine/bin/jasmine.js ./projects/igniteui-angular/migrations/**/*.spec.ts ./projects/igniteui-angular/schematics/**/*.spec.ts",
     "test:styles": "ts-node --skip-project ./node_modules/jasmine/bin/jasmine.js ./projects/igniteui-angular/src/lib/core/styles/spec/tests.ts",
     "build:lib": "ng build igniteui-angular --configuration production && gulp buildStyle",
