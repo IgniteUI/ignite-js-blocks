@@ -148,6 +148,20 @@ All notable changes for each version of this project will be documented in this 
 -   `IgxDropDown`
     - **Breaking Change** - The dropdown items no longer takes focus unless `allowItemsFocus` is set to `true`.
 
+-   `IgxDialog`
+    - **Breaking Change** - The default positionSettings open/close animation has been changed to `fadeIn`/`fadeOut`. The open/close animation can be set through the position settings, e.g. change the animation to the previously default open/close animation:
+
+    ```typescript
+    import { slideInBottom, slideOutTop } from 'igniteui-angular';
+
+    @ViewChild('alert', { static: true }) public alert: IgxDialogComponent;
+    public newPositionSettings: PositionSettings = {
+        openAnimation: useAnimation(slideInBottom, { params: { fromPosition: 'translateY(100%)' } }),
+        closeAnimation: useAnimation(slideOutTop, { params: { toPosition: 'translateY(-100%)'} })
+    };
+    this.alert.positionSettings = this.newPositionSettings;
+    ```
+
 ### Themes
 - **Breaking Change**  - The `$color` property of the `igx-action-strip-theme` has been renamed as follows:
     - `$color` -> `$icon-color`
