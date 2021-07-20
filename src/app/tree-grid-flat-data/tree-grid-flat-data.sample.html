@@ -7,8 +7,8 @@
     </div>
     <button class="show-summary" igxButton="outlined" (click)="grid1.showSummaryOnCollapse = !grid1.showSummaryOnCollapse"> {{ grid1.showSummaryOnCollapse }}</button>
 
-    <igx-tree-grid #grid1 [allowFiltering]="true" [data]="data" primaryKey="employeeID" foreignKey="PID" [rowSelection]="selectionMode"
-        [paging]="false" [displayDensity]="density" [width]="'900px'" [height]="'800px'" [summaryCalculationMode]="summaryMode">
+    <igx-tree-grid #grid1 [batchEditing]="true" [allowFiltering]="true" [data]="data" primaryKey="employeeID" foreignKey="PID" [rowSelection]="selectionMode"
+        [displayDensity]="density" [width]="'900px'" [height]="'800px'" [summaryCalculationMode]="summaryMode">
         <igx-column *ngFor="let c of columns" [field]="c.field" [dataType]="c.dataType" [header]="c.label"
             [pinned]="c.pinned" [movable]="c.movable" [groupable]="false" [resizable]="c.resizable" [width]="c.width"
             [sortable]="true" [filterable]="true" [editable]="true" [hidden]="c.hidden" [hasSummary]="c.hasSummary"

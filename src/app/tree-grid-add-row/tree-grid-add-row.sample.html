@@ -1,6 +1,6 @@
 <div>
     <igx-tree-grid [pinning]="pinningConfig" #grid [allowFiltering]="true" [data]="data" primaryKey="employeeID" foreignKey="PID"
-    [paging]="false" [width]="'900px'" [height]="'800px'" [rowEditable]="true"
+    [width]="'900px'" [height]="'800px'" [rowEditable]="true"
     (mouseleave)="onMouseLeave(actionstrip)"
     (mouseover)="onMouseOver($event, grid, actionstrip)">
     <igx-column *ngFor="let c of columns" [field]="c.field" [dataType]="c.dataType" [header]="c.label"

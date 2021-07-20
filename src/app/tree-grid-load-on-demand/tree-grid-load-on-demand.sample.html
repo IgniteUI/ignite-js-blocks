@@ -9,6 +9,7 @@
     <h4>Primary/Foreign key</h4>
     <igx-tree-grid #grid1 [data]="data1" primaryKey="employeeID" foreignKey="PID"
         [loadChildrenOnDemand]="loadChildren" hasChildrenKey="hasEmployees"
+        [batchEditing]="true"
         [rowSelection]="selectionMode" [displayDensity]="density" [width]="'900px'" [height]="'800px'" [summaryCalculationMode]="summaryMode"
         [allowFiltering]="true" [filterMode]="'excelStyleFilter'">
         <igx-grid-toolbar [displayDensity]="grid1.displayDensity">
@@ -60,7 +61,9 @@
     </div>
 
     <h4>ChildData key</h4>
-    <igx-tree-grid #grid2 [data]="data2" primaryKey="employeeID" childDataKey="employees"
+    <igx-tree-grid #grid2
+        [data]="data2" primaryKey="employeeID" childDataKey="employees"
+        [batchEditing]="true"
         [loadChildrenOnDemand]="loadChildren" hasChildrenKey="hasEmployees"
         [rowSelection]="selectionMode" [displayDensity]="density" [width]="'900px'" [height]="'800px'" [summaryCalculationMode]="summaryMode"
         [allowFiltering]="true" [filterMode]="'excelStyleFilter'">

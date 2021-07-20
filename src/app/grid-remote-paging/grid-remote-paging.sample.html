@@ -1,23 +1,15 @@
 <div class="dark-grid">
-    <igx-grid igxPreventDocumentScroll #grid1 [data]="data | async" width="100%" height="540px" [paging]="paging" [paginationTemplate]="customPager">
+    <igx-grid igxPreventDocumentScroll #grid1 [data]="data | async" width="100%" height="540px">
         <igx-column field="ID"></igx-column>
         <igx-column field="ProductName"></igx-column>
         <igx-column field="QuantityPerUnit"></igx-column>
         <igx-column field="SupplierName"></igx-column>
         <igx-column field="UnitsInStock"></igx-column>
         <igx-column field="Rating"></igx-column>
-    </igx-grid>
-    <ng-template #customPager let-api>
-        <igx-paginator #paginator
-            [totalRecords]="totalCount"
-            [(page)]="page"
-            [(perPage)]="perPage"
-            [selectOptions]="selectOptions"
-            [displayDensity]="grid1.displayDensity"
-            (pageChange)="paginate($event)"
-            (perPageChange)="perPageChange($event)">
+        <igx-paginator #paginator *ngIf="paging" [totalRecords]="totalCount" [selectOptions]="selectOptions" [(page)]="page"
+            [(perPage)]="perPage" (pageChange)="paginate($event)" (perPageChange)="perPageChange($event)">
         </igx-paginator>
-    </ng-template>
+    </igx-grid>
 
     <igx-card style="width: 360px; margin-top: 12px">
         <igx-card-header>

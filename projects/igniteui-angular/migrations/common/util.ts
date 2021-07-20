@@ -90,7 +90,7 @@ export const getPackageVersion = (pkg: string): string => {
     let version = null;
     try {
         version = require(path.posix.join(pkg, 'package.json'))?.version;
-    } catch {}
+    } catch { }
 
     return version;
 };
@@ -153,9 +153,9 @@ export class FileChange {
         public text = '',
         public replaceText = '',
         public type: 'insert' | 'replace' = 'insert'
-        ) {}
+    ) { }
 
-    apply(content: string) {
+    public apply(content: string) {
         if (this.type === 'insert') {
             return `${content.substring(0, this.position)}${this.text}${content.substring(this.position)}`;
         }
@@ -232,7 +232,7 @@ export const flatten = (list: Node[]) => {
  */
 class SerializerVisitor implements Visitor {
 
-    visitElement(element: Element, context: any): any {
+    public visitElement(element: Element, _context: any): any {
         if (getHtmlTagDefinition(element.name).isVoid) {
             return `<${element.name}${this._visitAll(element.attrs, ' ')}/>`;
         }
@@ -240,23 +240,23 @@ class SerializerVisitor implements Visitor {
         return `<${element.name}${this._visitAll(element.attrs, ' ')}>${this._visitAll(element.children)}</${element.name}>`;
     }
 
-    visitAttribute(attribute: Attribute, context: any): any {
+    public visitAttribute(attribute: Attribute, _context: any): any {
         return attribute.value === '' ? `${attribute.name}` : `${attribute.name}="${attribute.value}"`;
     }
 
-    visitText(text: Text, context: any): any {
+    public visitText(text: Text, _context: any): any {
         return text.value;
     }
 
-    visitComment(comment: Comment, context: any): any {
+    public visitComment(comment: Comment, _context: any): any {
         return `<!--${comment.value}-->`;
     }
 
-    visitExpansion(expansion: Expansion, context: any): any {
+    public visitExpansion(expansion: Expansion, _context: any): any {
         return `{${expansion.switchValue}, ${expansion.type},${this._visitAll(expansion.cases)}}`;
     }
 
-    visitExpansionCase(expansionCase: ExpansionCase, context: any): any {
+    public visitExpansionCase(expansionCase: ExpansionCase, _context: any): any {
         return ` ${expansionCase.value} {${this._visitAll(expansionCase.expression)}}`;
     }
 
@@ -270,3 +270,14 @@ class SerializerVisitor implements Visitor {
 
 
 export const serializeNodes = (nodes: Node[]): string[] => nodes.map(node => node.visit(new SerializerVisitor(), null));
+
+export const makeNgIf = (name: string, value: string) => name.startsWith('[') && value !== 'true';
+
+export const stringifyAttriutes = (attributes: Attribute[]) => {
+    let stringAttributes = '';
+    attributes.forEach(element => {
+        // eslint-disable-next-line max-len
+        stringAttributes = stringAttributes.concat(element.name.includes('#') ? ` ${element.name} ` : `${element.name}="${element.value}" `);
+    });
+    return stringAttributes;
+};

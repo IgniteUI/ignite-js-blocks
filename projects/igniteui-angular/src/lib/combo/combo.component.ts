@@ -133,6 +133,25 @@ const diffInSets = (set1: Set<any>, set2: Set<any>): any[] => {
 
 let NEXT_ID = 0;
 
+/**
+ *  Represents a drop-down list that provides editable functionalities, allowing users to choose an option from a predefined list.
+ *
+ * @igxModule IgxComboModule
+ * @igxTheme igx-combo-theme
+ * @igxKeywords combobox, combo selection
+ * @igxGroup Grids & Lists
+ *
+ * @remarks
+ * It provides the ability to filter items as well as perform single or multiple seleciton with the provided data.
+ * Additionally, it exposes keyboard navigation and custom styling capabilities.
+ * @example
+ * ```html
+ * <igx-combo [itemsMaxHeight]="250" [data]="locationData"
+ *  [displayKey]="'field'" [valueKey]="'field'"
+ *  placeholder="Location(s)" searchPlaceholder="Search...">
+ * </igx-combo>
+ * ```
+ */
 @Component({
     selector: 'igx-combo',
     templateUrl: 'combo.component.html',

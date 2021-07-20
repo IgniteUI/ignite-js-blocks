@@ -106,6 +106,8 @@ export interface IGridResourceStrings {
     igx_grid_hiding_uncheck_all_label?: string;
     igx_grid_pinning_check_all_label?: string;
     igx_grid_pinning_uncheck_all_label?: string;
+    igx_grid_row_edit_btn_done?: string;
+    igx_grid_row_edit_btn_cancel?: string;
     igx_grid_toolbar_actions_filter_prompt?: string;
     igx_grid_toolbar_pinning_button_tooltip?: string;
     igx_grid_toolbar_hiding_button_tooltip?: string;
@@ -238,6 +240,8 @@ export const GridResourceStringsEN: IGridResourceStrings = {
     igx_grid_hiding_uncheck_all_label: 'Hide All',
     igx_grid_pinning_check_all_label: 'Pin All',
     igx_grid_pinning_uncheck_all_label: 'Unpin All',
+    igx_grid_row_edit_btn_done: 'Done',
+    igx_grid_row_edit_btn_cancel: 'Cancel',
     igx_grid_toolbar_actions_filter_prompt: 'Filter columns list ...',
     igx_grid_toolbar_pinning_button_tooltip: 'Open column pinning dropdown',
     igx_grid_toolbar_hiding_button_tooltip: 'Open column hiding dropdown',

@@ -16,7 +16,6 @@ const EventEmitter = require('events').EventEmitter;
 const { series } = require('gulp');
 const {spawnSync} = require('child_process');
 const slash = require('slash');
-const Fiber = require('fibers');
 
 const STYLES = {
     SRC: './projects/igniteui-angular/src/lib/core/styles/themes/presets/**/*',
@@ -27,8 +26,7 @@ const STYLES = {
         DIST: './dist/igniteui-angular/lib/core/styles'
     },
     CONFIG: {
-        outputStyle: 'compressed',
-        fiber: Fiber
+        outputStyle: 'compressed'
     }
 };
 
@@ -52,7 +50,7 @@ module.exports.buildStyle = () => {
 
     return gulp.src(STYLES.SRC)
         .pipe(sourcemaps.init())
-        .pipe(sass(STYLES.CONFIG).on('error', err => {
+        .pipe(sass.sync(STYLES.CONFIG).on('error', err => {
             sass.logError.bind(myEventEmitter)(err);
             myEventEmitter.emit('end');
             process.exit(1);

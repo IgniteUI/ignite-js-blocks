@@ -8,7 +8,8 @@
     },
   "files": [
     "main.ts",
-    "polyfills.ts"
+    "polyfills.ts",
+    "../projects/igniteui-angular-i18n/src/i18n/expand-type.ts"
   ],
   "include": [
     "**/*.d.ts"

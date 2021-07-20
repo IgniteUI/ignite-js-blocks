@@ -30,7 +30,6 @@ import { IgxHierarchicalGridBaseDirective } from './hierarchical-grid-base.direc
 import { takeUntil } from 'rxjs/operators';
 import { IgxTemplateOutletDirective } from '../../directives/template-outlet/template_outlet.directive';
 import { IgxGridSelectionService } from '../selection/selection.service';
-import { IgxTransactionService } from '../../services/public_api';
 import { IgxForOfSyncService, IgxForOfScrollSyncService } from '../../directives/for-of/for_of.sync.service';
 import { GridType } from '../common/grid.interface';
 import { IgxRowIslandAPIService } from './row-island-api.service';
@@ -38,6 +37,7 @@ import { IgxGridToolbarDirective, IgxGridToolbarTemplateContext } from '../toolb
 import { IgxGridCRUDService } from '../common/crud.service';
 import { RowType } from '../common/row.interface';
 import { IgxHierarchicalGridRow } from '../grid-public-row';
+import { IgxPaginatorComponent } from '../../paginator/paginator.component';
 
 let NEXT_ID = 0;
 
@@ -87,8 +87,15 @@ export class IgxHierarchicalGridComponent extends IgxHierarchicalGridBaseDirecti
     @ContentChild(IgxGridToolbarDirective, { read: TemplateRef, static: true })
     public toolbarTemplate: TemplateRef<IgxGridToolbarTemplateContext>;
 
+    /** @hidden @internal */
+    @ContentChildren(IgxPaginatorComponent, {descendants: true})
+    public paginatorList: QueryList<IgxPaginatorComponent>;
+
     @ViewChild('toolbarOutlet', { read: ViewContainerRef })
     public toolbarOutlet: ViewContainerRef;
+
+    @ViewChild('paginatorOutlet', { read: ViewContainerRef })
+    public paginatorOutlet: ViewContainerRef;
     /**
      * @hidden
      */
@@ -193,6 +200,12 @@ export class IgxHierarchicalGridComponent extends IgxHierarchicalGridBaseDirecti
         return this._data;
     }
 
+    /** @hidden @internal */
+    public get paginator() {
+        const id = this.id;
+        return  (!this.parentIsland && this.paginationComponents?.first) || this.rootGrid.paginatorList?.find((pg) =>
+            pg.nativeElement.offsetParent?.id === id);
+    }
 
     /**
      * Sets an array of objects containing the filtered data in the `IgxHierarchicalGridComponent`.
@@ -308,13 +321,15 @@ export class IgxHierarchicalGridComponent extends IgxHierarchicalGridBaseDirecti
      * @hidden
      */
     public ngOnInit() {
-        if (this._transactions instanceof IgxTransactionService) {
-            // transaction service cannot be injected in a derived class in a factory manner
-            this._transactions = new IgxTransactionService();
-        }
         // this.expansionStatesChange.pipe(takeUntil(this.destroy$)).subscribe((value: Map<any, boolean>) => {
         //     const res = Array.from(value.entries()).filter(({1: v}) => v === true).map(([k]) => k);
         // });
+        this.batchEditing = !!this.rootGrid.batchEditing;
+        if (this.rootGrid !== this) {
+            this.rootGrid.batchEditingChange.pipe(takeUntil(this.destroy$)).subscribe((val: boolean) => {
+                this.batchEditing = val;
+            });
+        }
         super.ngOnInit();
     }
 

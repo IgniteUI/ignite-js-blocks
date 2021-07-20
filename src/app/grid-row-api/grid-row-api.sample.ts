@@ -1,26 +1,21 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import {
     IgxGridComponent,
-    IgxTransactionService,
-    IgxGridTransaction,
     RowType,
     IgxTreeGridComponent,
     IgxHierarchicalGridComponent,
     IPinningConfig,
     RowPinningPosition,
     IRowDragStartEventArgs,
-		GridSummaryCalculationMode,
-		GridSummaryPosition
+    GridSummaryCalculationMode,
+    GridSummaryPosition
 } from 'igniteui-angular';
 import { HIERARCHICAL_SAMPLE_DATA } from '../shared/sample-data';
 
 @Component({
     selector: 'app-grid-row-api-sample',
     styleUrls: ['grid-row-api.sample.css'],
-    templateUrl: 'grid-row-api.sample.html',
-    providers: [
-        { provide: IgxGridTransaction, useClass: IgxTransactionService }
-    ],
+    templateUrl: 'grid-row-api.sample.html'
 })
 
 export class GridRowAPISampleComponent implements OnInit {

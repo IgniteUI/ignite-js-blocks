@@ -207,7 +207,7 @@ export class IgxGridExcelStyleFilteringComponent implements OnDestroy {
                 this.cdr.detectChanges();
             });
             this._columnMoved = this.grid.columnMovingEnd.pipe(takeUntil(this.destroy$)).subscribe(() => {
-                this.cdr.detectChanges();
+                this.cdr.markForCheck();
             });
         }
     }

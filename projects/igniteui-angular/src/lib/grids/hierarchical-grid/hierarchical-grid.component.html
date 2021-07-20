@@ -52,7 +52,7 @@
         | visibleColumns:hasVisibleColumns
         | gridFiltering:filteringExpressionsTree:filterStrategy:advancedFilteringExpressionsTree:id:pipeTrigger:filteringPipeTrigger
         | gridSort:sortingExpressions:sortStrategy:id:pipeTrigger
-        | gridHierarchicalPaging:page:perPage:id:pipeTrigger
+        | gridHierarchicalPaging:paginator?.page:paginator?.perPage:id:pipeTrigger
         | gridHierarchical:expansionStates:id:primaryKey:childLayoutKeys:pipeTrigger
         | gridRowPinning:id:false:pipeTrigger
         | gridAddRow:false:pipeTrigger"
@@ -138,18 +138,9 @@
 
 <div class="igx-grid__footer" #footer>
     <ng-content select="igx-grid-footer"></ng-content>
-    <ng-container *ngIf="paging && totalRecords">
-        <ng-container
-            *ngTemplateOutlet="paginationTemplate ? paginationTemplate : defaultPaginator; context: {$implicit: this}">
-        </ng-container>
-    </ng-container>
+    <ng-content *ngIf="totalRecords || pagingMode === 1"  select="igx-paginator"></ng-content>
+    <ng-container #paginatorOutlet></ng-container>
 </div>
-
-<ng-template #defaultPaginator>
-    <igx-paginator [overlaySettings]="paginatorSettings" [displayDensity]="displayDensity" [(page)]="page" [totalRecords]="totalRecords"
-        [(perPage)]="perPage">
-    </igx-paginator>
-</ng-template>
 
 <ng-template #emptyFilteredGrid>
     <span class="igx-grid__tbody-message" role="cell">
@@ -201,8 +192,8 @@
     You have {{ rowChangesCount }} changes in this row
 </ng-template>
 <ng-template #defaultRowEditActions>
-    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(false, $event)">Cancel</button>
-    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(true, $event)">Done</button>
+    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(false, $event)">{{ this.resourceStrings.igx_grid_row_edit_btn_cancel }}</button>
+    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(true, $event)">{{ this.resourceStrings.igx_grid_row_edit_btn_done }}</button>
 </ng-template>
 <ng-template #defaultRowEditTemplate>
     <div class="igx-banner__message">

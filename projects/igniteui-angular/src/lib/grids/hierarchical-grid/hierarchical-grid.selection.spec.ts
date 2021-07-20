@@ -1151,6 +1151,8 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
         it('should not be able to select deleted row', fakeAsync(() => {
             // Expand first row
             const firstRow = hierarchicalGrid.hgridAPI.get_row_by_index(0) as IgxHierarchicalRowComponent;
+            fix.detectChanges();
+
             firstRow.toggle();
             fix.detectChanges();
 
@@ -1516,9 +1518,10 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             });
         });
 
-        it('Should have correct indices on all pages', () => {
+        it('Should have correct indices on all pages', fakeAsync(() => {
             // root grid
             hGrid.nextPage();
+            tick(100);
             fix.detectChanges();
             expect(hGrid.gridAPI.get_row_by_index(0).nativeElement.querySelector('.rowNumber').textContent).toEqual('15');
 
@@ -1527,10 +1530,15 @@ describe('IgxHierarchicalGrid selection #hGrid', () => {
             fix.detectChanges();
 
             const childGrid = hGrid.hgridAPI.getChildGrids(false)[0];
-
-            childGrid.nextPage();
+            tick(100);
             fix.detectChanges();
+
+            childGrid.paginator.nextPage();
+            fix.detectChanges();
+            tick(100);
+            fix.detectChanges();
+
             expect(childGrid.gridAPI.get_row_by_index(2).nativeElement.querySelector('.rowNumberChild').textContent).toEqual('17');
-        });
+        }));
     });
 });

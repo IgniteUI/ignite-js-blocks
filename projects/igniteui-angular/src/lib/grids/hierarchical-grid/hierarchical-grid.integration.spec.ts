@@ -15,7 +15,8 @@ import { take } from 'rxjs/operators';
 import { IgxIconModule } from '../../icon/public_api';
 import {
     IgxHierarchicalGridTestBaseComponent,
-    IgxHierarchicalGridTestCustomToolbarComponent
+    IgxHierarchicalGridTestCustomToolbarComponent,
+    IgxHierarchicalGridWithTransactionProviderComponent
 } from '../../test-utils/hierarchical-grid-components.spec';
 import { GridFunctions, GridSelectionFunctions } from '../../test-utils/grid-functions.spec';
 import { HierarchicalGridFunctions } from '../../test-utils/hierarchical-grid-functions.spec';
@@ -36,7 +37,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         TestBed.configureTestingModule({
             declarations: [
                 IgxHierarchicalGridTestBaseComponent,
-                IgxHierarchicalGridTestCustomToolbarComponent
+                IgxHierarchicalGridTestCustomToolbarComponent,
+                IgxHierarchicalGridWithTransactionProviderComponent
             ],
             imports: [
                 NoopAnimationsModule, IgxHierarchicalGridModule, IgxIconModule]
@@ -157,6 +159,9 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
             hierarchicalGrid.childLayoutList.first.gridCreated.pipe(take(2)).subscribe((args) => {
                 firstLayoutInstances.push(args.grid);
             });
+            hierarchicalGrid.batchEditing = true;
+            tick();
+            fixture.detectChanges();
             const dataRows = hierarchicalGrid.dataRowList.toArray();
             // expand 1st row
             hierarchicalGrid.expandRow(dataRows[0].rowID);
@@ -175,6 +180,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         }));
 
         it('should remove expand indicator for uncommitted added rows', fakeAsync(() => {
+            hierarchicalGrid.batchEditing = true;
+            fixture.detectChanges();
             hierarchicalGrid.data = hierarchicalGrid.data.slice(0, 3);
             fixture.detectChanges();
             hierarchicalGrid.addRow({ ID: -1, ProductName: 'Name1' });
@@ -189,6 +196,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
 
         it('should now allow expanding uncommitted added rows', fakeAsync(() => {
             /* using the API here assumes keyboard interactions to expand/collapse would also be blocked */
+            hierarchicalGrid.batchEditing = true;
+            fixture.detectChanges();
             hierarchicalGrid.data = hierarchicalGrid.data.slice(0, 3);
             fixture.detectChanges();
             hierarchicalGrid.addRow({ ID: -1, ProductName: 'Name1' });
@@ -210,6 +219,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         }));
 
         it('should revert changes when transactions are cleared for child grids', fakeAsync(() => {
+            hierarchicalGrid.batchEditing = true;
+            fixture.detectChanges();
             let childGrid;
             hierarchicalGrid.childLayoutList.first.gridCreated.pipe(take(1)).subscribe((args) => {
                 childGrid = args.grid;
@@ -243,6 +254,25 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
             expect(hierarchicalGrid.getRowData('2')).toEqual(rowData);
             expect(hierarchicalGrid.getRowData('101')).toEqual({});
         });
+
+        it('should respect transaction service that is provided in the providers array', fakeAsync(() => {
+            fixture = TestBed.createComponent(IgxHierarchicalGridWithTransactionProviderComponent);
+            tick();
+            fixture.detectChanges();
+            hierarchicalGrid = fixture.componentInstance.hgrid;
+            expect(hierarchicalGrid.transactions.enabled).toBeTruthy();
+            expect(hierarchicalGrid.batchEditing).toBeFalsy();
+            let childGrid: IgxHierarchicalGridComponent;
+            hierarchicalGrid.childLayoutList.first.gridCreated.pipe(take(1)).subscribe((args) => {
+                childGrid = args.grid;
+            });
+            // expand first row
+            hierarchicalGrid.expandRow(hierarchicalGrid.dataRowList.first.rowID);
+            expect(childGrid).toBeDefined();
+            expect(childGrid.transactions.enabled).toBeTruthy();
+            childGrid.updateRow({ ProductName: 'Changed' }, '00');
+            expect(childGrid.transactions.getAggregatedChanges(false).length).toBe(1);
+        }));
     });
 
     describe('Sorting', () => {
@@ -441,7 +471,9 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
 
     describe('Paging', () => {
         it('should work on data records only when paging is enabled and should not be affected by child grid rows.', fakeAsync(() => {
-            hierarchicalGrid.paging = true;
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
+            hierarchicalGrid.notifyChanges();
             fixture.detectChanges();
 
             expect(hierarchicalGrid.dataView.length).toEqual(15);
@@ -464,7 +496,7 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         }));
 
         it('should preserve expansion states after changing pages.', fakeAsync(() => {
-            hierarchicalGrid.paging = true;
+            fixture.componentInstance.paging = true;
             fixture.detectChanges();
 
             let dataRows = hierarchicalGrid.dataRowList.toArray() as IgxHierarchicalRowComponent[];
@@ -510,8 +542,9 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         it('should allow scrolling to the last row after page size has been changed and rows are expanded.', fakeAsync(() => {
             /* it's better to avoid scrolling and only check for scrollbar availability */
             /* scrollbar doesn't update its visibility in fakeAsync tests */
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
             hierarchicalGrid.perPage = 20;
-            hierarchicalGrid.paging = true;
             hierarchicalGrid.height = '800px';
             fixture.componentInstance.rowIsland.height = '200px';
             tick();
@@ -542,7 +575,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
 
         it('should correctly hide/show vertical scrollbar after page is changed.', (async () => {
             /* scrollbar doesn't update its visibility in fakeAsync tests */
-            hierarchicalGrid.paging = true;
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
             hierarchicalGrid.perPage = 5;
             fixture.detectChanges();
 
@@ -572,9 +606,10 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
 
     describe('Hiding', () => {
         it('should leave no feature UI elements when all columns are hidden', fakeAsync(() => {
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
             hierarchicalGrid.rowSelection = GridSelectionMode.multiple;
             hierarchicalGrid.rowDraggable = true;
-            hierarchicalGrid.paging = true;
             tick(DEBOUNCE_TIME);
             fixture.detectChanges();
 
@@ -953,10 +988,13 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         });
 
         it('should render paging with correct data and rows be correctly paged.', () => {
-            hierarchicalGrid.paging = true;
-            hierarchicalGrid.perPage = 5;
             hierarchicalGrid.height = '700px';
             fixture.detectChanges();
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
+            hierarchicalGrid.perPage = 5;
+            fixture.detectChanges();
+
 
             let rows = HierarchicalGridFunctions.getHierarchicalRows(fixture);
             const paginator = fixture.debugElement.query(By.directive(IgxPaginatorComponent));
@@ -1052,7 +1090,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         });
 
         it('should correctly apply paging state for grid and paginator when there are pinned rows.', fakeAsync(() => {
-            hierarchicalGrid.paging = true;
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
             hierarchicalGrid.perPage = 5;
             hierarchicalGrid.height = '700px';
             fixture.detectChanges();
@@ -1094,7 +1133,8 @@ describe('IgxHierarchicalGrid Integration #hGrid', () => {
         }));
 
         it('should have the correct records shown for pages with pinned rows', () => {
-            hierarchicalGrid.paging = true;
+            fixture.componentInstance.paging = true;
+            fixture.detectChanges();
             hierarchicalGrid.perPage = 6;
             hierarchicalGrid.height = '700px';
             fixture.detectChanges();

@@ -1,0 +1,42 @@
+{
+    "extends": "../../.eslintrc.json",
+    "ignorePatterns": [
+        "!**/*"
+    ],
+    "parserOptions": {
+        "project": [
+            "projects/igniteui-angular-i18n/tsconfig.build.json"
+        ]
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/indent": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "trailingUnderscore" : "allow",
+                "selector": "variable",
+                "modifiers": [
+                    "const"
+                ],
+                "format": [
+                    "PascalCase"
+                ]
+            }
+        ],
+        "indent": "error",
+        "no-empty-function": "off",
+        "semi": "error",
+        "spaced-comment": [
+            "error",
+            "always",
+            {
+                "markers": [
+                    "/"
+                ]
+            }
+        ]
+    }
+}

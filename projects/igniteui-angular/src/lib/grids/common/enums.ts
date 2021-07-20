@@ -19,6 +19,7 @@ export const GridSummaryCalculationMode = mkenum({
 });
 export type GridSummaryCalculationMode = (typeof GridSummaryCalculationMode)[keyof typeof GridSummaryCalculationMode];
 
+
 export type GridKeydownTargetType =
     'dataCell' |
     'summaryCell' |
@@ -54,4 +55,9 @@ export enum RowPinningPosition {
 export enum GridPagingMode {
     Local,
     Remote
+}
+
+export enum GridInstanceType {
+    Grid,
+    TreeGrid
 }

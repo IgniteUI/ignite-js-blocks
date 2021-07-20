@@ -32,7 +32,7 @@ const GRID_RESIZE_CLASS = '.igx-grid-th__resize-handle';
 
 describe('IgxTreeGrid - Integration #tGrid', () => {
     configureTestSuite();
-    let fix;
+    let fix: ComponentFixture<any>;
     let treeGrid: IgxTreeGridComponent;
 
     beforeAll(waitForAsync(() => {
@@ -950,6 +950,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
             fix = TestBed.createComponent(IgxTreeGridPrimaryForeignKeyComponent);
             fix.detectChanges();
             treeGrid = fix.componentInstance.treeGrid;
+            treeGrid.batchEditing = true;
+            fix.detectChanges();
             const trans = treeGrid.transactions;
             spyOn(trans, 'add').and.callThrough();
             treeGrid.foreignKey = 'ParentID';
@@ -987,6 +989,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
             expect(treeGrid.transactions.getTransactionLog()[1].newValue).toBeNull();
 
             treeGrid.transactions.undo();
+            fix.detectChanges();
+            tick();
             fix.detectChanges();
             expect(treeGrid.rowList.filter(r => r.rowID === addedRowId).length).toEqual(1);
             expect(treeGrid.transactions.getTransactionLog().length).toEqual(1);
@@ -1053,6 +1057,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
             fix = TestBed.createComponent(IgxTreeGridPrimaryForeignKeyComponent);
             fix.detectChanges();
             treeGrid = fix.componentInstance.treeGrid;
+            treeGrid.batchEditing = true;
+            fix.detectChanges();
             const trans = treeGrid.transactions;
             spyOn(trans, 'add').and.callThrough();
             treeGrid.foreignKey = 'ParentID';
@@ -1086,6 +1092,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
             expect(treeGrid.transactions.getTransactionLog()[1].newValue).toBeNull();
 
             treeGrid.transactions.undo();
+            fix.detectChanges();
+            tick();
             fix.detectChanges();
             expect(treeGrid.rowList.filter(r => r.rowID === addedRowId).length).toEqual(1);
             expect(treeGrid.transactions.getTransactionLog().length).toEqual(1);
@@ -1207,6 +1215,22 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
 
             expect(grid.transactions.getTransactionLog().length).toEqual(1);
             expect(grid.getRowData(11)).toEqual(newRow);
+        }));
+
+        it('Should have transactions enabled when batchEditing === false and service is provider', fakeAsync(() => {
+            const fixture = TestBed.createComponent(IgxTreeGridRowEditingHierarchicalDSTransactionComponent);
+            const grid = fixture.componentInstance.treeGrid;
+            tick();
+            fixture.detectChanges();
+
+            grid.batchEditing = false;
+            fixture.detectChanges();
+
+            expect(grid.batchEditing).toBeFalsy();
+            expect(grid.transactions.enabled).toBeTruthy();
+
+            grid.deleteRowById(147);
+            expect(grid.transactions.getTransactionLog().length).toBe(1);
         }));
     });
 
@@ -1625,7 +1649,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
             treeGrid.pinRow(147);
             fix.detectChanges();
 
-            treeGrid.paging = true;
+            fix.componentInstance.paging = true;
+            fix.detectChanges();
             treeGrid.perPage = 5;
             fix.detectChanges();
 
@@ -1638,7 +1663,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
         });
 
         it('should correctly apply paging state for grid and paginator when there are pinned rows.', fakeAsync(() => {
-            treeGrid.paging = true;
+            fix.componentInstance.paging = true;
+            fix.detectChanges();
             treeGrid.perPage = 3;
             treeGrid.height = '700px';
             fix.detectChanges();
@@ -1665,7 +1691,8 @@ describe('IgxTreeGrid - Integration #tGrid', () => {
         }));
 
         it('should have the correct records shown for pages with pinned rows', () => {
-            treeGrid.paging = true;
+            fix.componentInstance.paging = true;
+            fix.detectChanges();
             treeGrid.perPage = 6;
             treeGrid.height = '700px';
             fix.detectChanges();

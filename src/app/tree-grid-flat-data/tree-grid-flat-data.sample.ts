@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IgxTreeGridComponent, IgxExcelExporterService, IgxCsvExporterService, IgxGridTransaction, IgxHierarchicalTransactionService,
+import { IgxTreeGridComponent, IgxExcelExporterService, IgxCsvExporterService,
          IgxExcelExporterOptions, IgxCsvExporterOptions, CsvFileTypes, IgxSummaryOperand, IgxSummaryResult,
          GridSelectionMode,
          GridSummaryCalculationMode,
@@ -20,7 +20,6 @@ export class MySummaryOperand extends IgxSummaryOperand {
 }
 
 @Component({
-    providers: [{ provide: IgxGridTransaction, useClass: IgxHierarchicalTransactionService }],
     selector: 'app-tree-grid-flat-data-sample',
     styleUrls: ['tree-grid-flat-data.sample.css'],
     templateUrl: 'tree-grid-flat-data.sample.html'

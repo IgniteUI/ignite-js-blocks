@@ -359,6 +359,48 @@ export class IgxListComponent extends IgxListBaseDirective {
     public rightPan = new EventEmitter<IListItemPanningEventArgs>();
 
     /**
+     * Event emitted when a pan gesture is started.
+     *
+     * @remarks
+     * Provides a reference to an object of type `IListItemPanningEventArgs` as an event argument.
+     *
+     * @example
+     * ```html
+     * <igx-list (startPan)="startPan($event)"></igx-list>
+     * ```
+     */
+    @Output()
+    public startPan = new EventEmitter<IListItemPanningEventArgs>();
+
+    /**
+     * Event emitted when a pan gesture is completed or canceled.
+     *
+     * @remarks
+     * Provides a reference to an object of type `IListItemPanningEventArgs` as an event argument.
+     *
+     * @example
+     * ```html
+     * <igx-list (endPan)="endPan($event)"></igx-list>
+     * ```
+     */
+    @Output()
+    public endPan = new EventEmitter<IListItemPanningEventArgs>();
+
+    /**
+     * Event emitted when a pan item is returned to its original position.
+     *
+     * @remarks
+     * Provides a reference to an object of type `IgxListComponent` as an event argument.
+     *
+     * @example
+     * ```html
+     * <igx-list (resetPan)="resetPan($event)"></igx-list>
+     * ```
+     */
+     @Output()
+     public resetPan = new EventEmitter<IgxListComponent>();
+
+    /**
      *
      * Event emitted when a pan gesture is executed on a list item.
      *

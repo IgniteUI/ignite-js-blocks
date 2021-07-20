@@ -174,6 +174,37 @@ describe('List', () => {
         unsubscribeEvents(list);
     });
 
+    it('should emit startPan and endPan when panning left or right', () => {
+        let timesCalledStartPan = 0;
+        let timesCalledEndPan = 0;
+
+        const fixture = TestBed.createComponent(ListWithPanningComponent);
+        const list: IgxListComponent = fixture.componentInstance.list;
+
+        fixture.detectChanges();
+
+        list.startPan.subscribe(() => {
+            timesCalledStartPan++;
+        });
+
+        list.endPan.subscribe(() => {
+            timesCalledEndPan++;
+        });
+
+        const itemNativeElements = fixture.debugElement.queryAll(By.css('igx-list-item'));
+
+        /* Pan item right */
+        panItem(itemNativeElements[0], 0.6);
+
+        /* Pan item left */
+        panItem(itemNativeElements[1], -0.6);
+
+        expect(timesCalledStartPan).toBe(2);
+        expect(timesCalledEndPan).toBe(2);
+
+        unsubscribeEvents(list);
+    });
+
     it('should pan right only.', () => {
         let timesCalledLeftPan = 0;
         let timesCalledStateChanged = 0;
@@ -560,6 +591,39 @@ describe('List', () => {
         expect(rightPanTmpl.nativeElement.style.visibility).toBe('visible');
     });
 
+    it('should emit resetPan when releasing a list item before end threshold is triggered', () => {
+        let timesCalledResetPan = 0;
+        let timesCalledStartPan = 0;
+        let timesCalledEndPan = 0;
+
+        const fixture = TestBed.createComponent(ListWithPanningTemplatesComponent);
+        const list = fixture.componentInstance.list;
+        fixture.detectChanges();
+
+        const itemNativeElements = fixture.debugElement.queryAll(By.css('igx-list-item'));
+
+        list.startPan.subscribe(() => {
+            timesCalledStartPan++;
+        });
+
+        list.endPan.subscribe(() => {
+            timesCalledEndPan++;
+        });
+
+        list.resetPan.subscribe(() => {
+            timesCalledResetPan++;
+        });
+
+        /* Pan item left */
+        panItem(itemNativeElements[1], -0.3);
+
+        expect(timesCalledStartPan).toBe(1);
+        expect(timesCalledEndPan).toBe(1);
+        expect(timesCalledResetPan).toBe(1);
+
+        unsubscribeEvents(list);
+    });
+
     it('checking the panLeftTemplate is not visible when releasing a list item.', fakeAsync(() => {
         const fixture = TestBed.createComponent(ListWithPanningTemplatesComponent);
         const list = fixture.componentInstance.list;
@@ -595,9 +659,20 @@ describe('List', () => {
     }));
 
     it('cancel left panning', fakeAsync(() => {
+        let timesCalledStartPan = 0;
+        let timesCalledEndPan = 0;
+
         const fixture = TestBed.createComponent(ListWithPanningTemplatesComponent);
         const list = fixture.componentInstance.list;
         fixture.detectChanges();
+
+        list.startPan.subscribe(() => {
+            timesCalledStartPan++;
+        });
+
+        list.endPan.subscribe(() => {
+            timesCalledEndPan++;
+        });
 
         const firstItem = list.items[0] as IgxListItemComponent;
         const leftPanTmpl = firstItem.leftPanningTemplateElement;
@@ -611,12 +686,27 @@ describe('List', () => {
         expect(firstItem.panState).toBe(IgxListPanState.NONE);
         expect(leftPanTmpl.nativeElement.style.visibility).toBe('hidden');
         expect(rightPanTmpl.nativeElement.style.visibility).toBe('hidden');
+        expect(timesCalledStartPan).toBe(1);
+        expect(timesCalledEndPan).toBe(1);
+
+        unsubscribeEvents(list);
     }));
 
     it('cancel right panning', fakeAsync(() => {
+        let timesCalledStartPan = 0;
+        let timesCalledEndPan = 0;
+
         const fixture = TestBed.createComponent(ListWithPanningTemplatesComponent);
         const list = fixture.componentInstance.list;
         fixture.detectChanges();
+
+        list.startPan.subscribe(() => {
+            timesCalledStartPan++;
+        });
+
+        list.endPan.subscribe(() => {
+            timesCalledEndPan++;
+        });
 
         const firstItem = list.items[0] as IgxListItemComponent;
         const leftPanTmpl = firstItem.leftPanningTemplateElement;
@@ -630,6 +720,10 @@ describe('List', () => {
         expect(firstItem.panState).toBe(IgxListPanState.NONE);
         expect(leftPanTmpl.nativeElement.style.visibility).toBe('hidden');
         expect(rightPanTmpl.nativeElement.style.visibility).toBe('hidden');
+        expect(timesCalledStartPan).toBe(1);
+        expect(timesCalledEndPan).toBe(1);
+
+        unsubscribeEvents(list);
     }));
 
     it('checking the header list item does not have panning and content containers.', () => {
@@ -887,6 +981,9 @@ describe('List', () => {
         list.rightPan.unsubscribe();
         list.itemClicked.unsubscribe();
         list.onDensityChanged.unsubscribe();
+        list.startPan.unsubscribe();
+        list.resetPan.unsubscribe();
+        list.endPan.unsubscribe();
     };
 
     /**

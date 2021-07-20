@@ -21,6 +21,9 @@
         "paths": {
             "igniteui-angular": [
                 "projects/igniteui-angular/src/public_api.ts"
+            ],
+            "igniteui-angular-i18n": [
+                "projects/igniteui-angular-i18n/src/index.ts"
             ]
         },
         "rootDir": "."

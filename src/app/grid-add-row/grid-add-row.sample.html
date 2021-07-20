@@ -3,8 +3,6 @@
         #grid
         [data]="data"
         [width]="'800px'"
-        [paging]="paging"
-        [perPage]="perPage"
         [height]="'500px'"
         [primaryKey]="'ID'"
         (mouseleave)="onMouseLeave(actionstrip)"
@@ -29,6 +27,10 @@
             <igx-grid-pinning-actions></igx-grid-pinning-actions>
             <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
         </igx-action-strip>
+        <igx-paginator
+            *ngIf="paging"
+            [perPage]="perPage">
+        </igx-paginator>
     </igx-grid>
 
     <igx-card style="width: 360px; margin-top: 12px">

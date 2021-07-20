@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync, flush } from '@angular/core/testing';
-import { Component, OnInit, ViewChild, DebugElement } from '@angular/core';
+import { Component, OnInit, ViewChild, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { IgxInputGroupModule } from '../input-group/public_api';
 import { PickerInteractionMode } from '../date-common/types';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +21,8 @@ import { AnimationMetadata, AnimationOptions } from '@angular/animations';
 import { IgxPickersCommonModule } from '../date-common/public_api';
 import { IgxCalendarContainerComponent, IgxCalendarContainerModule } from '../date-common/calendar-container/calendar-container.component';
 import { IgxCalendarComponent } from '../calendar/public_api';
+import { Subject } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 // The number of milliseconds in one day
 const ONE_DAY = 1000 * 60 * 60 * 24;
@@ -224,7 +226,7 @@ describe('IgxDateRangePicker', () => {
         });
 
         it('should validate correctly minValue and maxValue', () => {
-            const dateRange = new IgxDateRangePickerComponent(elementRef, null, platform, mockInjector, null, null);
+            const dateRange = new IgxDateRangePickerComponent(elementRef, null, platform, mockInjector, null, null, null);
             dateRange.ngOnInit();
 
             // dateRange.calendar = calendar;
@@ -249,7 +251,7 @@ describe('IgxDateRangePicker', () => {
         });
 
         it('should disable calendar dates when min and/or max values as dates are provided', () => {
-            const dateRange = new IgxDateRangePickerComponent(elementRef, 'en-US', platform, mockInjector, ngModuleRef, overlay);
+            const dateRange = new IgxDateRangePickerComponent(elementRef, 'en-US', platform, mockInjector, ngModuleRef, null, overlay);
             dateRange.ngOnInit();
 
             spyOnProperty((dateRange as any), 'calendar').and.returnValue(mockCalendar);
@@ -275,7 +277,7 @@ describe('IgxDateRangePicker', () => {
         });
 
         it('should disable calendar dates when min and/or max values as strings are provided', fakeAsync(() => {
-            const dateRange = new IgxDateRangePickerComponent(elementRef, null, platform, mockInjector, null, null);
+            const dateRange = new IgxDateRangePickerComponent(elementRef, null, platform, mockInjector, null, null, null);
             dateRange.ngOnInit();
 
             spyOnProperty((dateRange as any), 'calendar').and.returnValue(mockCalendar);
@@ -332,9 +334,11 @@ describe('IgxDateRangePicker', () => {
                 TestBed.configureTestingModule({
                     declarations: [
                         DateRangeTestComponent,
-                        DateRangeDefaultComponent
+                        DateRangeDefaultComponent,
+                        DateRangeDisabledComponent
                     ],
                     imports: [
+                        CommonModule,
                         IgxDateRangePickerModule,
                         IgxDateTimeEditorModule,
                         IgxInputGroupModule,
@@ -342,7 +346,7 @@ describe('IgxDateRangePicker', () => {
                         FormsModule,
                         NoopAnimationsModule,
                         IgxPickersCommonModule,
-                        IgxCalendarContainerModule,
+                        IgxCalendarContainerModule
                     ]
                 })
                     .compileComponents();
@@ -732,6 +736,28 @@ describe('IgxDateRangePicker', () => {
                 fixture.detectChanges();
                 expect(fixture.componentInstance.dateRange.collapsed).toBeTruthy();
             }));
+
+            it('should properly set/update disabled when ChangeDetectionStrategy.OnPush is used', fakeAsync(() => {
+                const testFixture = TestBed
+                    .createComponent(DateRangeDisabledComponent) as ComponentFixture<DateRangeDisabledComponent>;
+                testFixture.detectChanges();
+                dateRange = testFixture.componentInstance.dateRange;
+                const disabled$ = testFixture.componentInstance.disabled$;
+
+                disabled$.next(true);
+                testFixture.detectChanges();
+                expect(dateRange.inputDirective.disabled).toBeTrue();
+
+                disabled$.next(false);
+                testFixture.detectChanges();
+                expect(dateRange.inputDirective.disabled).toBeFalse();
+
+                disabled$.next(true);
+                testFixture.detectChanges();
+                expect(dateRange.inputDirective.disabled).toBeTrue();
+
+                disabled$.complete();
+            }));
         });
 
         describe('Two Inputs', () => {
@@ -743,9 +769,12 @@ describe('IgxDateRangePicker', () => {
                     declarations: [
                         DateRangeTestComponent,
                         DateRangeTwoInputsTestComponent,
-                        DateRangeTwoInputsNgModelTestComponent
+                        DateRangeTwoInputsNgModelTestComponent,
+                        DateRangeDisabledComponent,
+                        DateRangeTwoInputsDisabledComponent
                     ],
                     imports: [
+                        CommonModule,
                         IgxDateRangePickerModule,
                         IgxDateTimeEditorModule,
                         IgxPickersCommonModule,
@@ -1116,6 +1145,31 @@ describe('IgxDateRangePicker', () => {
                 expect(fixture.componentInstance.dateRange.collapsed).toBeTruthy();
             }));
 
+            it('should properly set/update disabled when ChangeDetectionStrategy.OnPush is used', fakeAsync(() => {
+                const testFixture = TestBed
+                    .createComponent(DateRangeTwoInputsDisabledComponent) as ComponentFixture<DateRangeTwoInputsDisabledComponent>;
+                testFixture.detectChanges();
+                dateRange = testFixture.componentInstance.dateRange;
+                const disabled$ = testFixture.componentInstance.disabled$;
+
+                disabled$.next(true);
+                testFixture.detectChanges();
+                expect(dateRange.projectedInputs.first.inputDirective.disabled).toBeTrue();
+                expect(dateRange.projectedInputs.last.inputDirective.disabled).toBeTrue();
+
+                disabled$.next(false);
+                testFixture.detectChanges();
+                expect(dateRange.projectedInputs.first.inputDirective.disabled).toBeFalse();
+                expect(dateRange.projectedInputs.last.disabled).toBeFalse();
+
+                disabled$.next(true);
+                testFixture.detectChanges();
+                expect(dateRange.projectedInputs.first.inputDirective.disabled).toBeTrue();
+                expect(dateRange.projectedInputs.last.inputDirective.disabled).toBeTrue();
+
+                disabled$.complete();
+            }));
+
             describe('Data binding', () => {
                 it('should properly update component value with ngModel bound to projected inputs - #7353', fakeAsync(() => {
                     fixture = TestBed.createComponent(DateRangeTwoInputsNgModelTestComponent);
@@ -1417,3 +1471,30 @@ export class DateRangeCustomComponent extends DateRangeTestComponent {
 export class DateRangeTemplatesComponent extends DateRangeTestComponent {
     public range;
 }
+
+@Component({
+    template: `<igx-date-range-picker [disabled]="(disabled$ | async) === true"></igx-date-range-picker>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class DateRangeDisabledComponent extends DateRangeTestComponent {
+    public disabled$ = new Subject<boolean>();
+
+    constructor() {
+        super();
+        this.disabled$.subscribe({ next: (v) => v });
+    }
+}
+
+@Component({
+    template: `
+    <igx-date-range-picker [disabled]="(disabled$ | async) === true">
+        <igx-date-range-start>
+            <input igxInput igxDateTimeEditor>
+        </igx-date-range-start>
+        <igx-date-range-end>
+            <input igxInput igxDateTimeEditor>
+        </igx-date-range-end>
+    </igx-date-range-picker>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class DateRangeTwoInputsDisabledComponent extends DateRangeDisabledComponent { }

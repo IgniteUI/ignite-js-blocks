@@ -4,8 +4,6 @@ import { IgxGridFooterComponent } from './grid-footer/grid-footer.component';
 import {
     IgxGridBodyDirective
 } from './grid.common';
-import { IgxGridTransaction } from './grid-base.directive';
-import { IgxBaseTransactionService } from '../services/transaction/base-transaction';
 import {
     IgxRowAddTextDirective,
     IgxRowEditTemplateDirective,
@@ -39,6 +37,7 @@ import {
 } from './grid/grid.directives';
 import { IgxChipsModule } from '../chips/chips.module';
 import { IgxGroupByMetaPipe } from './grouping/group-by-area.directive';
+
 /**
  * @hidden
  */
@@ -113,9 +112,6 @@ import { IgxGroupByMetaPipe } from './grouping/group-by-area.directive';
         IgxPaginatorModule,
         IgxGridSharedModules,
         IgxChipsModule
-    ],
-    providers: [
-        { provide: IgxGridTransaction, useClass: IgxBaseTransactionService }
     ]
 })
 export class IgxGridCommonModule { }

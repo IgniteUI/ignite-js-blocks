@@ -27,7 +27,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import { IgxHierarchicalGridComponent } from './hierarchical-grid.component';
-import { IgxGridTransaction, IgxGridBaseDirective } from '../grid-base.directive';
+import { IgxGridBaseDirective } from '../grid-base.directive';
 import { GridBaseAPIService } from '../api.service';
 import { IgxHierarchicalGridAPIService } from './hierarchical-grid-api.service';
 import { DOCUMENT } from '@angular/common';
@@ -46,6 +46,8 @@ import { IgxColumnResizingService } from '../resizing/resizing.service';
 import { GridType } from '../common/grid.interface';
 import { IgxGridToolbarDirective, IgxGridToolbarTemplateContext } from '../toolbar/common';
 import { IgxActionStripComponent } from '../../action-strip/action-strip.component';
+import { IgxPaginatorDirective } from '../../paginator/paginator-interfaces';
+import { IgxFlatTransactionFactory } from '../../services/transaction/transaction-factory.service';
 
 export interface IGridCreatedEventArgs extends IBaseEventArgs {
     owner: IgxRowIslandComponent;
@@ -92,6 +94,9 @@ export class IgxRowIslandComponent extends IgxHierarchicalGridBaseDirective
 
     @ContentChild(IgxGridToolbarDirective, { read: TemplateRef })
     public islandToolbarTemplate: TemplateRef<IgxGridToolbarTemplateContext>;
+
+    @ContentChild(IgxPaginatorDirective, { read: TemplateRef })
+    public islandPaginatorTemplate: TemplateRef<any>;
 
     @ContentChildren(IgxActionStripComponent, { read: IgxActionStripComponent, descendants: false })
     public actionStrips: QueryList<IgxActionStripComponent>;
@@ -220,7 +225,7 @@ export class IgxRowIslandComponent extends IgxHierarchicalGridBaseDirective
         public selectionService: IgxGridSelectionService,
         public colResizingService: IgxColumnResizingService,
         gridAPI: GridBaseAPIService<IgxGridBaseDirective & GridType>,
-        @Inject(IgxGridTransaction) protected transactionFactory: any,
+        protected transactionFactory: IgxFlatTransactionFactory,
         elementRef: ElementRef,
         zone: NgZone,
         @Inject(DOCUMENT) public document,
@@ -240,7 +245,7 @@ export class IgxRowIslandComponent extends IgxHierarchicalGridBaseDirective
             selectionService,
             colResizingService,
             gridAPI,
-            typeof transactionFactory === 'function' ? transactionFactory() : transactionFactory,
+            transactionFactory,
             elementRef,
             zone,
             document,
@@ -326,6 +331,11 @@ export class IgxRowIslandComponent extends IgxHierarchicalGridBaseDirective
         this.gridCreated.pipe(pluck('grid'), takeUntil(this.destroy$)).subscribe(grid => {
             grid.rendered$.pipe(first(), filter(() => !!this.islandToolbarTemplate))
                 .subscribe(() => grid.toolbarOutlet.createEmbeddedView(this.islandToolbarTemplate, { $implicit: grid }));
+            grid.rendered$.pipe(first(), filter(() => !!this.islandPaginatorTemplate))
+                .subscribe(() => {
+                    this.rootGrid.paginatorList.changes.pipe(takeUntil(this.destroy$)).subscribe(() => grid.setUpPaginator());
+                    grid.paginatorOutlet.createEmbeddedView(this.islandPaginatorTemplate);
+                });
         });
     }
 

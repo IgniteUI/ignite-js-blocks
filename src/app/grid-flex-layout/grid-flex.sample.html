@@ -2,7 +2,7 @@
     <div igxFlex igxLayout igxLayoutDir="column">
         <div igxFlex igxLayout igxLayoutDir="column">
             <h4 class="sample-title">Grid1</h4>
-            <igx-grid #grid1 [paging]='true' [data]="localData" [autoGenerate]="false">
+            <igx-grid #grid1 [data]="localData" [autoGenerate]="false">
                 <igx-grid-toolbar [displayDensity]="grid1.displayDensity">
                     <igx-grid-toolbar-actions>
                         <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
@@ -18,6 +18,8 @@
                     [minWidth]="c.minWidth"
                     [maxWidth]="c.maxWidth" [editable]='true'>
                 </igx-column>
+                <igx-paginator>
+                </igx-paginator>
             </igx-grid>
         </div>
         <div igxFlex igxLayout igxLayoutDir="column">

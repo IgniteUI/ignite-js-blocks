@@ -673,9 +673,9 @@
     $hierarchical-action-icon: 24px;
 
     $grouparea-padding: (
-        comfortable: rem(8px) rem(24px),
-        cosy: rem(8px) rem(16px),
-        compact: rem(4px) rem(12px)
+        comfortable: 0 rem(24px),
+        cosy: 0 rem(16px),
+        compact: 0 rem(12px)
     );
 
     $grouparea-min-height: (
@@ -2155,6 +2155,11 @@
         &:focus {
             outline-style: none;
         }
+
+        %igx-chip {
+            margin-top: rem(8px);
+            margin-bottom: rem(8px);
+        }
     }
 
     %igx-grid-grouparea__connector {
@@ -2177,11 +2182,21 @@
     %igx-grid-grouparea--cosy {
         min-height: map-get($grouparea-min-height, 'cosy');
         padding: map-get($grouparea-padding, 'cosy');
+
+        %igx-chip {
+            margin-top: rem(8px);
+            margin-bottom: rem(8px);
+        }
     }
 
     %igx-grid-grouparea--compact {
         min-height: map-get($grouparea-min-height, 'compact');
         padding: map-get($grouparea-padding, 'compact');
+
+        %igx-chip {
+            margin-top: rem(4px);
+            margin-bottom: rem(4px);
+        }
     }
 
     %igx-drop-area {

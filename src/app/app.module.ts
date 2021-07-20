@@ -93,7 +93,6 @@ import { RadioSampleComponent } from './radio/radio.sample';
 import { TooltipSampleComponent } from './tooltip/tooltip.sample';
 import { ExpansionPanelSampleComponent } from './expansion-panel/expansion-panel-sample';
 import { GridRowEditSampleComponent } from './grid-row-edit/grid-row-edit-sample.component';
-import { GridWithTransactionsComponent } from './grid-row-edit/grid-with-transactions.component';
 import { TreeGridSampleComponent } from './tree-grid/tree-grid.sample';
 import { TreeGridFlatDataSampleComponent } from './tree-grid-flat-data/tree-grid-flat-data.sample';
 import { HierarchicalGridSampleComponent } from './hierarchical-grid/hierarchical-grid.sample';
@@ -101,7 +100,6 @@ import { HierarchicalGridRemoteSampleComponent } from './hierarchical-grid-remot
 import { HierarchicalGridUpdatingSampleComponent } from './hierarchical-grid-updating/hierarchical-grid-updating.sample';
 import { GridColumnPercentageWidthsSampleComponent } from './grid-percentage-columns/grid-percantge-widths.sample';
 import { BannerSampleComponent } from './banner/banner.sample';
-import { TreeGridWithTransactionsComponent } from './tree-grid/tree-grid-with-transactions.component';
 import { CalendarViewsSampleComponent } from './calendar-views/calendar-views.sample';
 import { SelectSampleComponent } from './select/select.sample';
 import { GridSearchBoxComponent } from './grid-search-box/grid-search-box.component';
@@ -242,10 +240,8 @@ const components = [
     GridMRLCustomNavigationSampleComponent,
     GridCellStylingSampleComponent,
     GridRowEditSampleComponent,
-    GridWithTransactionsComponent,
     TreeGridSampleComponent,
     TreeGridFlatDataSampleComponent,
-    TreeGridWithTransactionsComponent,
     TreeGridLoadOnDemandSampleComponent,
     TreeGridGroupBySampleComponent,
     CustomContentComponent,

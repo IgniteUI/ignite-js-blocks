@@ -56,7 +56,7 @@
         | treeGridFiltering:filteringExpressionsTree:filterStrategy:advancedFilteringExpressionsTree:pipeTrigger:filteringPipeTrigger
         | treeGridSorting:sortingExpressions:sortStrategy:pipeTrigger
         | treeGridFlattening:expansionDepth:expansionStates:pipeTrigger
-        | treeGridPaging:page:perPage:pipeTrigger
+        | treeGridPaging:paginator?.page:paginator?.perPage:pipeTrigger
         | treeGridSummary:hasSummarizedColumns:summaryCalculationMode:summaryPosition:showSummaryOnCollapse:pipeTrigger:summaryPipeTrigger
         | gridRowPinning:id:false:pipeTrigger
         | gridAddRow:false:pipeTrigger"
@@ -131,18 +131,10 @@
 
 <div class="igx-grid__footer" #footer>
     <ng-content select="igx-grid-footer"></ng-content>
-    <ng-container *ngIf="paging && totalRecords">
-        <ng-container
-            *ngTemplateOutlet="paginationTemplate ? paginationTemplate : defaultPaginator; context: {$implicit: this}">
-        </ng-container>
+    <ng-container *ngIf="totalRecords || pagingMode === 1">
+        <ng-content select="igx-paginator"></ng-content>
     </ng-container>
 </div>
-
-<ng-template #defaultPaginator>
-    <igx-paginator [overlaySettings]="paginatorSettings" [displayDensity]="displayDensity" [(page)]="page" [totalRecords]="totalRecords"
-        [(perPage)]="perPage">
-    </igx-paginator>
-</ng-template>
 
 <ng-template #emptyFilteredGrid>
     <span class="igx-grid__tbody-message" role="cell">
@@ -188,8 +180,8 @@
 </ng-template>
 
 <ng-template #defaultRowEditActions>
-    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(false, $event)">Cancel</button>
-    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(true, $event)">Done</button>
+    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(false, $event)">{{ this.resourceStrings.igx_grid_row_edit_btn_cancel }}</button>
+    <button igxButton igxRowEditTabStop (click)="this.endRowEditTabStop(true, $event)">{{ this.resourceStrings.igx_grid_row_edit_btn_done }}</button>
 </ng-template>
 
 <ng-template #defaultRowEditTemplate>

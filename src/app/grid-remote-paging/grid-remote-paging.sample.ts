@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IgxGridComponent } from 'igniteui-angular';
 import { RemoteService } from '../shared/remote.service';
 import { Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
     templateUrl: 'grid-remote-paging.sample.html'
 })
 export class GridRemotePagingSampleComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('customPager', { read: TemplateRef, static: true }) public remotePager: TemplateRef<any>;
     @ViewChild('grid1', { static: true }) public grid1: IgxGridComponent;
 
     public page = 0;
@@ -18,7 +17,7 @@ export class GridRemotePagingSampleComponent implements OnInit, AfterViewInit, O
     public data: Observable<any[]>;
     public selectOptions = [5, 10, 15, 25, 50];
 
-    private _perPage = 10;
+    private _perPage = 15;
     private _dataLengthSubscriber;
 
     constructor(private remoteService: RemoteService) {
@@ -30,7 +29,7 @@ export class GridRemotePagingSampleComponent implements OnInit, AfterViewInit, O
 
     public set perPage(val: number) {
         this._perPage = val;
-        // this.paginate(0);
+        this.paginate(0);
     }
 
     public ngOnInit() {
