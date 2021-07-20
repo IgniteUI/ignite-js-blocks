@@ -1,5 +1,5 @@
 <!-- Have to apply styles inline because of the overlay outlet ... -->
-<igx-drop-down #inputGroupConditions [displayDensity]="displayDensity" [height]="'200px'" (onSelection)="onConditionsChanged($event)">
+<igx-drop-down #inputGroupConditions [displayDensity]="displayDensity" [height]="'200px'" (selecting)="onConditionsChanged($event)">
     <igx-drop-down-item *ngFor="let condition of conditions"
         [value]="condition"
         [selected]="isConditionSelected(condition)">
@@ -165,7 +165,7 @@
                         <igx-icon>expand_more</igx-icon>
                         <span>{{filteringService.getOperatorAsString(item.afterOperator)}}</span>
                     </button>
-                    <igx-drop-down [displayDensity]="column.grid.displayDensity" #operators (onSelection)="onLogicOperatorChanged($event, item)">
+                    <igx-drop-down [displayDensity]="column.grid.displayDensity" #operators (selecting)="onLogicOperatorChanged($event, item)">
                             <igx-drop-down-item [value]="0" [selected]="item.afterOperator === 0">{{filteringService.grid.resourceStrings.igx_grid_filter_operator_and}}</igx-drop-down-item>
                             <igx-drop-down-item [value]="1" [selected]="item.afterOperator === 1">{{filteringService.grid.resourceStrings.igx_grid_filter_operator_or}}</igx-drop-down-item>
                     </igx-drop-down>

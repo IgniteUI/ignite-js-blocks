@@ -32,8 +32,8 @@
     </igx-suffix>
 </igx-input-group>
 <igx-combo-drop-down #igxComboDropDown class="igx-combo__drop-down" [displayDensity]="displayDensity"
-    [width]="itemsWidth || '100%'" (onOpening)="handleOpening($event)" (onClosing)="handleClosing($event)"
-    (onOpened)="handleOpened()" (onClosed)="handleClosed()">
+    [width]="itemsWidth || '100%'" (opening)="handleOpening($event)" (closing)="handleClosing($event)"
+    (opened)="handleOpened()" (closed)="handleClosed()">
     <igx-input-group *ngIf="displaySearchInput" [displayDensity]="displayDensity" theme="material" class="igx-combo__search">
         <input class="igx-combo-input" igxInput #searchInput name="searchInput" autocomplete="off" type="text"
             [(ngModel)]="searchValue" (ngModelChange)="handleInputChange($event)" (keyup)="handleKeyUp($event)"

@@ -2,7 +2,7 @@
         type="box"
         [displayDensity]="displayDensity"
         [placeholder]="conditionsPlaceholder"
-        (onSelection)="onConditionsChanged($event)"
+        (selecting)="onConditionsChanged($event)"
         [overlaySettings]="dropDownOverlaySettings">
     <igx-prefix>
         <igx-icon *ngIf="expressionUI.expression.condition" family="imx-icons" [name]="getIconName()"></igx-icon>

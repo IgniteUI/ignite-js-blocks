@@ -13,14 +13,14 @@ A walkthrough of how to get started can be found [here](https://www.infragistics
 <igx-dialog #alert
     title="Alert"
     message="Your email has been sent successfully!"
-    leftButtonLabel="OK" (onLeftButtonSelect)="alert.close()">
+    leftButtonLabel="OK" (leftButtonSelect)="alert.close()">
 </igx-dialog>
 ```
 You can set title to the alert `title="TitleofTheAlert"`
 
 You can be more descriptive and set message `message="Your email has been sent successfully!"`
 
-You can attach to the left button select event `(onLeftButtonSelect)="alert.close()"`
+You can attach to the left button select event `(leftButtonSelect)="alert.close()"`
 
 
 ##Dialogs are done by adding another button.
@@ -30,9 +30,9 @@ You can attach to the left button select event `(onLeftButtonSelect)="alert.clos
     title="Confirmation"
     message="Are you sure you want to delete the Microsoft_Annual_Report_2015.pdf and Microsoft_Annual_Report_2015.pdf files?"
     leftButtonLabel="Cancel"
-    (onLeftButtonSelect)="dialog.close()"
+    (leftButtonSelect)="dialog.close()"
     rightButtonLabel="OK"
-    (onRightButtonSelect)="onDialogOKSelected($event)">
+    (rightButtonSelect)="onDialogOKSelected($event)">
 </igx-dialog>
 ```
 
@@ -56,7 +56,7 @@ When you are using Custom Dialogs you don't have a message property set.
 <igx-dialog #form
     title="Sign In"
     leftButtonLabel="Cancel"
-    (onLeftButtonSelect)="form.close()"
+    (leftButtonSelect)="form.close()"
     rightButtonLabel="Sign In"
     rightButtonBackgroundColor="green"
     rightButtonColor="white"

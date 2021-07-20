@@ -5,7 +5,7 @@
         <span>{{ grid.pinnedColumnsCount }}</span>
         <span>{{ grid.pinnedColumnsTextInternal }}</span>
     </button>
-    <igx-column-actions #actions igxColumnPinning igxToggle (onOpened)="focusSearch(ref.element)" #ref="toggle"
+    <igx-column-actions #actions igxColumnPinning igxToggle (opened)="focusSearch(ref.element)" #ref="toggle"
         [grid]="grid" [title]="grid.columnPinningTitleInternal || title || grid?.resourceStrings.igx_grid_toolbar_pinning_title"
         [filterColumnsPrompt]="prompt || grid?.resourceStrings.igx_grid_toolbar_actions_filter_prompt"
         [hideFilter]="hideFilter" [filterCriteria]="filterCriteria" [columnDisplayOrder]="columnDisplayOrder" [columnsAreaMaxHeight]="columnsAreaMaxHeight"

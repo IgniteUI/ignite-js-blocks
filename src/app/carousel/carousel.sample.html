@@ -10,7 +10,7 @@
             <igx-switch [(ngModel)]="pause">pause</igx-switch>
             <br>
             <button igxButton="raised" [igxToggleAction]="dropDownAnimation" [igxDropDownItemNavigation]="dropDownAnimation" displayDensity="comfortable">Animation Type: {{car.animationType}}</button>
-            <igx-drop-down #dropDownAnimation (onSelection)="onAnimationSelection($event)"  displayDensity="comfortable">
+            <igx-drop-down #dropDownAnimation (selecting)="onAnimationSelection($event)"  displayDensity="comfortable">
                 <igx-drop-down-item *ngFor="let item of animationModes">
                         {{ item }}
                 </igx-drop-down-item>

@@ -31,7 +31,7 @@
         <igx-switch [(ngModel)]="grid1.rowEditable">Enable RowEditing</igx-switch>
         <div class="sample-buttons">
             <button igxButton="raised" [igxToggleAction]="dropDownRowSelection" [igxDropDownItemNavigation]="dropDownRowSelection" displayDensity="comfortable">Row Selection: {{grid1.rowSelection}}</button>
-            <igx-drop-down #dropDownRowSelection (onSelection)="selectionMode = $event.newSelection.value"  displayDensity="comfortable">
+            <igx-drop-down #dropDownRowSelection (selecting)="selectionMode = $event.newSelection.value"  displayDensity="comfortable">
                 <igx-drop-down-item *ngFor="let item of selectionModes" [value]="item">
                         {{ item }}
                 </igx-drop-down-item>

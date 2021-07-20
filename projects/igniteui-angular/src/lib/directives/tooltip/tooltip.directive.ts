@@ -292,7 +292,7 @@ export class IgxTooltipTargetDirective extends IgxToggleActionDirective implemen
         this._overlayDefaults.closeOnOutsideClick = false;
         this._overlayDefaults.closeOnEscape = true;
 
-        this.target.onClosing.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+        this.target.closing.pipe(takeUntil(this.destroy$)).subscribe((event) => {
             const hidingArgs = { target: this, tooltip: this.target, cancel: false };
             this.tooltipHide.emit(hidingArgs);
 

@@ -259,11 +259,11 @@ myComponent.select.toggleIconTemplate = myCustomTemplate;
 * Disabled items are not selectable
 * Selection is removed if selected option has been deleted
 * When value is set to the value of duplicated items, the first one gets selected
-* onSelection event is emitted on item selection by mouse click
-* onSelection event is emitted on item selection by ENTER/SPACE key
-* onSelection event is emitted on setting the value property
-* onSelection event is emitted on item selection using the API selectItem() method
-* onSelection event is emitted on setting item's selected property
+* selecting event is emitted on item selection by mouse click
+* selecting event is emitted on item selection by ENTER/SPACE key
+* selecting event is emitted on setting the value property
+* selecting event is emitted on item selection using the API selectItem() method
+* selecting event is emitted on setting item's selected property
 * The component renders all aria attributes properly
 * All aria attributes of the dropdown items are set properly
 * Selected item is displayed over the input when there is enough space above and below the input. 
@@ -316,8 +316,8 @@ myComponent.select.toggleIconTemplate = myCustomTemplate;
 
    | Name        | Description                                                             | Cancelable | Parameters |
    |-------------|-------------------------------------------------------------------------|------------|------------|
-   | onSelection | Emitted when item selection is changing, before the selection completes | true       |{ISelectionEventArgs}|
-   | onOpening   | Emitted before the IgxSelect is opened.                                 | true       |            |
-   | onOpened    | Emitted after the IgxSelect is opened.                                  | false      |            |
-   | onClosing   | Emitted before the IgxSelect is closed.                                 | true       |            |
-   | onClosed    | Emitted after the IgxSelect is closed.                                  | false      |            |
+   | selecting | Emitted when item selection is changing, before the selection completes | true       |{ISelectionEventArgs}|
+   | opening   | Emitted before the IgxSelect is opened.                                 | true       |            |
+   | opened    | Emitted after the IgxSelect is opened.                                  | false      |            |
+   | closing   | Emitted before the IgxSelect is closed.                                 | true       |            |
+   | closed    | Emitted after the IgxSelect is closed.                                  | false      |            |

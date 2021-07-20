@@ -84,10 +84,10 @@
 <igx-toast
     #toast
     [outlet]="outlet"
-    (onOpening)="handleShowing($event)"
-    (onOpened)="handleShown($event)"
-    (onClosing)="handleHiding($event)"
-    (onClosed)="handleHidden($event)"
+    (opening)="handleShowing($event)"
+    (opened)="handleShown($event)"
+    (closing)="handleHiding($event)"
+    (closed)="handleHidden($event)"
 >
     This message will self-destruct in 4 seconds.
 </igx-toast>

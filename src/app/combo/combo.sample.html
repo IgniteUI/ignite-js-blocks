@@ -40,7 +40,7 @@
             </div>
             <div class="input-row">
                 <igx-combo #playgroundCombo class="input-container" [placeholder]="'Locations'" [showSearchCaseIcon]='true'
-                    (onAddition)="handleAddition($event)" (onSelectionChange)="handleSelectionChange($event)"
+                    (addition)="handleAddition($event)" (selectionChange)="handleSelectionChange($event)"
                     [data]="items" [allowCustomValues]="customValuesFlag" [displayDensity]="'comfortable'"
                     [autoFocusSearch]="autoFocusSearch" [filterable]="filterableFlag" [displayKey]="valueKeyVar"
                     [valueKey]="valueKeyVar" [groupKey]="valueKeyVar ? 'region' : ''" [width]="'100%'">

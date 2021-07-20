@@ -23,14 +23,14 @@
         </igx-buttongroup>
     </div>
 
-    <igx-drop-down #dropdown1 (onSelection)="onSelection($event)" (onOpening)="onOpening()">
+    <igx-drop-down #dropdown1 (selecting)="onSelection($event)" (opening)="onOpening()">
         <igx-drop-down-item *ngFor="let item of items" [disabled]="item.disabled" [isHeader]="item.header"
                             [selected]="item.selected">
                 {{ item.field }}
         </igx-drop-down-item>
     </igx-drop-down>
 
-    <igx-drop-down #dropdown2 (onSelection)="onSelection($event)" (onOpening)="onOpening()" height='400px'>
+    <igx-drop-down #dropdown2 (selecting)="onSelection($event)" (opening)="onOpening()" height='400px'>
         <igx-drop-down-item *ngFor="let item of items" [disabled]="item.disabled" [isHeader]="item.header">
                 {{ item.field }}
         </igx-drop-down-item>
@@ -42,13 +42,13 @@
         </div>
     </div>
 
-    <igx-drop-down #menu (onSelection)="onSelectionMenu($event)" height='400px'>
+    <igx-drop-down #menu (selecting)="onSelectionMenu($event)" height='400px'>
         <igx-drop-down-item *ngFor="let item of items" [disabled]="item.disabled" [isHeader]="item.header">
                 {{ item.field }}
         </igx-drop-down-item>
     </igx-drop-down>
 
-    <igx-drop-down #group (onSelection)="onSelection($event)" height='400px'>
+    <igx-drop-down #group (selecting)="onSelection($event)" height='400px'>
         <igx-drop-down-item-group *ngFor="let foodGroup of foods" [label]="foodGroup.name">
             <igx-drop-down-item *ngFor="let food of foodGroup.entries" [value]='food.refNo'>
                 {{ food.name }}
@@ -56,19 +56,19 @@
         </igx-drop-down-item-group>
     </igx-drop-down>
 
-    <igx-drop-down #dropDownComfortable (onSelection)="onSelection($event)" (onOpening)="onOpening()" height='400px'  displayDensity="comfortable">
+    <igx-drop-down #dropDownComfortable (selecting)="onSelection($event)" (opening)="onOpening()" height='400px'  displayDensity="comfortable">
         <igx-drop-down-item *ngFor="let item of items" [disabled]="item.disabled" [isHeader]="item.header">
             {{ item.field }}
         </igx-drop-down-item>
     </igx-drop-down>
 
-    <igx-drop-down #dropDownCosy (onSelection)="onSelection($event)" (onOpening)="onOpening()" height='400px'  displayDensity="cosy">
+    <igx-drop-down #dropDownCosy (selecting)="onSelection($event)" (opening)="onOpening()" height='400px'  displayDensity="cosy">
         <igx-drop-down-item *ngFor="let item of items" [disabled]="item.disabled" [isHeader]="item.header">
             {{ item.field }}
         </igx-drop-down-item>
     </igx-drop-down>
 
-    <igx-drop-down #dropDownCompact (onSelection)="onSelection($event)" (onOpening)="onOpening()" height='400px' displayDensity="compact">
+    <igx-drop-down #dropDownCompact (selecting)="onSelection($event)" (opening)="onOpening()" height='400px' displayDensity="compact">
         <igx-drop-down-item *ngFor="let item of items" [disabled]="item.disabled" [isHeader]="item.header">
             {{ item.field }}
         </igx-drop-down-item>
@@ -79,7 +79,7 @@
         <input type="text" [igxToggleAction]="dropdown3" [igxDropDownItemNavigation]="dropdown3" igxInput
             readonly="true" [value]="dropdown3.selectedItem?.value.field" />
     </igx-input-group>
-    <igx-drop-down #dropdown3 (onOpening)="onOpening()" (onSelection)="onSelectionLogger($event)" height='400px'>
+    <igx-drop-down #dropdown3 (opening)="onOpening()" (selecting)="onSelectionLogger($event)" height='400px'>
         <igx-drop-down-item *ngFor="let item of items" [value]="item" [disabled]="item.disabled"
             [isHeader]="item.header">
                 {{ item.field }}

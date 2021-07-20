@@ -110,15 +110,15 @@ export class ComboSampleComponent implements OnInit, AfterViewInit {
     }
 
     public ngOnInit() {
-        this.igxCombo.onOpening.subscribe(() => {
+        this.igxCombo.opening.subscribe(() => {
             console.log('Opening log!');
         });
 
-        this.igxCombo.onOpened.subscribe(() => {
+        this.igxCombo.opened.subscribe(() => {
             console.log('Opened log!');
         });
 
-        this.igxCombo.onOpened.pipe(take(1)).subscribe(() => {
+        this.igxCombo.opened.pipe(take(1)).subscribe(() => {
             console.log('Attaching');
             if (this.igxCombo.searchInput) {
                 this.igxCombo.searchInput.nativeElement.onchange = (e) => {
@@ -127,15 +127,15 @@ export class ComboSampleComponent implements OnInit, AfterViewInit {
             }
         });
 
-        this.igxCombo.onClosing.subscribe(() => {
+        this.igxCombo.closing.subscribe(() => {
             console.log('Closing log!');
         });
 
-        this.igxCombo.onClosed.subscribe(() => {
+        this.igxCombo.closed.subscribe(() => {
             console.log('Closed log!');
         });
 
-        this.igxCombo.onSearchInput.subscribe((e) => {
+        this.igxCombo.searchInputUpdate.subscribe((e) => {
             console.log(e);
         });
     }

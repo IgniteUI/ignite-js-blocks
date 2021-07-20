@@ -17,10 +17,10 @@ Basic usage of `igx-combo` bound to a local data source, defining `valueKey` and
 <igx-combo [data]="localData" [valueKey]="'ProductID'" [displayKey]="'ProductName'"></igx-combo>
 ```
 
-Remote binding, defining `valueKey` and `displayKey`, and exposing `onDataPreLoad` that allows to load new chunk of remote data to the combo (see the sample above as a reference):
+Remote binding, defining `valueKey` and `displayKey`, and exposing `dataPreLoad` that allows to load new chunk of remote data to the combo (see the sample above as a reference):
 
 ```html
-<igx-combo [data]="remoteData | async" (onDataPreLoad)="dataLoading($event)" [valueKey]="'ProductID'" [displayKey]="'ProductName'" ></igx-combo>
+<igx-combo [data]="remoteData | async" (dataPreLoad)="dataLoading($event)" [valueKey]="'ProductID'" [displayKey]="'ProductName'" ></igx-combo>
 ```
 
 ```typescript
@@ -332,14 +332,14 @@ Setting `[displayDensity]` affects the control's items' and inputs' css properti
 
 | Name                | Description                                                             | Cancelable   | Parameters                              |
 |------------------   |-------------------------------------------------------------------------|------------- |-----------------------------------------|
-| `onSelectionChange` | Emitted when item selection is changing, before the selection completes | true         | [`IComboSelectionChangeEventArgs`](https://www.infragistics.com/products/ignite-ui-angular/docs/typescript/latest/interfaces/icomboselectionchangeeventargs.html) |
-| `onSearchInput`     | Emitted when an the search input's input event is triggered             | true        | { searchValue: `string` }               |
-| `onAddition`        | Emitted when an item is being added to the data collection              | true        | { oldCollection: `any[]`, addedItem: `<any>`, newCollection: `any[]`, owner?: `IgxComboComponent`, cancel: `boolean` }|
-| `onDataPreLoad`     | Emitted when new chunk of data is loaded from the virtualization        | false        | { event: `Event` }                        |
-| `onOpening`   | Emitted before the dropdown is opened                                   | false        | `IBaseCancelableBrowserEventArgs` |
-| `onOpened`    | Emitted after the dropdown is opened                                    | false        | { event: `Event` }                        |
-| `onClosing`   | Emitted before the dropdown is closed                                   | false        | `IBaseCancelableBrowserEventArgs` |
-| `onClosed`    | Emitted after the dropdown is closed                                    | false        | { event: `Event` }                        |
+| `selectionChange` | Emitted when item selection is changing, before the selection completes | true         | [`IComboSelectionChangeEventArgs`](https://www.infragistics.com/products/ignite-ui-angular/docs/typescript/latest/interfaces/icomboselectionchangeeventargs.html) |
+| `searchInputUpdate`     | Emitted when an the search input's input event is triggered             | true        | { searchValue: `string` }               |
+| `addition`        | Emitted when an item is being added to the data collection              | true        | { oldCollection: `any[]`, addedItem: `<any>`, newCollection: `any[]`, owner?: `IgxComboComponent`, cancel: `boolean` }|
+| `dataPreLoad`     | Emitted when new chunk of data is loaded from the virtualization        | false        | { event: `Event` }                        |
+| `opening`   | Emitted before the dropdown is opened                                   | false        | `IBaseCancelableBrowserEventArgs` |
+| `opened`    | Emitted after the dropdown is opened                                    | false        | { event: `Event` }                        |
+| `closing`   | Emitted before the dropdown is closed                                   | false        | `IBaseCancelableBrowserEventArgs` |
+| `closed`    | Emitted after the dropdown is closed                                    | false        | { event: `Event` }                        |
 
 ### Methods
 

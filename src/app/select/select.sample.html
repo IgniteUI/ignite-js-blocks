@@ -10,11 +10,11 @@
     [(ngModel)]="value"
     [ngModelOptions]="{updateOn: 'blur'}" #selectModel="ngModel"
     required
-    (onOpening)="testOnOpening($event)"
-    (onOpened)="testOnOpened()"
-    (onClosing)="testOnClosing($event)"
-    (onClosed)="testOnClosed()"
-    (onSelection)="testOnSelection($event)"
+    (opening)="testOnOpening($event)"
+    (opened)="testOnOpened()"
+    (closing)="testOnClosing($event)"
+    (closed)="testOnClosed()"
+    (selecting)="testOnSelection($event)"
     [disabled]="isDisabled"
     [displayDensity]="'cosy'">
         <label igxLabel>Sample Label</label>
@@ -50,11 +50,11 @@
     <igx-select #select2
                 [placeholder]="'Pick One'"
                 [value]="value"
-                (onOpening)="testOnOpening($event)"
-                (onOpened)="testOnOpened()"
-                (onClosing)="testOnClosing($event)"
-                (onClosed)="testOnClosed()"
-                (onSelection)="testOnSelection($event)"
+                (opening)="testOnOpening($event)"
+                (opened)="testOnOpened()"
+                (closing)="testOnClosing($event)"
+                (closed)="testOnClosed()"
+                (selecting)="testOnSelection($event)"
                 [disabled]="false"
                 [type]="'box'">
         <label igxLabel>Sample Label</label>
@@ -75,11 +75,11 @@
     <h4 class="sample-title">Select - disabled item</h4>
     <igx-select #select3
                 [placeholder]="'Pick One'"
-                (onOpening)="testOnOpening($event)"
-                (onOpened)="testOnOpened()"
-                (onClosing)="testOnClosing($event)"
-                (onClosed)="testOnClosed()"
-                (onSelection)="testOnSelection($event)"
+                (opening)="testOnOpening($event)"
+                (opened)="testOnOpened()"
+                (closing)="testOnClosing($event)"
+                (closed)="testOnClosed()"
+                (selecting)="testOnSelection($event)"
                 [disabled]="false"
                 [type]="'border'">
         <igx-hint>I am a Hint</igx-hint>
@@ -93,11 +93,11 @@
     <igx-select #select4
                 [placeholder]="'Pick One'"
                 [value]="value"
-                (onOpening)="testOnOpening($event)"
-                (onOpened)="testOnOpened()"
-                (onClosing)="testOnClosing($event)"
-                (onClosed)="testOnClosed()"
-                (onSelection)="testOnSelection($event)"
+                (opening)="testOnOpening($event)"
+                (opened)="testOnOpened()"
+                (closing)="testOnClosing($event)"
+                (closed)="testOnClosed()"
+                (selecting)="testOnSelection($event)"
                 [disabled]="false">
         <label igxLabel>Group</label>
         <igx-prefix igxPrefix>

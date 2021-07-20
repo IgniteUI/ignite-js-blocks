@@ -5,7 +5,7 @@
         <span>{{ grid.hiddenColumnsCount }}</span>
         <span>{{ grid.hiddenColumnsText }}</span>
     </button>
-    <igx-column-actions #actions igxColumnHiding igxToggle (onOpened)="focusSearch(ref.element)" #ref="toggle"
+    <igx-column-actions #actions igxColumnHiding igxToggle (opened)="focusSearch(ref.element)" #ref="toggle"
         [grid]="grid" [title]="grid.columnHidingTitleInternal || title || grid?.resourceStrings.igx_grid_toolbar_hiding_title"
         [filterColumnsPrompt]="prompt || grid?.resourceStrings.igx_grid_toolbar_actions_filter_prompt"
         [hideFilter]="hideFilter" [filterCriteria]="filterCriteria" [columnDisplayOrder]="columnDisplayOrder" [columnsAreaMaxHeight]="columnsAreaMaxHeight"

@@ -5,8 +5,8 @@
         'igx-excel-filter__secondary--compact': grid.displayDensity === 'compact'
     }"
     (keydown)="onKeyDown($event)"
-    (onOpening)="onCustomDialogOpening()"
-    (onOpened)="onCustomDialogOpened()">
+    (opening)="onCustomDialogOpening()"
+    (opened)="onCustomDialogOpened()">
     <header class="igx-excel-filter__secondary-header">
         <h4 class="igx-typography__h6">
             {{ grid.resourceStrings.igx_grid_excel_custom_dialog_header }}{{ column.header || column.field }}

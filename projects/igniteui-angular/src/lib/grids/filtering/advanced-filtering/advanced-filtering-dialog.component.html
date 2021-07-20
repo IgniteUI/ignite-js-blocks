@@ -303,7 +303,7 @@
         <div igxToggle
             class="igx-filter-contextual-menu"
             (keydown)="onKeyDown($event)"
-            (onClosed)="contextMenuClosed()"
+            (closed)="contextMenuClosed()"
             [ngClass]="{
                 'igx-filter-contextual-menu--cosy': displayDensity === 'cosy',
                 'igx-filter-contextual-menu--compact': displayDensity === 'compact'
