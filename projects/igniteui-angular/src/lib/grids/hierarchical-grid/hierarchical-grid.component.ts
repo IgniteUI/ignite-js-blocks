@@ -492,18 +492,23 @@ export class IgxHierarchicalGridComponent extends IgxHierarchicalGridBaseDirecti
                     index: this.dataView.indexOf(rowData)
                 };
             } else {
-                const rowID = this.primaryKey ? rowData.rowID : this.data.indexOf(rowData.rowID);
                 // child rows contain unique grids, hence should have unique templates
                 return {
                     $implicit: rowData,
-                    templateID: 'childRow-' + rowID,
+                    templateID: {
+                        type: 'childRow',
+                        id: rowData.rowID
+                    },
                     index: this.dataView.indexOf(rowData)
                 };
             }
         } else {
             return {
                 $implicit: this.isGhostRecord(rowData) || this.isAddRowRecord(rowData) ? rowData.recordRef : rowData,
-                templateID: 'dataRow',
+                templateID: {
+                    type: 'dataRow',
+                    id: null
+                },
                 index: this.getDataViewIndex(rowIndex, pinned),
                 disabled: this.isGhostRecord(rowData),
                 addRow: this.isAddRowRecord(rowData) ? rowData.addRow : false
